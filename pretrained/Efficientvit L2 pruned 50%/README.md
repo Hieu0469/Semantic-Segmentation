@@ -5,7 +5,7 @@ Kaggle notebook: https://www.kaggle.com/code/hillsp/efficientvit-l2-city-2
 Download file (.onnx, .pt):
 
 Best results:
-
+```
 mIoU: 0.7238
 ────────────────────────────────────────
   road               0.9774
@@ -27,3 +27,4 @@ mIoU: 0.7238
   train              0.7617
   motorcycle         0.5491
   bicycle            0.7058
+```
