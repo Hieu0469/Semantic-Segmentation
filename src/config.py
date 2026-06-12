@@ -9,8 +9,13 @@ import os
 class CFG:
     # ── Model ─────────────────────────────────────────────────────────────
     model_name   = "0.5pruned_EfficientVitL2_city"
+    model_type = 'efficientvit'               # Chọn: 'efficientvit' hoặc 'smp'
+    smp_architecture = None       # Chọn kiến trúc: Unet, UnetPlusPlus, PSPNet, DeepLabV3Plus, v.v.
+    smp_encoder = None     # Chọn backbone encoder tùy ý của thư viện SMP
+    pretrained = True
     num_classes  = 19
     ignore_index = 255
+    model = None  # Nếu muốn truyền trực tiếp một PyTorch Model Object, gán ở đây (ví dụ: model = MyCustomModel())
 
     # ── Pretrained / checkpoint ───────────────────────────────────────────
     pretrained_url   = None   # URL hoặc path tới weights gốc EfficientViT-L2
@@ -19,6 +24,7 @@ class CFG:
     checkpoint_path  = None   # Lightning .ckpt để resume training
 
     # ── Pruning ───────────────────────────────────────────────────────────
+    use_pruning   = False  # Có sử dụng pruning không
     pruning_ratio = 0.5       # Tỉ lệ prune channel (0.0 = không prune)
 
     # ── Paths ─────────────────────────────────────────────────────────────
