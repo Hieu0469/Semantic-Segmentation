@@ -1,0 +1,2230 @@
+Epoch 000  |  mIoU: 0.0003
+────────────────────────────────────────
+  road               0.0000
+  sidewalk           0.0000
+  building           0.0036
+  wall                 N/A
+  fence              0.0000
+  pole               0.0000
+  traffic light      0.0000
+  traffic sign       0.0000
+  vegetation         0.0000
+  terrain            0.0000
+  sky                0.0000
+  person             0.0000
+  rider              0.0000
+  car                0.0000
+  truck              0.0000
+  bus                  N/A
+  train              0.0000
+  motorcycle         0.0000
+  bicycle            0.0018
+────────────────────────────────────────
+
+Epoch 000  |  mIoU: 0.1946
+────────────────────────────────────────
+  road               0.8435
+  sidewalk           0.3112
+  building           0.6226
+  wall               0.0000
+  fence              0.0006
+  pole               0.0557
+  traffic light      0.0003
+  traffic sign       0.0000
+  vegetation         0.6437
+  terrain            0.0040
+  sky                0.6410
+  person             0.0926
+  rider              0.0000
+  car                0.4725
+  truck              0.0000
+  bus                0.0000
+  train              0.0000
+  motorcycle         0.0000
+  bicycle            0.0098
+────────────────────────────────────────
+
+Epoch 001  |  mIoU: 0.2813
+────────────────────────────────────────
+  road               0.9100
+  sidewalk           0.4699
+  building           0.7357
+  wall               0.0833
+  fence              0.1610
+  pole               0.2144
+  traffic light      0.0093
+  traffic sign       0.0277
+  vegetation         0.7540
+  terrain            0.1072
+  sky                0.7954
+  person             0.2997
+  rider              0.0077
+  car                0.6702
+  truck              0.0000
+  bus                0.0031
+  train              0.0001
+  motorcycle         0.0003
+  bicycle            0.0963
+────────────────────────────────────────
+
+Epoch 002  |  mIoU: 0.3579
+────────────────────────────────────────
+  road               0.9305
+  sidewalk           0.5760
+  building           0.7769
+  wall               0.1713
+  fence              0.2551
+  pole               0.2817
+  traffic light      0.0923
+  traffic sign       0.1505
+  vegetation         0.7931
+  terrain            0.2300
+  sky                0.8500
+  person             0.4165
+  rider              0.1029
+  car                0.7427
+  truck              0.0087
+  bus                0.1095
+  train              0.0084
+  motorcycle         0.0161
+  bicycle            0.2880
+────────────────────────────────────────
+
+Epoch 003  |  mIoU: 0.4480
+────────────────────────────────────────
+  road               0.9447
+  sidewalk           0.6307
+  building           0.8114
+  wall               0.2360
+  fence              0.3484
+  pole               0.3251
+  traffic light      0.1704
+  traffic sign       0.2099
+  vegetation         0.8160
+  terrain            0.2709
+  sky                0.8736
+  person             0.4686
+  rider              0.2202
+  car                0.8002
+  truck              0.1857
+  bus                0.3947
+  train              0.3174
+  motorcycle         0.0889
+  bicycle            0.3998
+────────────────────────────────────────
+
+Epoch 004  |  mIoU: 0.5131
+────────────────────────────────────────
+  road               0.9525
+  sidewalk           0.6667
+  building           0.8296
+  wall               0.3142
+  fence              0.3756
+  pole               0.3607
+  traffic light      0.2547
+  traffic sign       0.2835
+  vegetation         0.8286
+  terrain            0.3279
+  sky                0.8842
+  person             0.5113
+  rider              0.2781
+  car                0.8317
+  truck              0.3493
+  bus                0.6429
+  train              0.4223
+  motorcycle         0.1750
+  bicycle            0.4604
+────────────────────────────────────────
+
+Epoch 005  |  mIoU: 0.5429
+────────────────────────────────────────
+  road               0.9564
+  sidewalk           0.6877
+  building           0.8391
+  wall               0.3962
+  fence              0.3776
+  pole               0.3889
+  traffic light      0.2902
+  traffic sign       0.3234
+  vegetation         0.8389
+  terrain            0.3663
+  sky                0.8918
+  person             0.5426
+  rider              0.3168
+  car                0.8429
+  truck              0.3745
+  bus                0.6269
+  train              0.4930
+  motorcycle         0.2704
+  bicycle            0.4920
+────────────────────────────────────────
+
+Epoch 006  |  mIoU: 0.5603
+────────────────────────────────────────
+  road               0.9585
+  sidewalk           0.7058
+  building           0.8451
+  wall               0.4261
+  fence              0.3903
+  pole               0.3903
+  traffic light      0.3074
+  traffic sign       0.3522
+  vegetation         0.8456
+  terrain            0.4208
+  sky                0.8964
+  person             0.5593
+  rider              0.3367
+  car                0.8565
+  truck              0.4176
+  bus                0.6445
+  train              0.5089
+  motorcycle         0.2729
+  bicycle            0.5107
+────────────────────────────────────────
+
+Epoch 007  |  mIoU: 0.5814
+────────────────────────────────────────
+  road               0.9625
+  sidewalk           0.7225
+  building           0.8521
+  wall               0.4550
+  fence              0.4275
+  pole               0.4158
+  traffic light      0.3229
+  traffic sign       0.3971
+  vegetation         0.8520
+  terrain            0.4127
+  sky                0.8967
+  person             0.5772
+  rider              0.3717
+  car                0.8638
+  truck              0.4700
+  bus                0.6637
+  train              0.5574
+  motorcycle         0.3078
+  bicycle            0.5186
+────────────────────────────────────────
+
+Epoch 008  |  mIoU: 0.5954
+────────────────────────────────────────
+  road               0.9641
+  sidewalk           0.7329
+  building           0.8590
+  wall               0.4562
+  fence              0.4417
+  pole               0.4199
+  traffic light      0.3546
+  traffic sign       0.4199
+  vegetation         0.8574
+  terrain            0.4139
+  sky                0.9041
+  person             0.5912
+  rider              0.3969
+  car                0.8673
+  truck              0.4697
+  bus                0.6290
+  train              0.6105
+  motorcycle         0.3751
+  bicycle            0.5489
+────────────────────────────────────────
+
+Epoch 009  |  mIoU: 0.6110
+────────────────────────────────────────
+  road               0.9652
+  sidewalk           0.7402
+  building           0.8644
+  wall               0.4556
+  fence              0.4668
+  pole               0.4324
+  traffic light      0.3631
+  traffic sign       0.4250
+  vegetation         0.8627
+  terrain            0.4613
+  sky                0.9066
+  person             0.6039
+  rider              0.4184
+  car                0.8795
+  truck              0.5307
+  bus                0.6844
+  train              0.6337
+  motorcycle         0.3655
+  bicycle            0.5502
+────────────────────────────────────────
+
+Epoch 010  |  mIoU: 0.6180
+────────────────────────────────────────
+  road               0.9657
+  sidewalk           0.7405
+  building           0.8661
+  wall               0.4721
+  fence              0.4731
+  pole               0.4367
+  traffic light      0.3693
+  traffic sign       0.4549
+  vegetation         0.8646
+  terrain            0.4616
+  sky                0.9057
+  person             0.6057
+  rider              0.4220
+  car                0.8825
+  truck              0.5595
+  bus                0.6745
+  train              0.6476
+  motorcycle         0.3690
+  bicycle            0.5712
+────────────────────────────────────────
+
+Epoch 011  |  mIoU: 0.6180
+────────────────────────────────────────
+  road               0.9663
+  sidewalk           0.7504
+  building           0.8665
+  wall               0.4674
+  fence              0.4791
+  pole               0.4462
+  traffic light      0.3945
+  traffic sign       0.4709
+  vegetation         0.8670
+  terrain            0.4742
+  sky                0.9086
+  person             0.6215
+  rider              0.4449
+  car                0.8805
+  truck              0.4729
+  bus                0.6586
+  train              0.5907
+  motorcycle         0.4066
+  bicycle            0.5746
+────────────────────────────────────────
+
+Epoch 012  |  mIoU: 0.6225
+────────────────────────────────────────
+  road               0.9673
+  sidewalk           0.7520
+  building           0.8711
+  wall               0.4462
+  fence              0.4835
+  pole               0.4493
+  traffic light      0.4011
+  traffic sign       0.4824
+  vegetation         0.8689
+  terrain            0.4673
+  sky                0.9136
+  person             0.6279
+  rider              0.4588
+  car                0.8908
+  truck              0.5382
+  bus                0.6837
+  train              0.5662
+  motorcycle         0.3813
+  bicycle            0.5781
+────────────────────────────────────────
+
+Epoch 013  |  mIoU: 0.6351
+────────────────────────────────────────
+  road               0.9670
+  sidewalk           0.7516
+  building           0.8711
+  wall               0.4556
+  fence              0.4914
+  pole               0.4550
+  traffic light      0.4124
+  traffic sign       0.4746
+  vegetation         0.8705
+  terrain            0.4800
+  sky                0.9095
+  person             0.6378
+  rider              0.4625
+  car                0.8928
+  truck              0.6007
+  bus                0.6552
+  train              0.6463
+  motorcycle         0.4446
+  bicycle            0.5883
+────────────────────────────────────────
+
+Epoch 014  |  mIoU: 0.6358
+────────────────────────────────────────
+  road               0.9680
+  sidewalk           0.7562
+  building           0.8720
+  wall               0.4356
+  fence              0.4862
+  pole               0.4531
+  traffic light      0.4186
+  traffic sign       0.5034
+  vegetation         0.8747
+  terrain            0.4792
+  sky                0.9122
+  person             0.6423
+  rider              0.4692
+  car                0.8877
+  truck              0.5379
+  bus                0.6650
+  train              0.6824
+  motorcycle         0.4364
+  bicycle            0.5999
+────────────────────────────────────────
+
+Epoch 015  |  mIoU: 0.6402
+────────────────────────────────────────
+  road               0.9688
+  sidewalk           0.7642
+  building           0.8769
+  wall               0.4671
+  fence              0.5003
+  pole               0.4595
+  traffic light      0.4250
+  traffic sign       0.5084
+  vegetation         0.8761
+  terrain            0.4900
+  sky                0.9142
+  person             0.6416
+  rider              0.4714
+  car                0.8912
+  truck              0.5310
+  bus                0.6750
+  train              0.6605
+  motorcycle         0.4351
+  bicycle            0.6079
+────────────────────────────────────────
+
+Epoch 016  |  mIoU: 0.6413
+────────────────────────────────────────
+  road               0.9695
+  sidewalk           0.7674
+  building           0.8755
+  wall               0.4467
+  fence              0.5176
+  pole               0.4632
+  traffic light      0.4507
+  traffic sign       0.5117
+  vegetation         0.8752
+  terrain            0.4956
+  sky                0.9077
+  person             0.6485
+  rider              0.4607
+  car                0.8964
+  truck              0.5206
+  bus                0.6992
+  train              0.6567
+  motorcycle         0.4128
+  bicycle            0.6095
+────────────────────────────────────────
+
+Epoch 017  |  mIoU: 0.6496
+────────────────────────────────────────
+  road               0.9691
+  sidewalk           0.7638
+  building           0.8810
+  wall               0.4954
+  fence              0.5044
+  pole               0.4595
+  traffic light      0.4381
+  traffic sign       0.5213
+  vegetation         0.8798
+  terrain            0.5090
+  sky                0.9153
+  person             0.6474
+  rider              0.4823
+  car                0.8989
+  truck              0.5367
+  bus                0.7137
+  train              0.6913
+  motorcycle         0.4175
+  bicycle            0.6175
+────────────────────────────────────────
+
+Epoch 018  |  mIoU: 0.6468
+────────────────────────────────────────
+  road               0.9702
+  sidewalk           0.7735
+  building           0.8789
+  wall               0.4844
+  fence              0.5169
+  pole               0.4706
+  traffic light      0.4633
+  traffic sign       0.5278
+  vegetation         0.8804
+  terrain            0.5240
+  sky                0.9136
+  person             0.6614
+  rider              0.4884
+  car                0.8968
+  truck              0.4599
+  bus                0.6417
+  train              0.6554
+  motorcycle         0.4609
+  bicycle            0.6214
+────────────────────────────────────────
+
+Epoch 019  |  mIoU: 0.6432
+────────────────────────────────────────
+  road               0.9705
+  sidewalk           0.7733
+  building           0.8806
+  wall               0.4322
+  fence              0.5169
+  pole               0.4756
+  traffic light      0.4640
+  traffic sign       0.5313
+  vegetation         0.8820
+  terrain            0.5094
+  sky                0.9141
+  person             0.6645
+  rider              0.4948
+  car                0.8970
+  truck              0.5096
+  bus                0.6414
+  train              0.6290
+  motorcycle         0.4140
+  bicycle            0.6216
+────────────────────────────────────────
+
+Epoch 020  |  mIoU: 0.6478
+────────────────────────────────────────
+  road               0.9703
+  sidewalk           0.7719
+  building           0.8805
+  wall               0.4323
+  fence              0.5168
+  pole               0.4670
+  traffic light      0.4867
+  traffic sign       0.5435
+  vegetation         0.8816
+  terrain            0.5097
+  sky                0.9166
+  person             0.6655
+  rider              0.4948
+  car                0.9026
+  truck              0.5148
+  bus                0.6656
+  train              0.6197
+  motorcycle         0.4421
+  bicycle            0.6265
+────────────────────────────────────────
+
+Epoch 021  |  mIoU: 0.6581
+────────────────────────────────────────
+  road               0.9710
+  sidewalk           0.7749
+  building           0.8823
+  wall               0.4788
+  fence              0.5143
+  pole               0.4802
+  traffic light      0.4922
+  traffic sign       0.5440
+  vegetation         0.8824
+  terrain            0.5087
+  sky                0.9165
+  person             0.6677
+  rider              0.4889
+  car                0.9056
+  truck              0.5484
+  bus                0.7051
+  train              0.6620
+  motorcycle         0.4502
+  bicycle            0.6313
+────────────────────────────────────────
+
+Epoch 022  |  mIoU: 0.6589
+────────────────────────────────────────
+  road               0.9712
+  sidewalk           0.7815
+  building           0.8852
+  wall               0.5158
+  fence              0.5137
+  pole               0.4777
+  traffic light      0.4958
+  traffic sign       0.5465
+  vegetation         0.8842
+  terrain            0.5313
+  sky                0.9198
+  person             0.6681
+  rider              0.4861
+  car                0.9082
+  truck              0.5019
+  bus                0.6937
+  train              0.6576
+  motorcycle         0.4563
+  bicycle            0.6247
+────────────────────────────────────────
+
+Epoch 023  |  mIoU: 0.6617
+────────────────────────────────────────
+  road               0.9711
+  sidewalk           0.7772
+  building           0.8856
+  wall               0.5190
+  fence              0.5277
+  pole               0.4729
+  traffic light      0.4922
+  traffic sign       0.5465
+  vegetation         0.8839
+  terrain            0.5160
+  sky                0.9155
+  person             0.6776
+  rider              0.5051
+  car                0.9060
+  truck              0.5137
+  bus                0.6776
+  train              0.6666
+  motorcycle         0.4764
+  bicycle            0.6416
+────────────────────────────────────────
+
+Epoch 024  |  mIoU: 0.6635
+────────────────────────────────────────
+  road               0.9704
+  sidewalk           0.7753
+  building           0.8860
+  wall               0.4557
+  fence              0.5267
+  pole               0.4769
+  traffic light      0.5086
+  traffic sign       0.5594
+  vegetation         0.8873
+  terrain            0.5383
+  sky                0.9225
+  person             0.6759
+  rider              0.5101
+  car                0.9085
+  truck              0.5352
+  bus                0.7110
+  train              0.6563
+  motorcycle         0.4651
+  bicycle            0.6365
+────────────────────────────────────────
+
+Epoch 025  |  mIoU: 0.6623
+────────────────────────────────────────
+  road               0.9716
+  sidewalk           0.7813
+  building           0.8860
+  wall               0.5059
+  fence              0.5375
+  pole               0.4854
+  traffic light      0.4800
+  traffic sign       0.5568
+  vegetation         0.8851
+  terrain            0.5379
+  sky                0.9174
+  person             0.6742
+  rider              0.5107
+  car                0.9068
+  truck              0.5152
+  bus                0.6910
+  train              0.6734
+  motorcycle         0.4289
+  bicycle            0.6395
+────────────────────────────────────────
+
+Epoch 026  |  mIoU: 0.6598
+────────────────────────────────────────
+  road               0.9717
+  sidewalk           0.7815
+  building           0.8859
+  wall               0.4810
+  fence              0.5313
+  pole               0.4861
+  traffic light      0.5079
+  traffic sign       0.5655
+  vegetation         0.8876
+  terrain            0.5386
+  sky                0.9171
+  person             0.6804
+  rider              0.5011
+  car                0.9058
+  truck              0.5002
+  bus                0.6653
+  train              0.6504
+  motorcycle         0.4436
+  bicycle            0.6362
+────────────────────────────────────────
+
+Epoch 027  |  mIoU: 0.6691
+────────────────────────────────────────
+  road               0.9717
+  sidewalk           0.7817
+  building           0.8883
+  wall               0.5159
+  fence              0.5282
+  pole               0.4888
+  traffic light      0.5000
+  traffic sign       0.5639
+  vegetation         0.8870
+  terrain            0.5402
+  sky                0.9179
+  person             0.6768
+  rider              0.5095
+  car                0.9098
+  truck              0.5417
+  bus                0.7214
+  train              0.6801
+  motorcycle         0.4468
+  bicycle            0.6429
+────────────────────────────────────────
+
+Epoch 028  |  mIoU: 0.6719
+────────────────────────────────────────
+  road               0.9726
+  sidewalk           0.7873
+  building           0.8893
+  wall               0.5253
+  fence              0.5299
+  pole               0.4865
+  traffic light      0.5072
+  traffic sign       0.5746
+  vegetation         0.8861
+  terrain            0.5338
+  sky                0.9225
+  person             0.6805
+  rider              0.5106
+  car                0.9102
+  truck              0.5149
+  bus                0.7139
+  train              0.7062
+  motorcycle         0.4724
+  bicycle            0.6425
+────────────────────────────────────────
+
+Epoch 029  |  mIoU: 0.6783
+────────────────────────────────────────
+  road               0.9721
+  sidewalk           0.7855
+  building           0.8900
+  wall               0.5330
+  fence              0.5355
+  pole               0.4868
+  traffic light      0.5254
+  traffic sign       0.5744
+  vegetation         0.8886
+  terrain            0.5500
+  sky                0.9228
+  person             0.6808
+  rider              0.5093
+  car                0.9127
+  truck              0.6219
+  bus                0.7435
+  train              0.6571
+  motorcycle         0.4485
+  bicycle            0.6496
+────────────────────────────────────────
+
+Epoch 030  |  mIoU: 0.6687
+────────────────────────────────────────
+  road               0.9720
+  sidewalk           0.7849
+  building           0.8910
+  wall               0.5222
+  fence              0.5358
+  pole               0.4928
+  traffic light      0.5209
+  traffic sign       0.5833
+  vegetation         0.8889
+  terrain            0.5510
+  sky                0.9203
+  person             0.6853
+  rider              0.5077
+  car                0.9115
+  truck              0.5138
+  bus                0.7105
+  train              0.6348
+  motorcycle         0.4296
+  bicycle            0.6493
+────────────────────────────────────────
+
+Epoch 031  |  mIoU: 0.6729
+────────────────────────────────────────
+  road               0.9721
+  sidewalk           0.7857
+  building           0.8899
+  wall               0.4891
+  fence              0.5430
+  pole               0.4918
+  traffic light      0.5281
+  traffic sign       0.5821
+  vegetation         0.8908
+  terrain            0.5536
+  sky                0.9207
+  person             0.6814
+  rider              0.5145
+  car                0.9121
+  truck              0.5189
+  bus                0.7252
+  train              0.6614
+  motorcycle         0.4731
+  bicycle            0.6524
+────────────────────────────────────────
+
+Epoch 032  |  mIoU: 0.6710
+────────────────────────────────────────
+  road               0.9727
+  sidewalk           0.7864
+  building           0.8906
+  wall               0.4934
+  fence              0.5286
+  pole               0.4937
+  traffic light      0.5322
+  traffic sign       0.5818
+  vegetation         0.8901
+  terrain            0.5477
+  sky                0.9215
+  person             0.6845
+  rider              0.4970
+  car                0.9129
+  truck              0.5239
+  bus                0.7053
+  train              0.6357
+  motorcycle         0.4952
+  bicycle            0.6555
+────────────────────────────────────────
+
+Epoch 033  |  mIoU: 0.6706
+────────────────────────────────────────
+  road               0.9728
+  sidewalk           0.7888
+  building           0.8913
+  wall               0.5248
+  fence              0.5384
+  pole               0.4908
+  traffic light      0.5279
+  traffic sign       0.5914
+  vegetation         0.8900
+  terrain            0.5375
+  sky                0.9237
+  person             0.6858
+  rider              0.5104
+  car                0.9109
+  truck              0.5275
+  bus                0.7017
+  train              0.6128
+  motorcycle         0.4604
+  bicycle            0.6547
+────────────────────────────────────────
+
+Epoch 034  |  mIoU: 0.6817
+────────────────────────────────────────
+  road               0.9727
+  sidewalk           0.7892
+  building           0.8927
+  wall               0.5276
+  fence              0.5484
+  pole               0.4970
+  traffic light      0.5303
+  traffic sign       0.5974
+  vegetation         0.8904
+  terrain            0.5476
+  sky                0.9215
+  person             0.6889
+  rider              0.5056
+  car                0.9148
+  truck              0.5830
+  bus                0.7481
+  train              0.6614
+  motorcycle         0.4747
+  bicycle            0.6611
+────────────────────────────────────────
+
+Epoch 035  |  mIoU: 0.6766
+────────────────────────────────────────
+  road               0.9722
+  sidewalk           0.7871
+  building           0.8933
+  wall               0.5346
+  fence              0.5427
+  pole               0.4963
+  traffic light      0.5370
+  traffic sign       0.5893
+  vegetation         0.8916
+  terrain            0.5523
+  sky                0.9247
+  person             0.6804
+  rider              0.5030
+  car                0.9159
+  truck              0.5249
+  bus                0.7146
+  train              0.6470
+  motorcycle         0.4896
+  bicycle            0.6598
+────────────────────────────────────────
+
+Epoch 036  |  mIoU: 0.6837
+────────────────────────────────────────
+  road               0.9728
+  sidewalk           0.7912
+  building           0.8931
+  wall               0.5454
+  fence              0.5413
+  pole               0.5018
+  traffic light      0.5353
+  traffic sign       0.5941
+  vegetation         0.8906
+  terrain            0.5550
+  sky                0.9228
+  person             0.6896
+  rider              0.5031
+  car                0.9161
+  truck              0.5744
+  bus                0.7598
+  train              0.6729
+  motorcycle         0.4711
+  bicycle            0.6595
+────────────────────────────────────────
+
+Epoch 037  |  mIoU: 0.6806
+────────────────────────────────────────
+  road               0.9728
+  sidewalk           0.7903
+  building           0.8926
+  wall               0.5131
+  fence              0.5392
+  pole               0.4952
+  traffic light      0.5433
+  traffic sign       0.5964
+  vegetation         0.8909
+  terrain            0.5500
+  sky                0.9218
+  person             0.6877
+  rider              0.5008
+  car                0.9154
+  truck              0.5945
+  bus                0.7436
+  train              0.6298
+  motorcycle         0.4940
+  bicycle            0.6601
+────────────────────────────────────────
+
+Epoch 038  |  mIoU: 0.6777
+────────────────────────────────────────
+  road               0.9730
+  sidewalk           0.7920
+  building           0.8918
+  wall               0.5128
+  fence              0.5511
+  pole               0.4994
+  traffic light      0.5376
+  traffic sign       0.5990
+  vegetation         0.8916
+  terrain            0.5496
+  sky                0.9215
+  person             0.6941
+  rider              0.5063
+  car                0.9156
+  truck              0.5486
+  bus                0.7209
+  train              0.6269
+  motorcycle         0.4885
+  bicycle            0.6562
+────────────────────────────────────────
+
+Epoch 039  |  mIoU: 0.6899
+────────────────────────────────────────
+  road               0.9723
+  sidewalk           0.7872
+  building           0.8936
+  wall               0.5351
+  fence              0.5627
+  pole               0.4983
+  traffic light      0.5430
+  traffic sign       0.6035
+  vegetation         0.8928
+  terrain            0.5573
+  sky                0.9221
+  person             0.6903
+  rider              0.5101
+  car                0.9168
+  truck              0.6499
+  bus                0.7504
+  train              0.6859
+  motorcycle         0.4767
+  bicycle            0.6606
+────────────────────────────────────────
+
+Epoch 040  |  mIoU: 0.6859
+────────────────────────────────────────
+  road               0.9735
+  sidewalk           0.7932
+  building           0.8936
+  wall               0.5114
+  fence              0.5667
+  pole               0.5014
+  traffic light      0.5213
+  traffic sign       0.6080
+  vegetation         0.8915
+  terrain            0.5444
+  sky                0.9226
+  person             0.6931
+  rider              0.5101
+  car                0.9159
+  truck              0.6161
+  bus                0.7420
+  train              0.6935
+  motorcycle         0.4766
+  bicycle            0.6578
+────────────────────────────────────────
+
+Epoch 041  |  mIoU: 0.6832
+────────────────────────────────────────
+  road               0.9734
+  sidewalk           0.7953
+  building           0.8949
+  wall               0.5342
+  fence              0.5575
+  pole               0.5024
+  traffic light      0.5483
+  traffic sign       0.6061
+  vegetation         0.8931
+  terrain            0.5605
+  sky                0.9265
+  person             0.6959
+  rider              0.5180
+  car                0.9152
+  truck              0.5300
+  bus                0.7011
+  train              0.6761
+  motorcycle         0.4963
+  bicycle            0.6557
+────────────────────────────────────────
+
+Epoch 042  |  mIoU: 0.6870
+────────────────────────────────────────
+  road               0.9740
+  sidewalk           0.7980
+  building           0.8938
+  wall               0.4869
+  fence              0.5476
+  pole               0.4984
+  traffic light      0.5509
+  traffic sign       0.6083
+  vegetation         0.8941
+  terrain            0.5684
+  sky                0.9219
+  person             0.6960
+  rider              0.5150
+  car                0.9181
+  truck              0.6044
+  bus                0.7605
+  train              0.6658
+  motorcycle         0.4889
+  bicycle            0.6614
+────────────────────────────────────────
+
+Epoch 043  |  mIoU: 0.6822
+────────────────────────────────────────
+  road               0.9740
+  sidewalk           0.7952
+  building           0.8951
+  wall               0.5276
+  fence              0.5534
+  pole               0.5048
+  traffic light      0.5459
+  traffic sign       0.6100
+  vegetation         0.8931
+  terrain            0.5534
+  sky                0.9206
+  person             0.6969
+  rider              0.5146
+  car                0.9168
+  truck              0.5470
+  bus                0.7083
+  train              0.6262
+  motorcycle         0.5200
+  bicycle            0.6583
+────────────────────────────────────────
+
+Epoch 044  |  mIoU: 0.6822
+────────────────────────────────────────
+  road               0.9732
+  sidewalk           0.7946
+  building           0.8944
+  wall               0.4717
+  fence              0.5539
+  pole               0.5020
+  traffic light      0.5539
+  traffic sign       0.6124
+  vegetation         0.8930
+  terrain            0.5448
+  sky                0.9249
+  person             0.6932
+  rider              0.4956
+  car                0.9172
+  truck              0.5690
+  bus                0.7485
+  train              0.6597
+  motorcycle         0.4911
+  bicycle            0.6680
+────────────────────────────────────────
+
+Epoch 045  |  mIoU: 0.6920
+────────────────────────────────────────
+  road               0.9746
+  sidewalk           0.8005
+  building           0.8959
+  wall               0.5469
+  fence              0.5604
+  pole               0.5017
+  traffic light      0.5495
+  traffic sign       0.6168
+  vegetation         0.8937
+  terrain            0.5626
+  sky                0.9233
+  person             0.6978
+  rider              0.5134
+  car                0.9196
+  truck              0.6120
+  bus                0.7572
+  train              0.6719
+  motorcycle         0.4913
+  bicycle            0.6598
+────────────────────────────────────────
+
+Epoch 046  |  mIoU: 0.6894
+────────────────────────────────────────
+  road               0.9741
+  sidewalk           0.7994
+  building           0.8949
+  wall               0.5334
+  fence              0.5614
+  pole               0.5018
+  traffic light      0.5460
+  traffic sign       0.6103
+  vegetation         0.8939
+  terrain            0.5578
+  sky                0.9244
+  person             0.7002
+  rider              0.5170
+  car                0.9182
+  truck              0.6377
+  bus                0.7632
+  train              0.6247
+  motorcycle         0.4798
+  bicycle            0.6603
+────────────────────────────────────────
+
+Epoch 047  |  mIoU: 0.6911
+────────────────────────────────────────
+  road               0.9743
+  sidewalk           0.8007
+  building           0.8962
+  wall               0.5286
+  fence              0.5464
+  pole               0.5019
+  traffic light      0.5534
+  traffic sign       0.6149
+  vegetation         0.8938
+  terrain            0.5620
+  sky                0.9260
+  person             0.6990
+  rider              0.5110
+  car                0.9194
+  truck              0.6111
+  bus                0.7768
+  train              0.6881
+  motorcycle         0.4602
+  bicycle            0.6670
+────────────────────────────────────────
+
+Epoch 048  |  mIoU: 0.6926
+────────────────────────────────────────
+  road               0.9745
+  sidewalk           0.8008
+  building           0.8967
+  wall               0.5033
+  fence              0.5515
+  pole               0.5041
+  traffic light      0.5557
+  traffic sign       0.6177
+  vegetation         0.8943
+  terrain            0.5662
+  sky                0.9250
+  person             0.6986
+  rider              0.5163
+  car                0.9184
+  truck              0.6501
+  bus                0.7697
+  train              0.6417
+  motorcycle         0.5069
+  bicycle            0.6672
+────────────────────────────────────────
+
+Epoch 049  |  mIoU: 0.6897
+────────────────────────────────────────
+  road               0.9748
+  sidewalk           0.8008
+  building           0.8971
+  wall               0.5583
+  fence              0.5507
+  pole               0.5091
+  traffic light      0.5533
+  traffic sign       0.6164
+  vegetation         0.8951
+  terrain            0.5553
+  sky                0.9232
+  person             0.7003
+  rider              0.5159
+  car                0.9198
+  truck              0.5982
+  bus                0.7453
+  train              0.6280
+  motorcycle         0.4926
+  bicycle            0.6709
+────────────────────────────────────────
+
+Epoch 050  |  mIoU: 0.6920
+────────────────────────────────────────
+  road               0.9746
+  sidewalk           0.7997
+  building           0.8976
+  wall               0.5412
+  fence              0.5619
+  pole               0.5056
+  traffic light      0.5592
+  traffic sign       0.6180
+  vegetation         0.8942
+  terrain            0.5521
+  sky                0.9246
+  person             0.7004
+  rider              0.5161
+  car                0.9201
+  truck              0.6411
+  bus                0.7567
+  train              0.6322
+  motorcycle         0.4847
+  bicycle            0.6681
+────────────────────────────────────────
+
+Epoch 051  |  mIoU: 0.6831
+────────────────────────────────────────
+  road               0.9749
+  sidewalk           0.8034
+  building           0.8970
+  wall               0.5075
+  fence              0.5546
+  pole               0.5056
+  traffic light      0.5547
+  traffic sign       0.6224
+  vegetation         0.8938
+  terrain            0.5585
+  sky                0.9221
+  person             0.7024
+  rider              0.5183
+  car                0.9188
+  truck              0.5825
+  bus                0.7420
+  train              0.6352
+  motorcycle         0.4197
+  bicycle            0.6658
+────────────────────────────────────────
+
+Epoch 052  |  mIoU: 0.6826
+────────────────────────────────────────
+  road               0.9751
+  sidewalk           0.8035
+  building           0.8962
+  wall               0.4941
+  fence              0.5437
+  pole               0.5061
+  traffic light      0.5533
+  traffic sign       0.6230
+  vegetation         0.8943
+  terrain            0.5599
+  sky                0.9227
+  person             0.7015
+  rider              0.5185
+  car                0.9213
+  truck              0.5331
+  bus                0.7240
+  train              0.6401
+  motorcycle         0.4944
+  bicycle            0.6652
+────────────────────────────────────────
+
+Epoch 053  |  mIoU: 0.6903
+────────────────────────────────────────
+  road               0.9750
+  sidewalk           0.8037
+  building           0.8986
+  wall               0.5362
+  fence              0.5521
+  pole               0.5093
+  traffic light      0.5574
+  traffic sign       0.6234
+  vegetation         0.8949
+  terrain            0.5687
+  sky                0.9260
+  person             0.7010
+  rider              0.5142
+  car                0.9192
+  truck              0.6442
+  bus                0.7705
+  train              0.6245
+  motorcycle         0.4254
+  bicycle            0.6706
+────────────────────────────────────────
+
+Epoch 054  |  mIoU: 0.6932
+────────────────────────────────────────
+  road               0.9752
+  sidewalk           0.8039
+  building           0.8978
+  wall               0.5483
+  fence              0.5577
+  pole               0.5092
+  traffic light      0.5614
+  traffic sign       0.6256
+  vegetation         0.8945
+  terrain            0.5607
+  sky                0.9239
+  person             0.7032
+  rider              0.5142
+  car                0.9206
+  truck              0.6589
+  bus                0.7873
+  train              0.6396
+  motorcycle         0.4230
+  bicycle            0.6665
+────────────────────────────────────────
+
+Epoch 055  |  mIoU: 0.7014
+────────────────────────────────────────
+  road               0.9754
+  sidewalk           0.8056
+  building           0.8977
+  wall               0.5545
+  fence              0.5648
+  pole               0.5010
+  traffic light      0.5581
+  traffic sign       0.6204
+  vegetation         0.8945
+  terrain            0.5670
+  sky                0.9262
+  person             0.7029
+  rider              0.5178
+  car                0.9203
+  truck              0.6676
+  bus                0.8005
+  train              0.7014
+  motorcycle         0.4840
+  bicycle            0.6662
+────────────────────────────────────────
+
+Epoch 056  |  mIoU: 0.6965
+────────────────────────────────────────
+  road               0.9755
+  sidewalk           0.8056
+  building           0.8978
+  wall               0.5662
+  fence              0.5505
+  pole               0.5088
+  traffic light      0.5645
+  traffic sign       0.6170
+  vegetation         0.8937
+  terrain            0.5519
+  sky                0.9243
+  person             0.7010
+  rider              0.5142
+  car                0.9205
+  truck              0.6389
+  bus                0.7992
+  train              0.7022
+  motorcycle         0.4314
+  bicycle            0.6712
+────────────────────────────────────────
+
+Epoch 057  |  mIoU: 0.6994
+────────────────────────────────────────
+  road               0.9754
+  sidewalk           0.8060
+  building           0.8982
+  wall               0.5321
+  fence              0.5534
+  pole               0.5103
+  traffic light      0.5637
+  traffic sign       0.6291
+  vegetation         0.8951
+  terrain            0.5671
+  sky                0.9260
+  person             0.7051
+  rider              0.5274
+  car                0.9222
+  truck              0.6264
+  bus                0.7978
+  train              0.6945
+  motorcycle         0.4900
+  bicycle            0.6685
+────────────────────────────────────────
+
+Epoch 058  |  mIoU: 0.6975
+────────────────────────────────────────
+  road               0.9754
+  sidewalk           0.8048
+  building           0.8992
+  wall               0.5507
+  fence              0.5512
+  pole               0.5128
+  traffic light      0.5575
+  traffic sign       0.6286
+  vegetation         0.8944
+  terrain            0.5567
+  sky                0.9254
+  person             0.7028
+  rider              0.5098
+  car                0.9223
+  truck              0.6294
+  bus                0.8017
+  train              0.6659
+  motorcycle         0.4969
+  bicycle            0.6663
+────────────────────────────────────────
+
+Epoch 059  |  mIoU: 0.6907
+────────────────────────────────────────
+  road               0.9753
+  sidewalk           0.8063
+  building           0.8983
+  wall               0.5426
+  fence              0.5539
+  pole               0.5125
+  traffic light      0.5627
+  traffic sign       0.6297
+  vegetation         0.8957
+  terrain            0.5583
+  sky                0.9268
+  person             0.7042
+  rider              0.5172
+  car                0.9222
+  truck              0.5453
+  bus                0.7419
+  train              0.6785
+  motorcycle         0.4828
+  bicycle            0.6685
+────────────────────────────────────────
+
+Epoch 060  |  mIoU: 0.6976
+────────────────────────────────────────
+  road               0.9752
+  sidewalk           0.8042
+  building           0.8987
+  wall               0.5666
+  fence              0.5526
+  pole               0.5121
+  traffic light      0.5586
+  traffic sign       0.6266
+  vegetation         0.8950
+  terrain            0.5579
+  sky                0.9254
+  person             0.7012
+  rider              0.5142
+  car                0.9212
+  truck              0.5783
+  bus                0.7636
+  train              0.7266
+  motorcycle         0.5042
+  bicycle            0.6728
+────────────────────────────────────────
+
+Epoch 061  |  mIoU: 0.6959
+────────────────────────────────────────
+  road               0.9754
+  sidewalk           0.8051
+  building           0.8999
+  wall               0.5669
+  fence              0.5511
+  pole               0.5102
+  traffic light      0.5627
+  traffic sign       0.6307
+  vegetation         0.8954
+  terrain            0.5564
+  sky                0.9268
+  person             0.7048
+  rider              0.5130
+  car                0.9209
+  truck              0.5908
+  bus                0.7669
+  train              0.6925
+  motorcycle         0.4808
+  bicycle            0.6727
+────────────────────────────────────────
+
+Epoch 062  |  mIoU: 0.6900
+────────────────────────────────────────
+  road               0.9758
+  sidewalk           0.8045
+  building           0.8990
+  wall               0.5488
+  fence              0.5539
+  pole               0.5139
+  traffic light      0.5660
+  traffic sign       0.6284
+  vegetation         0.8954
+  terrain            0.5547
+  sky                0.9277
+  person             0.7053
+  rider              0.5119
+  car                0.9215
+  truck              0.5563
+  bus                0.7332
+  train              0.6521
+  motorcycle         0.4925
+  bicycle            0.6690
+────────────────────────────────────────
+
+Epoch 063  |  mIoU: 0.6958
+────────────────────────────────────────
+  road               0.9753
+  sidewalk           0.8035
+  building           0.9005
+  wall               0.5647
+  fence              0.5550
+  pole               0.5126
+  traffic light      0.5655
+  traffic sign       0.6328
+  vegetation         0.8950
+  terrain            0.5519
+  sky                0.9272
+  person             0.7075
+  rider              0.5104
+  car                0.9204
+  truck              0.5942
+  bus                0.7714
+  train              0.6901
+  motorcycle         0.4725
+  bicycle            0.6693
+────────────────────────────────────────
+
+Epoch 064  |  mIoU: 0.6931
+────────────────────────────────────────
+  road               0.9757
+  sidewalk           0.8056
+  building           0.8994
+  wall               0.5408
+  fence              0.5526
+  pole               0.5157
+  traffic light      0.5615
+  traffic sign       0.6304
+  vegetation         0.8956
+  terrain            0.5590
+  sky                0.9271
+  person             0.7046
+  rider              0.5146
+  car                0.9214
+  truck              0.6181
+  bus                0.7675
+  train              0.6369
+  motorcycle         0.4784
+  bicycle            0.6645
+────────────────────────────────────────
+
+Epoch 065  |  mIoU: 0.6944
+────────────────────────────────────────
+  road               0.9756
+  sidewalk           0.8056
+  building           0.8971
+  wall               0.4923
+  fence              0.5540
+  pole               0.5141
+  traffic light      0.5697
+  traffic sign       0.6366
+  vegetation         0.8952
+  terrain            0.5542
+  sky                0.9261
+  person             0.7064
+  rider              0.5147
+  car                0.9219
+  truck              0.6158
+  bus                0.7762
+  train              0.6704
+  motorcycle         0.4979
+  bicycle            0.6702
+────────────────────────────────────────
+
+Epoch 066  |  mIoU: 0.7043
+────────────────────────────────────────
+  road               0.9757
+  sidewalk           0.8061
+  building           0.9004
+  wall               0.5583
+  fence              0.5521
+  pole               0.5143
+  traffic light      0.5725
+  traffic sign       0.6368
+  vegetation         0.8961
+  terrain            0.5568
+  sky                0.9279
+  person             0.7081
+  rider              0.5094
+  car                0.9219
+  truck              0.6404
+  bus                0.8014
+  train              0.7302
+  motorcycle         0.4995
+  bicycle            0.6735
+────────────────────────────────────────
+
+Epoch 067  |  mIoU: 0.7012
+────────────────────────────────────────
+  road               0.9753
+  sidewalk           0.8034
+  building           0.9008
+  wall               0.5649
+  fence              0.5500
+  pole               0.5131
+  traffic light      0.5676
+  traffic sign       0.6379
+  vegetation         0.8963
+  terrain            0.5552
+  sky                0.9285
+  person             0.7053
+  rider              0.5016
+  car                0.9223
+  truck              0.6406
+  bus                0.7938
+  train              0.6822
+  motorcycle         0.5126
+  bicycle            0.6722
+────────────────────────────────────────
+
+Epoch 068  |  mIoU: 0.7043
+────────────────────────────────────────
+  road               0.9755
+  sidewalk           0.8047
+  building           0.9012
+  wall               0.5773
+  fence              0.5500
+  pole               0.5159
+  traffic light      0.5667
+  traffic sign       0.6397
+  vegetation         0.8959
+  terrain            0.5560
+  sky                0.9264
+  person             0.7080
+  rider              0.5089
+  car                0.9222
+  truck              0.6330
+  bus                0.8047
+  train              0.7247
+  motorcycle         0.4995
+  bicycle            0.6708
+────────────────────────────────────────
+
+Epoch 069  |  mIoU: 0.7019
+────────────────────────────────────────
+  road               0.9755
+  sidewalk           0.8053
+  building           0.9006
+  wall               0.5662
+  fence              0.5578
+  pole               0.5134
+  traffic light      0.5697
+  traffic sign       0.6362
+  vegetation         0.8961
+  terrain            0.5596
+  sky                0.9266
+  person             0.7102
+  rider              0.5239
+  car                0.9224
+  truck              0.6439
+  bus                0.7968
+  train              0.6571
+  motorcycle         0.5026
+  bicycle            0.6730
+────────────────────────────────────────
+
+Epoch 070  |  mIoU: 0.7014
+────────────────────────────────────────
+  road               0.9756
+  sidewalk           0.8058
+  building           0.9002
+  wall               0.5782
+  fence              0.5584
+  pole               0.5154
+  traffic light      0.5745
+  traffic sign       0.6379
+  vegetation         0.8961
+  terrain            0.5553
+  sky                0.9273
+  person             0.7106
+  rider              0.5253
+  car                0.9235
+  truck              0.6263
+  bus                0.7955
+  train              0.6590
+  motorcycle         0.4876
+  bicycle            0.6734
+────────────────────────────────────────
+
+Epoch 071  |  mIoU: 0.7051
+────────────────────────────────────────
+  road               0.9757
+  sidewalk           0.8064
+  building           0.9012
+  wall               0.5726
+  fence              0.5566
+  pole               0.5166
+  traffic light      0.5711
+  traffic sign       0.6380
+  vegetation         0.8967
+  terrain            0.5625
+  sky                0.9274
+  person             0.7083
+  rider              0.5296
+  car                0.9232
+  truck              0.6500
+  bus                0.8018
+  train              0.6864
+  motorcycle         0.4992
+  bicycle            0.6731
+────────────────────────────────────────
+
+Epoch 072  |  mIoU: 0.7054
+────────────────────────────────────────
+  road               0.9757
+  sidewalk           0.8067
+  building           0.9008
+  wall               0.5737
+  fence              0.5704
+  pole               0.5182
+  traffic light      0.5700
+  traffic sign       0.6364
+  vegetation         0.8959
+  terrain            0.5567
+  sky                0.9262
+  person             0.7113
+  rider              0.5212
+  car                0.9229
+  truck              0.6557
+  bus                0.7956
+  train              0.7069
+  motorcycle         0.4859
+  bicycle            0.6725
+────────────────────────────────────────
+
+Epoch 073  |  mIoU: 0.7017
+────────────────────────────────────────
+  road               0.9756
+  sidewalk           0.8073
+  building           0.9007
+  wall               0.5724
+  fence              0.5582
+  pole               0.5201
+  traffic light      0.5665
+  traffic sign       0.6398
+  vegetation         0.8954
+  terrain            0.5542
+  sky                0.9261
+  person             0.7118
+  rider              0.5344
+  car                0.9227
+  truck              0.6146
+  bus                0.7699
+  train              0.6782
+  motorcycle         0.5111
+  bicycle            0.6741
+────────────────────────────────────────
+
+Epoch 074  |  mIoU: 0.7066
+────────────────────────────────────────
+  road               0.9755
+  sidewalk           0.8057
+  building           0.9012
+  wall               0.5705
+  fence              0.5551
+  pole               0.5164
+  traffic light      0.5724
+  traffic sign       0.6380
+  vegetation         0.8961
+  terrain            0.5549
+  sky                0.9287
+  person             0.7103
+  rider              0.5278
+  car                0.9230
+  truck              0.6494
+  bus                0.8083
+  train              0.7058
+  motorcycle         0.5094
+  bicycle            0.6764
+────────────────────────────────────────
+
+Epoch 075  |  mIoU: 0.6986
+────────────────────────────────────────
+  road               0.9752
+  sidewalk           0.8041
+  building           0.9007
+  wall               0.5546
+  fence              0.5537
+  pole               0.5150
+  traffic light      0.5700
+  traffic sign       0.6421
+  vegetation         0.8959
+  terrain            0.5532
+  sky                0.9260
+  person             0.7098
+  rider              0.5262
+  car                0.9236
+  truck              0.6259
+  bus                0.7769
+  train              0.6431
+  motorcycle         0.5044
+  bicycle            0.6736
+────────────────────────────────────────
+
+Epoch 076  |  mIoU: 0.7025
+────────────────────────────────────────
+  road               0.9756
+  sidewalk           0.8066
+  building           0.9014
+  wall               0.5542
+  fence              0.5610
+  pole               0.5157
+  traffic light      0.5675
+  traffic sign       0.6391
+  vegetation         0.8958
+  terrain            0.5591
+  sky                0.9272
+  person             0.7089
+  rider              0.5220
+  car                0.9238
+  truck              0.6419
+  bus                0.7921
+  train              0.6965
+  motorcycle         0.4869
+  bicycle            0.6728
+────────────────────────────────────────
+
+Epoch 077  |  mIoU: 0.7082
+────────────────────────────────────────
+  road               0.9758
+  sidewalk           0.8083
+  building           0.9015
+  wall               0.5778
+  fence              0.5629
+  pole               0.5158
+  traffic light      0.5675
+  traffic sign       0.6402
+  vegetation         0.8967
+  terrain            0.5636
+  sky                0.9276
+  person             0.7112
+  rider              0.5283
+  car                0.9230
+  truck              0.6476
+  bus                0.7995
+  train              0.7377
+  motorcycle         0.4960
+  bicycle            0.6744
+────────────────────────────────────────
+
+Epoch 078  |  mIoU: 0.6990
+────────────────────────────────────────
+  road               0.9754
+  sidewalk           0.8061
+  building           0.9009
+  wall               0.5583
+  fence              0.5558
+  pole               0.5148
+  traffic light      0.5742
+  traffic sign       0.6427
+  vegetation         0.8967
+  terrain            0.5575
+  sky                0.9296
+  person             0.7131
+  rider              0.5319
+  car                0.9228
+  truck              0.5860
+  bus                0.7671
+  train              0.6631
+  motorcycle         0.5085
+  bicycle            0.6760
+────────────────────────────────────────
+
+Epoch 079  |  mIoU: 0.7027
+────────────────────────────────────────
+  road               0.9755
+  sidewalk           0.8058
+  building           0.9013
+  wall               0.5803
+  fence              0.5589
+  pole               0.5200
+  traffic light      0.5726
+  traffic sign       0.6413
+  vegetation         0.8963
+  terrain            0.5551
+  sky                0.9290
+  person             0.7110
+  rider              0.5175
+  car                0.9232
+  truck              0.6143
+  bus                0.7871
+  train              0.6915
+  motorcycle         0.4940
+  bicycle            0.6767
+────────────────────────────────────────
+
+Epoch 080  |  mIoU: 0.7106
+────────────────────────────────────────
+  road               0.9757
+  sidewalk           0.8049
+  building           0.9008
+  wall               0.5618
+  fence              0.5656
+  pole               0.5182
+  traffic light      0.5767
+  traffic sign       0.6445
+  vegetation         0.8968
+  terrain            0.5580
+  sky                0.9263
+  person             0.7127
+  rider              0.5296
+  car                0.9233
+  truck              0.6741
+  bus                0.8134
+  train              0.7284
+  motorcycle         0.5145
+  bicycle            0.6758
+────────────────────────────────────────
+
+Epoch 081  |  mIoU: 0.7018
+────────────────────────────────────────
+  road               0.9756
+  sidewalk           0.8051
+  building           0.9013
+  wall               0.5646
+  fence              0.5548
+  pole               0.5120
+  traffic light      0.5706
+  traffic sign       0.6389
+  vegetation         0.8962
+  terrain            0.5550
+  sky                0.9285
+  person             0.7120
+  rider              0.5293
+  car                0.9223
+  truck              0.6367
+  bus                0.7856
+  train              0.6725
+  motorcycle         0.4998
+  bicycle            0.6741
+────────────────────────────────────────
+
+Epoch 082  |  mIoU: 0.7009
+────────────────────────────────────────
+  road               0.9757
+  sidewalk           0.8059
+  building           0.9016
+  wall               0.5600
+  fence              0.5546
+  pole               0.5192
+  traffic light      0.5751
+  traffic sign       0.6440
+  vegetation         0.8968
+  terrain            0.5574
+  sky                0.9273
+  person             0.7124
+  rider              0.5232
+  car                0.9235
+  truck              0.6400
+  bus                0.7843
+  train              0.6471
+  motorcycle         0.4941
+  bicycle            0.6754
+────────────────────────────────────────
+
+Epoch 083  |  mIoU: 0.7017
+────────────────────────────────────────
+  road               0.9756
+  sidewalk           0.8063
+  building           0.9015
+  wall               0.5635
+  fence              0.5544
+  pole               0.5199
+  traffic light      0.5770
+  traffic sign       0.6457
+  vegetation         0.8969
+  terrain            0.5583
+  sky                0.9271
+  person             0.7136
+  rider              0.5301
+  car                0.9233
+  truck              0.6122
+  bus                0.7744
+  train              0.6670
+  motorcycle         0.5095
+  bicycle            0.6766
+────────────────────────────────────────
+
+Epoch 084  |  mIoU: 0.7059
+────────────────────────────────────────
+  road               0.9757
+  sidewalk           0.8064
+  building           0.9016
+  wall               0.5536
+  fence              0.5702
+  pole               0.5162
+  traffic light      0.5757
+  traffic sign       0.6451
+  vegetation         0.8967
+  terrain            0.5590
+  sky                0.9286
+  person             0.7132
+  rider              0.5280
+  car                0.9231
+  truck              0.6701
+  bus                0.8004
+  train              0.6954
+  motorcycle         0.4789
+  bicycle            0.6738
+────────────────────────────────────────
+
+Epoch 085  |  mIoU: 0.7013
+────────────────────────────────────────
+  road               0.9759
+  sidewalk           0.8078
+  building           0.9014
+  wall               0.5644
+  fence              0.5550
+  pole               0.5186
+  traffic light      0.5757
+  traffic sign       0.6443
+  vegetation         0.8970
+  terrain            0.5588
+  sky                0.9260
+  person             0.7142
+  rider              0.5253
+  car                0.9238
+  truck              0.6288
+  bus                0.7810
+  train              0.6440
+  motorcycle         0.5066
+  bicycle            0.6765
+────────────────────────────────────────
+
+Epoch 086  |  mIoU: 0.6955
+────────────────────────────────────────
+  road               0.9755
+  sidewalk           0.8055
+  building           0.9007
+  wall               0.5255
+  fence              0.5517
+  pole               0.5177
+  traffic light      0.5737
+  traffic sign       0.6462
+  vegetation         0.8969
+  terrain            0.5571
+  sky                0.9275
+  person             0.7127
+  rider              0.5166
+  car                0.9243
+  truck              0.5961
+  bus                0.7696
+  train              0.6433
+  motorcycle         0.4997
+  bicycle            0.6747
+────────────────────────────────────────
+
+Epoch 087  |  mIoU: 0.7042
+────────────────────────────────────────
+  road               0.9756
+  sidewalk           0.8067
+  building           0.9021
+  wall               0.5646
+  fence              0.5535
+  pole               0.5149
+  traffic light      0.5762
+  traffic sign       0.6435
+  vegetation         0.8967
+  terrain            0.5588
+  sky                0.9287
+  person             0.7133
+  rider              0.5260
+  car                0.9234
+  truck              0.6377
+  bus                0.7963
+  train              0.6724
+  motorcycle         0.5139
+  bicycle            0.6748
+────────────────────────────────────────
+
+Epoch 088  |  mIoU: 0.7024
+────────────────────────────────────────
+  road               0.9756
+  sidewalk           0.8060
+  building           0.9021
+  wall               0.5568
+  fence              0.5519
+  pole               0.5180
+  traffic light      0.5798
+  traffic sign       0.6475
+  vegetation         0.8968
+  terrain            0.5580
+  sky                0.9278
+  person             0.7132
+  rider              0.5306
+  car                0.9241
+  truck              0.6138
+  bus                0.7836
+  train              0.6715
+  motorcycle         0.5173
+  bicycle            0.6716
+────────────────────────────────────────
+
+Epoch 089  |  mIoU: 0.6996
+────────────────────────────────────────
+  road               0.9756
+  sidewalk           0.8057
+  building           0.9018
+  wall               0.5671
+  fence              0.5523
+  pole               0.5194
+  traffic light      0.5732
+  traffic sign       0.6436
+  vegetation         0.8966
+  terrain            0.5542
+  sky                0.9266
+  person             0.7141
+  rider              0.5320
+  car                0.9238
+  truck              0.6071
+  bus                0.7703
+  train              0.6435
+  motorcycle         0.5113
+  bicycle            0.6737
+────────────────────────────────────────
+
+Epoch 090  |  mIoU: 0.7021
+────────────────────────────────────────
+  road               0.9756
+  sidewalk           0.8069
+  building           0.9017
+  wall               0.5639
+  fence              0.5551
+  pole               0.5186
+  traffic light      0.5765
+  traffic sign       0.6460
+  vegetation         0.8977
+  terrain            0.5614
+  sky                0.9288
+  person             0.7150
+  rider              0.5362
+  car                0.9244
+  truck              0.6191
+  bus                0.7709
+  train              0.6560
+  motorcycle         0.5101
+  bicycle            0.6761
+────────────────────────────────────────
+
+Epoch 091  |  mIoU: 0.7026
+────────────────────────────────────────
+  road               0.9756
+  sidewalk           0.8064
+  building           0.9026
+  wall               0.5728
+  fence              0.5527
+  pole               0.5191
+  traffic light      0.5782
+  traffic sign       0.6470
+  vegetation         0.8975
+  terrain            0.5581
+  sky                0.9277
+  person             0.7155
+  rider              0.5307
+  car                0.9239
+  truck              0.6170
+  bus                0.7860
+  train              0.6633
+  motorcycle         0.4993
+  bicycle            0.6762
+────────────────────────────────────────
+
+Epoch 092  |  mIoU: 0.7030
+────────────────────────────────────────
+  road               0.9758
+  sidewalk           0.8071
+  building           0.9021
+  wall               0.5677
+  fence              0.5542
+  pole               0.5186
+  traffic light      0.5784
+  traffic sign       0.6466
+  vegetation         0.8975
+  terrain            0.5632
+  sky                0.9280
+  person             0.7144
+  rider              0.5316
+  car                0.9233
+  truck              0.6336
+  bus                0.7864
+  train              0.6639
+  motorcycle         0.4881
+  bicycle            0.6763
+────────────────────────────────────────
+
+Epoch 093  |  mIoU: 0.7043
+────────────────────────────────────────
+  road               0.9758
+  sidewalk           0.8067
+  building           0.9018
+  wall               0.5600
+  fence              0.5577
+  pole               0.5193
+  traffic light      0.5774
+  traffic sign       0.6408
+  vegetation         0.8970
+  terrain            0.5594
+  sky                0.9289
+  person             0.7147
+  rider              0.5344
+  car                0.9238
+  truck              0.6360
+  bus                0.7907
+  train              0.6677
+  motorcycle         0.5147
+  bicycle            0.6758
+────────────────────────────────────────
+
+Epoch 094  |  mIoU: 0.7015
+────────────────────────────────────────
+  road               0.9757
+  sidewalk           0.8059
+  building           0.9012
+  wall               0.5494
+  fence              0.5551
+  pole               0.5205
+  traffic light      0.5758
+  traffic sign       0.6465
+  vegetation         0.8974
+  terrain            0.5581
+  sky                0.9286
+  person             0.7156
+  rider              0.5283
+  car                0.9246
+  truck              0.6038
+  bus                0.7832
+  train              0.6790
+  motorcycle         0.5035
+  bicycle            0.6767
+────────────────────────────────────────
+
+Epoch 095  |  mIoU: 0.7044
+────────────────────────────────────────
+  road               0.9758
+  sidewalk           0.8062
+  building           0.9016
+  wall               0.5590
+  fence              0.5521
+  pole               0.5191
+  traffic light      0.5748
+  traffic sign       0.6438
+  vegetation         0.8970
+  terrain            0.5559
+  sky                0.9273
+  person             0.7125
+  rider              0.5216
+  car                0.9239
+  truck              0.6282
+  bus                0.7949
+  train              0.7061
+  motorcycle         0.5101
+  bicycle            0.6731
+────────────────────────────────────────
