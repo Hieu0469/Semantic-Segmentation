@@ -1,8 +1,8 @@
 # EfficientVit B3 pruned 50%
 
-Kaggle notebook: https://www.kaggle.com/code/hieu0469/efficientvit-l1-city-2
-
-Download file (.onnx, .pt):
+[Kaggle notebook](https://www.kaggle.com/code/hieu0469/efficientvit-b3-city-2/notebook?scriptVersionId=325595878) | 
+[Download .onnx](https://drive.google.com/file/d/1P86nuLB1cM-Zu7ULpFadW2PvMOlG1pz-/view?usp=sharing) | 
+[Download .pt](https://drive.google.com/file/d/1gnMnAgq2QUeTUYjVtySI9pRG_PI_YIhx/view?usp=sharing)
 
 Best results:
 ```
