@@ -1,8 +1,8 @@
 # EfficientVit L2 pruned 50%
 
-Kaggle notebook: https://www.kaggle.com/code/hillsp/efficientvit-l2-city-2
-
-Download file (.onnx, .pt):
+[Kaggle notebook](https://www.kaggle.com/code/hillsp/efficientvit-l2-city-2) | 
+[Download .onnx](https://drive.google.com/file/d/1RlEQ2hBPvcg0wIzjC3MIp8pvqraLI6kO/view?usp=sharing) | 
+[Download .pt](https://drive.google.com/file/d/10Dwbb-v3LiI2RZuKaqrwxCYswGxHJy36/view?usp=sharing)
 
 Best results:
 ```
