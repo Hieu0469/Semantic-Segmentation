@@ -44,7 +44,18 @@ for _raw, _tid in CITYSCAPES_ID_TO_TRAINID.items():
     _lut[_raw] = _tid
 CITYSCAPES_LUT = _lut
 
+CITYSCAPES_CLASS_NAMES = [
+    "road", "sidewalk", "building", "wall", "fence", "pole",
+    "traffic light", "traffic sign", "vegetation", "terrain", "sky",
+    "person", "rider", "car", "truck", "bus", "train",
+    "motorcycle", "bicycle",
+]
 
+CITYSCAPES_CLASS_WEIGHTS = [
+    0.8373, 0.9180, 0.8660, 1.0345, 1.0166, 0.9969, 0.9754,
+    1.0489, 0.8786, 1.0023, 0.9539, 0.9843, 1.1116, 0.9037,
+    1.0865, 1.0955, 1.0865, 1.1529, 1.0507,
+]
 # ─────────────────────────────────────────────────────────────────────────────
 # Dataset
 # ─────────────────────────────────────────────────────────────────────────────
