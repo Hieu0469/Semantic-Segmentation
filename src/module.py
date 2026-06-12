@@ -213,21 +213,27 @@ class Module(L.LightningModule):
         if miou > self.best_miou:
             self.best_miou = miou
             os.makedirs(self.cfg.ckpt_dir, exist_ok=True)
-
-            # Xoá file best cũ
-            for fname in os.listdir(self.cfg.ckpt_dir):
-                if fname == f"{self.cfg.model_name}.pt":
-                    os.remove(os.path.join(self.cfg.ckpt_dir, fname))
-
-            save_path = os.path.join(self.cfg.ckpt_dir, f"{self.cfg.model_name}.pt")
+    
+            save_path = os.path.join(
+                self.cfg.ckpt_dir,
+                f"{self.cfg.model_name}.pt"
+            )
             torch.save(self.model, save_path)
             tqdm.write(f"\n✓ Saved best model → {save_path}  (mIoU: {miou:.4f})\n")
-
-            # Ghi best_val.txt (ghi đè)
-            with open(os.path.join(self.cfg.log_dir, "best_val.txt"), "w") as f:
-                f.write(f"Epoch     : {self.current_epoch:03d}\n")
-                f.write(f"mIoU      : {miou:.6f}\n")
+            # Log best val
+    
+            # Ghi đè file — luôn chỉ giữ kết quả tốt nhất
+            log_path = os.path.join(self.cfg.log_dir, "best_val.txt")
+            os.makedirs(self.cfg.log_dir, exist_ok=True)
+            with open(log_path, "w", encoding="utf-8") as f:
                 f.write(log_str + "\n")
+    
+            tqdm.write(f"\n✓ New best mIoU: {miou:.4f} → saved to {log_path}\n")
+            
+        log_path = os.path.join(self.cfg.log_dir, "val_results.txt")
+        os.makedirs(self.cfg.log_dir, exist_ok=True)
+        with open(log_path, "a", encoding="utf-8") as f:
+            f.write(log_str + "\n")
 
     # ── optimizer + scheduler ────────────────────────────────────────────
     def configure_optimizers(self):
