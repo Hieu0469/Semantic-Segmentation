@@ -4,7 +4,7 @@ Chỉnh sửa file này trước khi train.
 """
 
 import os
-from src.dataset import CITYSCAPES_CLASSES_NAMES, CITYSCAPES_CLASS_WEIGHTS
+from dataset import CITYSCAPES_CLASSES_NAMES, CITYSCAPES_CLASS_WEIGHTS
 
 class CFG:
     # ── Model ─────────────────────────────────────────────────────────────
