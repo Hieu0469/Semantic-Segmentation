@@ -1,6 +1,6 @@
 
 
-# EfficientViT-L2 Semantic Segmentation with Structural Pruning for Jetson AGX Xavier
+# EfficientViT Semantic Segmentation with Structural Pruning for Jetson AGX Xavier
 
 ## 📝 Introduction
 This project focuses on deploying a high-performance, real-time semantic segmentation solution on the **NVIDIA Jetson AGX Xavier** edge platform. Edge devices typically face strict computational and memory constraints, making the deployment of heavy deep learning models challenging. To bridge this gap, this repository provides an end-to-end pipeline that leverages **EfficientViT-L2** trained on the **Cityscapes dataset**, optimized via **PyTorch Lightning**, and compressed using **torch_pruning**. 
