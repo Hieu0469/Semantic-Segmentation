@@ -7,6 +7,7 @@ Download file (.onnx, .pt):
 Best results:
 ```
 mIoU: 0.7238
+  Class              mIoU
 ────────────────────────────────────────
   road               0.9774
   sidewalk           0.8204
