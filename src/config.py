@@ -4,7 +4,7 @@ Chỉnh sửa file này trước khi train.
 """
 
 import os
-
+from src.dataset import CITYSCAPES_CLASSES_NAMES, CITYSCAPES_CLASS_WEIGHTS
 
 class CFG:
     # ── Model ─────────────────────────────────────────────────────────────
@@ -48,16 +48,7 @@ class CFG:
     warmup_epochs = 5
 
     # ── Class names (Cityscapes 19 classes) ───────────────────────────────
-    class_names = [
-        "road", "sidewalk", "building", "wall", "fence", "pole",
-        "traffic light", "traffic sign", "vegetation", "terrain", "sky",
-        "person", "rider", "car", "truck", "bus", "train",
-        "motorcycle", "bicycle",
-    ]
+    class_names = CITYSCAPES_CLASSES_NAMES
 
     # ── Class weights cho weighted CrossEntropy ───────────────────────────
-    class_weights = [
-        0.8373, 0.9180, 0.8660, 1.0345, 1.0166, 0.9969, 0.9754,
-        1.0489, 0.8786, 1.0023, 0.9539, 0.9843, 1.1116, 0.9037,
-        1.0865, 1.0955, 1.0865, 1.1529, 1.0507,
-    ]
+    class_weights = CITYSCAPES_CLASS_WEIGHTS
