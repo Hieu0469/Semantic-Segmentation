@@ -5,10 +5,9 @@ from lightning.pytorch.callbacks import ModelCheckpoint, EarlyStopping, Learning
 from lightning.pytorch.loggers import TensorBoardLogger
 
 # Import các cấu hình và module trong project của bạn
-from configs.config import CFG
-from data.dataset import CityscapesDataModule
-from models.lit_module import Module
-from models.model import get_pruned_model
+from src.config import CFG
+from src.module import Module, CityscapesDataModule
+from src.prune import prune_model
 
 # Thử import thư viện segmentation_models_pytorch và efficientvit
 try:
@@ -40,17 +39,11 @@ def get_model_from_cfg(cfg):
             raise ImportError("Không tìm thấy thư viện efficientvit. Hãy cài đặt trước khi chạy.")
         
         # Nếu cấu hình yêu cầu sử dụng cắt tỉa (pruning)
+        model = create_efficientvit_seg_model(name=cfg.model_name, pretrained=cfg.pretrained)
         if getattr(cfg, 'use_pruning', False):
-            print(f"\n>>> [INFO] Khởi tạo EfficientViT với Structural Pruning (Ratio: {getattr(cfg, 'pruning_ratio', 0.5)})")
-            return get_pruned_model(
-                url_or_path=None, 
-                train_height=cfg.train_height, 
-                train_width=cfg.train_width, 
-                prune_ratio=getattr(cfg, 'pruning_ratio', 0.5)
-            )
-        else:
-            print(f"\n>>> [INFO] Khởi tạo mô hình EfficientViT gốc (Không Prune): {cfg.model_name}")
-            return create_efficientvit_seg_model(name="efficientvit-seg-l2-cityscapes", pretrained=True)
+            print(f"\n>>> [INFO] Áp dụng pruning với tỉ lệ {cfg.pruning_ratio} trước khi train.")
+            model = prune_model(model, pruning_ratio=cfg.pruning_ratio)
+        return model
             
     elif model_type == 'smp':
         if smp is None:
@@ -74,7 +67,7 @@ def get_model_from_cfg(cfg):
         }
         
         if smp_architecture in smp_mapping:
-            return smp_mapping[smp_architecture](
+            model = smp_mapping[smp_architecture](
                 encoder_name=encoder_name,
                 encoder_weights="imagenet" if getattr(cfg, 'pretrained', True) else None,
                 in_channels=3,
@@ -82,6 +75,11 @@ def get_model_from_cfg(cfg):
             )
         else:
             raise ValueError(f"Kiến trúc '{cfg.smp_architecture}' không hỗ trợ trong script hiện tại. Chọn trong: {list(smp_mapping.keys())}")
+        
+        if getattr(cfg, 'use_pruning', False):
+            print(f"\n>>> [INFO] Áp dụng pruning với tỉ lệ {cfg.pruning_ratio} trước khi train.")
+            model = prune_model(model, pruning_ratio=cfg.pruning_ratio)
+        return model
             
     else:
         raise ValueError(f"model_type '{model_type}' không hợp lệ. Hãy chọn 'efficientvit' hoặc 'smp'.")
