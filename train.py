@@ -139,4 +139,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--resume", type=str, default=None,
+                        help="'last' hoặc path tới .ckpt để resume")
+    args = parser.parse_args()
+    main(resume=args.resume)
