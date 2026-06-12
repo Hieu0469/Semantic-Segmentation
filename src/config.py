@@ -12,7 +12,7 @@ class CFG:
     model_type = 'efficientvit'               # Chọn: 'efficientvit' hoặc 'smp'
     smp_architecture = None       # Chọn kiến trúc: Unet, UnetPlusPlus, PSPNet, DeepLabV3Plus, v.v.
     smp_encoder = None     # Chọn backbone encoder tùy ý của thư viện SMP
-    pretrained = True
+    pretrained = False
     num_classes  = 19
     ignore_index = 255
     model = None  # Nếu muốn truyền trực tiếp một PyTorch Model Object, gán ở đây (ví dụ: model = MyCustomModel())
