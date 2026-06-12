@@ -1,133 +1,142 @@
-"""
-train.py — Script train chính
-
-Usage:
-    python train.py                         # train từ đầu
-    python train.py --resume last           # resume từ last.ckpt
-    python train.py --resume checkpoints/x.ckpt
-"""
-
-import sys
-import argparse
+import os
 import torch
 import lightning as L
-from lightning.pytorch.callbacks import (
-    ModelCheckpoint,
-    EarlyStopping,
-    LearningRateMonitor,
-)
+from lightning.pytorch.callbacks import ModelCheckpoint, EarlyStopping, LearningRateMonitor
 from lightning.pytorch.loggers import TensorBoardLogger
 
-sys.path.insert(0, "efficientvit")
+# Import các cấu hình và module trong project của bạn
+from configs.config import CFG
+from data.dataset import CityscapesDataModule
+from models.lit_module import Module
+from models.model import get_pruned_model
 
-from src.config import CFG
-from src.module import Module, CityscapesDataModule
-from src.prune import prune_model
+# Thử import thư viện segmentation_models_pytorch và efficientvit
+try:
+    import segmentation_models_pytorch as smp
+except ImportError:
+    smp = None
 
-
-def load_base_model():
-    """Load EfficientViT-L2 pretrained hoặc từ file."""
+try:
     from efficientvit.seg_model_zoo import create_efficientvit_seg_model
+except ImportError:
+    create_efficientvit_seg_model = None
 
-    if CFG.prune_load_path is not None:
-        print(f"Loading pruned model from {CFG.prune_load_path}")
-        model = torch.load(CFG.prune_load_path, weights_only=False,
-                           map_location="cpu")
 
-    elif CFG.load_path is not None:
-        print(f"Loading model from {CFG.load_path}")
-        model = torch.load(CFG.load_path, weights_only=False, map_location="cpu")
+def get_model_from_cfg(cfg):
+    """
+    Hàm kiểm tra và khởi tạo model linh hoạt.
+    Hỗ trợ truyền trực tiếp một PyTorch Model Object hoặc khởi tạo tự động qua String config.
+    """
+    # TRƯỜNG HỢP 1: Nếu người dùng truyền trực tiếp một Model Object vào CFG.model
+    if hasattr(cfg, 'model') and isinstance(cfg.model, torch.nn.Module):
+        print("\n>>> [INFO] Phát hiện PyTorch Model Object trong CFG.model. Tiến hành sử dụng trực tiếp để train.")
+        return cfg.model
 
+    # TRƯỜNG HỢP 2: Khởi tạo tự động dựa trên cấu hình chuỗi text trong CFG
+    model_type = getattr(cfg, 'model_type', 'efficientvit').lower()
+    
+    if model_type == 'efficientvit':
+        if create_efficientvit_seg_model is None:
+            raise ImportError("Không tìm thấy thư viện efficientvit. Hãy cài đặt trước khi chạy.")
+        
+        # Nếu cấu hình yêu cầu sử dụng cắt tỉa (pruning)
+        if getattr(cfg, 'use_pruning', False):
+            print(f"\n>>> [INFO] Khởi tạo EfficientViT với Structural Pruning (Ratio: {getattr(cfg, 'pruning_ratio', 0.5)})")
+            return get_pruned_model(
+                url_or_path=None, 
+                train_height=cfg.train_height, 
+                train_width=cfg.train_width, 
+                prune_ratio=getattr(cfg, 'pruning_ratio', 0.5)
+            )
+        else:
+            print(f"\n>>> [INFO] Khởi tạo mô hình EfficientViT gốc (Không Prune): {cfg.model_name}")
+            return create_efficientvit_seg_model(name="efficientvit-seg-l2-cityscapes", pretrained=True)
+            
+    elif model_type == 'smp':
+        if smp is None:
+            raise ImportError("Không tìm thấy thư viện segmentation_models_pytorch. Hãy chạy: pip install segmentation-models-pytorch")
+            
+        smp_architecture = getattr(cfg, 'smp_architecture', 'Unet').lower()
+        encoder_name = getattr(cfg, 'smp_encoder', 'resnet34')
+        print(f"\n>>> [INFO] Khởi tạo model từ SMP: Kiến trúc [{cfg.smp_architecture}] với Backbone [{encoder_name}]")
+        
+        # Map các kiến trúc phổ biến của thư viện SMP
+        smp_mapping = {
+            'unet': smp.Unet,
+            'unetplusplus': smp.UnetPlusPlus,
+            'manet': smp.MAnet,
+            'linknet': smp.Linknet,
+            'fpn': smp.FPN,
+            'pspnet': smp.PSPNet,
+            'deeplabv3': smp.DeepLabV3,
+            'deeplabv3plus': smp.DeepLabV3Plus,
+            'pan': smp.PAN
+        }
+        
+        if smp_architecture in smp_mapping:
+            return smp_mapping[smp_architecture](
+                encoder_name=encoder_name,
+                encoder_weights="imagenet" if getattr(cfg, 'pretrained', True) else None,
+                in_channels=3,
+                classes=cfg.num_classes
+            )
+        else:
+            raise ValueError(f"Kiến trúc '{cfg.smp_architecture}' không hỗ trợ trong script hiện tại. Chọn trong: {list(smp_mapping.keys())}")
+            
     else:
-        print("Loading pretrained EfficientViT-L2 from model zoo")
-        model = create_efficientvit_seg_model(
-            name        = "efficientvit-seg-l2-cityscapes",
-            pretrained  = True,
-            weight_url  = CFG.pretrained_url,
-        )
-
-        # Prune nếu ratio > 0
-        if CFG.pruning_ratio > 0:
-            print(f"Pruning model with ratio={CFG.pruning_ratio}")
-            model = prune_model(model, pruning_ratio=CFG.pruning_ratio)
-
-    return model
+        raise ValueError(f"model_type '{model_type}' không hợp lệ. Hãy chọn 'efficientvit' hoặc 'smp'.")
 
 
-def main(resume: str = None):
+def main():
+    # Đảm bảo tính nhất quán dữ liệu ngẫu nhiên
     L.seed_everything(42, workers=True)
-
-    # ── Model ─────────────────────────────────────────────────────────────
-    CFG.model = load_base_model()
-
-    # ── Logger ────────────────────────────────────────────────────────────
-    logger = TensorBoardLogger(
-        save_dir = CFG.log_dir,
-        name     = CFG.model_name,
-    )
-
-    # ── Callbacks ─────────────────────────────────────────────────────────
-    checkpoint_cb = ModelCheckpoint(
-        dirpath    = CFG.ckpt_dir,
-        filename   = CFG.model_name + "-ep{epoch:03d}-miou{val/mIoU:.4f}",
-        monitor    = "val/mIoU",
-        mode       = "max",
-        save_top_k = 3,
-        save_last  = True,
-        auto_insert_metric_name = False,
-    )
-    early_stop_cb = EarlyStopping(
-        monitor   = "val/mIoU",
-        patience  = 15,
-        mode      = "max",
-        min_delta = 0.001,
-    )
-    lr_monitor = LearningRateMonitor(logging_interval="epoch")
-
-    # ── Trainer ───────────────────────────────────────────────────────────
-    trainer = L.Trainer(
-        max_epochs              = CFG.max_epochs,
-        accelerator             = "auto",
-        devices                 = "auto",
-        precision               = "16-mixed",
-        logger                  = logger,
-        callbacks               = [checkpoint_cb, early_stop_cb, lr_monitor],
-        log_every_n_steps       = 10,
-        gradient_clip_val       = 1.0,
-        check_val_every_n_epoch = 1,
-        num_sanity_val_steps    = 2,
-    )
-
-    # ── Fit ───────────────────────────────────────────────────────────────
-    ckpt_path = None
-    if resume == "last":
-        ckpt_path = f"{CFG.ckpt_dir}/last.ckpt"
-    elif resume is not None:
-        ckpt_path = resume
-
-    lightning_model = Module(CFG)
+    
+    # Khởi tạo model dựa trên chiến lược kiểm tra CFG
+    model_object = get_model_from_cfg(CFG)
+    
+    # Gán object chuẩn vào CFG.model để PyTorch Lightning Module (models/lit_module.py) lấy sử dụng
+    CFG.model = model_object
+    
+    # Khởi tạo pipeline dữ liệu và Lightning Module bao bọc quanh model
     dm = CityscapesDataModule(CFG)
-
-    trainer.fit(lightning_model, datamodule=dm, ckpt_path=ckpt_path)
-
-    # ── Summary ───────────────────────────────────────────────────────────
-    print(f"\nBest checkpoint : {checkpoint_cb.best_model_path}")
-    score = checkpoint_cb.best_model_score
-    print(f"Best val mIoU   : {score:.4f}" if score is not None
-          else "Best val mIoU   : N/A")
-
-    # ── Validate best ─────────────────────────────────────────────────────
-    results = trainer.validate(
-        lightning_model,
-        datamodule = dm,
-        ckpt_path  = checkpoint_cb.best_model_path,
+    model = Module(CFG)
+    
+    # Thiết lập nơi lưu log và checkpoint tự động
+    logger = TensorBoardLogger(save_dir=CFG.log_dir, name=CFG.model_name)
+    checkpoint_cb = ModelCheckpoint(
+        dirpath=CFG.ckpt_dir, 
+        filename=f"{CFG.model_name}-" + "{epoch:02d}-{val/mIoU:.4f}",
+        monitor="val/mIoU", 
+        mode="max", 
+        save_top_k=3
     )
-    print(results)
+    early_stop_cb = EarlyStopping(monitor="val/mIoU", patience=15, mode="max")
+    lr_monitor = LearningRateMonitor(logging_interval="epoch")
+    
+    # Cấu hình bộ Trainer chính của PyTorch Lightning
+    trainer = L.Trainer(
+        max_epochs=CFG.max_epochs, 
+        accelerator="auto", 
+        devices="auto",
+        precision="16-mixed", 
+        logger=logger,
+        callbacks=[checkpoint_cb, early_stop_cb, lr_monitor],
+        log_every_n_steps=10, 
+        val_check_interval=1.0,
+        gradient_clip_val=1.0, 
+        check_val_every_n_epoch=1,
+    )
+    
+    # Bắt đầu quá trình huấn luyện/fine-tuning
+    trainer.fit(model, datamodule=dm)
+    print(f"\n[SUCCESS] Huấn luyện hoàn tất! Checkpoint tốt nhất lưu tại: {checkpoint_cb.best_model_path}")
+    
+    # Lưu file model .pth dạng object đầy đủ độc lập
+    os.makedirs(CFG.ckpt_dir, exist_ok=True)
+    final_path = os.path.join(CFG.ckpt_dir, f"{CFG.model_name}_final.pth")
+    torch.save(model.model, final_path)
+    print(f"[INFO] Đã lưu file trọng số cuối cùng (.pth) tại: {final_path}")
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--resume", type=str, default=None,
-                        help="'last' hoặc path tới .ckpt để resume")
-    args = parser.parse_args()
-    main(resume=args.resume)
+    main()
