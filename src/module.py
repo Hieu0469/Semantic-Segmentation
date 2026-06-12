@@ -196,14 +196,13 @@ class Module(L.LightningModule):
                 self.log(f"val/iou_{name}", float(v), sync_dist=True)
 
         # ── Build log string ──────────────────────────────────────────────
-        lines = [f"\nEpoch {self.current_epoch:03d}  |  mIoU: {miou:.4f}", "─" * 40]
+        lines = []
+        lines.append(f"\nEpoch {self.current_epoch:03d}  |  mIoU: {miou:.4f}")
+        lines.append("─" * 40)
         for name, v in zip(self.cfg.class_names, iou):
-            lines.append(f"  {name:<18} {v:.4f}" if not np.isnan(v)
-                         else f"  {name:<18}   N/A")
+            lines.append(f"  {name:<18} {v:.4f}" if not np.isnan(v) else f"  {name:<18}   N/A")
         lines.append("─" * 40)
         log_str = "\n".join(lines)
-
-        tqdm.write(log_str)
 
         # ── Ghi val_results.txt (append) ─────────────────────────────────
         os.makedirs(self.cfg.log_dir, exist_ok=True)
