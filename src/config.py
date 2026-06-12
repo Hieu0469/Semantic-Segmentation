@@ -43,7 +43,7 @@ class CFG:
     batch_size    = 4
     num_workers   = 4
     max_epochs    = 100
-    lr            = 1e-5
+    lr            = 1e-4
     weight_decay  = 1e-4
     warmup_epochs = 5
 
