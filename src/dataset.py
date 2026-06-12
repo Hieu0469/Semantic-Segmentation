@@ -10,8 +10,6 @@ from torch.utils.data import Dataset
 import albumentations as A
 from albumentations.pytorch import ToTensorV2
 
-from src.config import CFG
-
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Label mapping
@@ -65,8 +63,8 @@ class CityscapesDataset(Dataset):
         root_dir:     str,
         label_dir:    str | None = None,
         transform=None,
-        train_height: int = CFG.train_height,
-        train_width:  int = CFG.train_width,
+        train_height: int =  512,
+        train_width: int = 1024,
     ):
         super().__init__()
         self.root_dir     = root_dir
@@ -138,7 +136,8 @@ class CityscapesDataset(Dataset):
 # ─────────────────────────────────────────────────────────────────────────────
 # Augmentations
 # ─────────────────────────────────────────────────────────────────────────────
-def build_transforms(split: str) -> A.Compose:
+
+def build_transforms(split: str, train_height: int = 512, train_width: int = 1024) -> A.Compose:
     mean = (0.485, 0.456, 0.406)
     std  = (0.229, 0.224, 0.225)
     if split == "train":
@@ -146,13 +145,13 @@ def build_transforms(split: str) -> A.Compose:
             A.HorizontalFlip(p=0.5),
             A.RandomScale(scale_limit=(-0.5, 0.5), p=0.5),
             A.PadIfNeeded(
-                min_height   = CFG.train_height,
-                min_width    = CFG.train_width,
+                min_height   = train_height,
+                min_width    = train_width,
                 border_mode  = cv2.BORDER_CONSTANT,
                 fill         = 0,
                 fill_mask    = 255,
             ),
-            A.RandomCrop(height=CFG.train_height, width=CFG.train_width),
+            A.RandomCrop(height=train_height, width=train_width),
             A.ColorJitter(brightness=0.4, contrast=0.4,
                           saturation=0.4, hue=0.1, p=0.5),
             A.GaussianBlur(blur_limit=(3, 7), p=0.2),
