@@ -105,7 +105,7 @@ def main():
     logger = TensorBoardLogger(save_dir=CFG.log_dir, name=CFG.model_name)
     checkpoint_cb = ModelCheckpoint(
         dirpath=CFG.ckpt_dir, 
-        filename=f"{CFG.model_name}-" + "{epoch:02d}-{val/mIoU:.4f}",
+        filename=f"{CFG.model_name}-",
         monitor="val/mIoU", 
         mode="max", 
         save_top_k=3
