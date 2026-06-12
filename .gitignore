@@ -1,0 +1,33 @@
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+
+# Checkpoints & logs
+checkpoints/
+tb_logs/
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.engine
+
+# Val logs
+best_val.txt
+val_results.txt
+viz_*.png
+
+# Kaggle / Jupyter
+.kaggle/
+*.ipynb
+
+# External repos (clone riêng)
+efficientvit/
+MyTorchPruning/
+segmentation_models.pytorch/
+
+# Misc
+.env
+*.egg-info/
+dist/
+build/
