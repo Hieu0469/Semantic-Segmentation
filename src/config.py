@@ -51,3 +51,4 @@ class CFG:
     class_names = CITYSCAPES_CLASS_NAMES
 
     # ── Class weights cho weighted CrossEntropy ───────────────────────────
+    # class_weights = CITYSCAPES_CLASS_WEIGHTS

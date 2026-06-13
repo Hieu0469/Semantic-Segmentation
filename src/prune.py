@@ -25,9 +25,9 @@ def build_ignored_layers(model: nn.Module) -> list:
         print("[prune] Không tìm thấy model.head.output_ops — kiểm tra lại kiến trúc")
 
     try:
-        ignored.append(model.segmentation_head.output_ops)
+        ignored.append(model.segmentation_head)
     except AttributeError:
-        print("[prune] Không tìm thấy model.segmentation_head.output_ops — kiểm tra lại kiến trúc")
+        print("[prune] Không tìm thấy model.segmentation_head — kiểm tra lại kiến trúc")
 
     # LiteMLA attention blocks
     for name, module in model.named_modules():
