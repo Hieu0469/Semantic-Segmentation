@@ -1,10 +1,3 @@
-# NOTE: Train model efficientvit đang bị lỗi import - 
-# Hãy clone https://github.com/mit-han-lab/efficientvit.git 
-# và truyền model object trực tiếp vào CFG.model để train tạm thời, đợi fix lỗi import sau.
-# Example: 
-# from efficientvit.seg_model_zoo import create_efficientvit_seg_model
-# CFG.model = create_efficientvit_seg_model(name=CFG.model_name, pretrained=CFG.pretrained, num_classes=CFG.num_classes)
-# run(CFG)
 import os
 import torch
 import lightning as L
