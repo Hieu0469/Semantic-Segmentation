@@ -79,6 +79,7 @@ class Module(L.LightningModule):
             mode         = "multiclass",
             ignore_index = cfg.ignore_index,
             from_logits  = True,
+            class_weights = weights,
         )
         self.dice_weight = 0.5
 
@@ -105,7 +106,7 @@ class Module(L.LightningModule):
     def _compute_loss(self, logits, masks):
         ce   = self.ce_loss(logits, masks)
         dice = self.dice_loss(logits, masks)
-        return ce + self.dice_weight * dice, ce, dice
+        return ce + self.dice_weight * dice
 
     # ── forward ──────────────────────────────────────────────────────────
     def forward(self, x):
@@ -114,36 +115,45 @@ class Module(L.LightningModule):
     # ── training ─────────────────────────────────────────────────────────
     def training_step(self, batch, batch_idx):
         images, masks = batch
-        logits = self._resize_to_mask(self(images), masks)
-        loss, ce, dice = self._compute_loss(logits, masks)
-
+        logits = self(images)                       # (B, C, H, W)
+        if logits.shape[-2:] != masks.shape[-2:]:
+            logits = torch.nn.functional.interpolate(
+                logits,
+                size=masks.shape[-2:],   # (H, W)
+                mode="bilinear",
+                align_corners=False,
+            )
+        loss = self._compute_loss(logits, masks)
+ 
         preds = logits.argmax(dim=1)
         self.train_miou(preds, masks)
-
-        self.log_dict({
-            "train/loss":      loss,
-            "train/ce_loss":   ce,
-            "train/dice_loss": dice,
-            "train/mIoU":      self.train_miou,
-        }, on_step=False, on_epoch=True, prog_bar=True, sync_dist=True)
+ 
+        self.log("train/loss", loss,
+                 on_step=True, on_epoch=True, prog_bar=True, sync_dist=True)
+        self.log("train/mIoU", self.train_miou,
+                 on_step=False, on_epoch=True, prog_bar=True, sync_dist=True)
         return loss
-
     # ── validation ───────────────────────────────────────────────────────
     def validation_step(self, batch, batch_idx):
         images, masks = batch
-        logits = self._resize_to_mask(self(images), masks)
-        loss, ce, dice = self._compute_loss(logits, masks)
-
-        preds = logits.argmax(dim=1)
+        logits = self(images)
+        if logits.shape[-2:] != masks.shape[-2:]:
+            logits = torch.nn.functional.interpolate(
+                logits,
+                size=masks.shape[-2:],   # (H, W)
+                mode="bilinear",
+                align_corners=False,
+            )
+        loss = self._compute_loss(logits, masks)
+        preds  = logits.argmax(dim=1)
         self.val_miou(preds, masks)
-
-        self.log_dict({
-            "val/loss":      loss,
-            "val/ce_loss":   ce,
-            "val/dice_loss": dice,
-            "val/mIoU":      self.val_miou,
-        }, on_step=False, on_epoch=True, prog_bar=True, sync_dist=True)
-
+    
+        self.log("val/loss", loss,
+                 on_step=False, on_epoch=True, prog_bar=True, sync_dist=True)
+        self.log("val/mIoU", self.val_miou,
+                 on_step=False, on_epoch=True, prog_bar=True, sync_dist=True)
+        
+        # Log ảnh segmentation đầu tiên của mỗi epoch
         if batch_idx == 0:
             self._log_seg_image(images[0], masks[0], preds[0])
 
@@ -237,23 +247,33 @@ class Module(L.LightningModule):
 
     # ── optimizer + scheduler ────────────────────────────────────────────
     def configure_optimizers(self):
-        optimizer = torch.optim.AdamW(
-            self.parameters(),
-            lr           = self.cfg.lr,
-            weight_decay = self.cfg.weight_decay,
-        )
-
-        total  = self.cfg.max_epochs
-        warmup = self.cfg.warmup_epochs
-
+        if self.cfg.model_type == "efficientvit":
+            encoder_params = list(self.model.backbone.parameters())
+            decoder_params = list(self.model.head.parameters())
+        elif self.cfg.model_type == "smp":
+            encoder_params = list(self.model.encoder.parameters())
+            decoder_params = list(self.model.decoder.parameters()) + list(self.model.segmentation_head.parameters())
+        else:
+            raise ValueError(f"model_type '{self.cfg.model_type}' không hợp lệ. Hãy chọn 'efficientvit' hoặc 'smp'.")
+        
+        
+        optimizer = torch.optim.AdamW([
+            {"params": encoder_params, "lr": self.cfg.lr * 0.1},
+            {"params": decoder_params, "lr": self.cfg.lr},
+        ], weight_decay=self.cfg.weight_decay)
+    
+        # Poly LR với linear warmup
+        total   = self.cfg.max_epochs
+        warmup  = self.cfg.warmup_epochs
+    
         def poly_with_warmup(epoch):
             if epoch < warmup:
                 return (epoch + 1) / warmup
             progress = (epoch - warmup) / max(total - warmup, 1)
             return (1 - progress) ** 0.9
-
+    
         scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, poly_with_warmup)
         return {
-            "optimizer":    optimizer,
+            "optimizer": optimizer,
             "lr_scheduler": {"scheduler": scheduler, "interval": "epoch"},
         }
