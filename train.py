@@ -43,7 +43,8 @@ def get_model_from_cfg(cfg):
             raise ImportError("Không tìm thấy thư viện efficientvit. Hãy cài đặt trước khi chạy.")
         
         # Nếu cấu hình yêu cầu sử dụng cắt tỉa (pruning)
-        model = create_efficientvit_seg_model(name=cfg.model_name, pretrained=cfg.pretrained,weight_url=cfg.pretrained_url, num_classes=cfg.num_classes)
+        model_name = f'efficientvit-seg-{cfg.efficientvit_variant}-{cfg.dataset}'
+        model = create_efficientvit_seg_model(name=model_name, pretrained=cfg.pretrained,weight_url=cfg.pretrained_url, num_classes=cfg.num_classes)
         if getattr(cfg, 'use_pruning', False):
             print(f"\n>>> [INFO] Áp dụng pruning với tỉ lệ {cfg.pruning_ratio} trước khi train.")
             model = prune_model(model, pruning_ratio=cfg.pruning_ratio)

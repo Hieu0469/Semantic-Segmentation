@@ -8,15 +8,17 @@ from src.dataset import CITYSCAPES_CLASS_NAMES, CITYSCAPES_CLASS_WEIGHTS
 
 class CFG:
     # ── Model ─────────────────────────────────────────────────────────────
-    model_name   = "0.5pruned_EfficientVitL2_city"
+    model_name   = "EfficientVitL2_city"
     model_type = 'efficientvit'               # Chọn: 'efficientvit' hoặc 'smp'
-    smp_architecture = None       # Chọn kiến trúc: Unet, UnetPlusPlus, PSPNet, DeepLabV3Plus, v.v.
-    smp_encoder = None     # Chọn backbone encoder tùy ý của thư viện SMP
-    pretrained = False
     num_classes  = 19
     ignore_index = 255
     model = None  # Nếu muốn truyền trực tiếp một PyTorch Model Object, gán ở đây (ví dụ: model = MyCustomModel())
-
+    
+    smp_architecture = None       # Chọn kiến trúc: Unet, UnetPlusPlus, PSPNet, DeepLabV3Plus, v.v.
+    smp_encoder = None     # Chọn backbone encoder tùy ý của thư viện SMP
+    dataset   = "cityscapes"
+    efficientvit_variant = "l2"  # Chọn variant của EfficientViT: b0, b1, b2, b3, l1, l2
+    pretrained = False
     # ── Pretrained / checkpoint ───────────────────────────────────────────
     pretrained_url   = None   # URL hoặc path tới weights gốc EfficientViT-L2
     load_path        = None   # Path tới model đã train (.pt) để tiếp tục train
