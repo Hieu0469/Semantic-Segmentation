@@ -85,25 +85,25 @@ def get_model_from_cfg(cfg):
         raise ValueError(f"model_type '{model_type}' không hợp lệ. Hãy chọn 'efficientvit' hoặc 'smp'.")
 
 
-def main():
+def run(cfg=CFG):
     # Đảm bảo tính nhất quán dữ liệu ngẫu nhiên
     L.seed_everything(42, workers=True)
     
     # Khởi tạo model dựa trên chiến lược kiểm tra CFG
-    model_object = get_model_from_cfg(CFG)
+    model_object = get_model_from_cfg(cfg)
     
-    # Gán object chuẩn vào CFG.model để PyTorch Lightning Module (models/lit_module.py) lấy sử dụng
-    CFG.model = model_object
+    # Gán object chuẩn vào cfg.model để PyTorch Lightning Module (models/lit_module.py) lấy sử dụng
+    cfg.model = model_object
     
     # Khởi tạo pipeline dữ liệu và Lightning Module bao bọc quanh model
-    dm = CityscapesDataModule(CFG)
-    model = Module(CFG)
+    dm = CityscapesDataModule(cfg)
+    model = Module(cfg)
     
     # Thiết lập nơi lưu log và checkpoint tự động
-    logger = TensorBoardLogger(save_dir=CFG.log_dir, name=CFG.model_name)
+    logger = TensorBoardLogger(save_dir=cfg.log_dir, name=cfg.model_name)
     checkpoint_cb = ModelCheckpoint(
-        dirpath=CFG.ckpt_dir, 
-        filename=f"{CFG.model_name}-",
+        dirpath=cfg.ckpt_dir, 
+        filename=f"{cfg.model_name}-",
         monitor="val/mIoU", 
         mode="max", 
         save_top_k=3
@@ -113,7 +113,7 @@ def main():
     
     # Cấu hình bộ Trainer chính của PyTorch Lightning
     trainer = L.Trainer(
-        max_epochs=CFG.max_epochs, 
+        max_epochs=cfg.max_epochs, 
         accelerator="auto", 
         devices="auto",
         precision="16-mixed", 
@@ -130,11 +130,11 @@ def main():
     print(f"\n[SUCCESS] Huấn luyện hoàn tất! Checkpoint tốt nhất lưu tại: {checkpoint_cb.best_model_path}")
     
     # Lưu file model .pth dạng object đầy đủ độc lập
-    os.makedirs(CFG.ckpt_dir, exist_ok=True)
-    final_path = os.path.join(CFG.ckpt_dir, f"{CFG.model_name}_final.pth")
+    os.makedirs(cfg.ckpt_dir, exist_ok=True)
+    final_path = os.path.join(cfg.ckpt_dir, f"{cfg.model_name}_final.pth")
     torch.save(model.model, final_path)
     print(f"[INFO] Đã lưu file trọng số cuối cùng (.pth) tại: {final_path}")
 
 
 if __name__ == "__main__":
-    main()
+    run()
