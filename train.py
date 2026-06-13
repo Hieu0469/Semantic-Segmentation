@@ -29,7 +29,11 @@ def get_model_from_cfg(cfg):
     # TRƯỜNG HỢP 1: Nếu người dùng truyền trực tiếp một Model Object vào CFG.model
     if hasattr(cfg, 'model') and isinstance(cfg.model, torch.nn.Module):
         print("\n>>> [INFO] Phát hiện PyTorch Model Object trong CFG.model. Tiến hành sử dụng trực tiếp để train.")
-        return cfg.model
+        model = cfg.model
+        if getattr(cfg, 'use_pruning', False):
+            print(f"\n>>> [INFO] Áp dụng pruning với tỉ lệ {cfg.pruning_ratio} trước khi train.")
+            model = prune_model(model, pruning_ratio=cfg.pruning_ratio)
+        return model
 
     # TRƯỜNG HỢP 2: Khởi tạo tự động dựa trên cấu hình chuỗi text trong CFG
     model_type = getattr(cfg, 'model_type', 'efficientvit').lower()
