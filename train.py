@@ -34,7 +34,14 @@ def get_model_from_cfg(cfg):
             print(f"\n>>> [INFO] Áp dụng pruning với tỉ lệ {cfg.pruning_ratio} trước khi train.")
             model = prune_model(model, pruning_ratio=cfg.pruning_ratio)
         return model
-
+    
+    if hasattr(cfg, 'load_path') and cfg.load_path is not None:
+        print(f"\n>>> [INFO] Phát hiện load_path trong CFG: {cfg.load_path}. Tiến hành load model từ file .pt.")
+        model = torch.load(cfg.load_path, map_location="cpu",weight_only=False)
+        if getattr(cfg, 'use_pruning', False):
+            print(f"\n>>> [INFO] Áp dụng pruning với tỉ lệ {cfg.pruning_ratio} sau khi load model.")
+            model = prune_model(model, pruning_ratio=cfg.pruning_ratio)
+        return model
     # TRƯỜNG HỢP 2: Khởi tạo tự động dựa trên cấu hình chuỗi text trong CFG
     model_type = getattr(cfg, 'model_type', 'efficientvit').lower()
     

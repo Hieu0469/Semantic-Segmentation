@@ -22,7 +22,6 @@ class CFG:
     # ── Pretrained / checkpoint ───────────────────────────────────────────
     pretrained_url   = None   # URL hoặc path tới weights gốc EfficientViT-L2
     load_path        = None   # Path tới model đã train (.pt) để tiếp tục train
-    prune_load_path  = None   # Path tới model đã prune để load và train
     checkpoint_path  = None   # Lightning .ckpt để resume training
 
     # ── Pruning ───────────────────────────────────────────────────────────
