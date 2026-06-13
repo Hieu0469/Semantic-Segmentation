@@ -68,6 +68,7 @@ class Module(L.LightningModule):
         self.save_hyperparameters(ignore=["cfg"])
 
         self.model = cfg.model
+        cfg.model.train()
 
         # ── Loss ──────────────────────────────────────────────────────────
         weights = getattr(cfg, "class_weights", None)
