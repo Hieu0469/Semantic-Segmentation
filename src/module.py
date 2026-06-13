@@ -70,7 +70,8 @@ class Module(L.LightningModule):
         self.model = cfg.model
 
         # ── Loss ──────────────────────────────────────────────────────────
-        weights = torch.tensor(cfg.class_weights, dtype=torch.float32)
+        weights = getattr(cfg, "class_weights", None)
+        weights = torch.tensor(weights, dtype=torch.float) if weights is not None else None
         self.ce_loss   = nn.CrossEntropyLoss(
             weight       = weights,
             ignore_index = cfg.ignore_index,
@@ -79,7 +80,6 @@ class Module(L.LightningModule):
             mode         = "multiclass",
             ignore_index = cfg.ignore_index,
             from_logits  = True,
-            class_weights = weights,
         )
         self.dice_weight = 0.5
 
