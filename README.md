@@ -3,25 +3,6 @@
 
 This repository provides a flexible and modular pipeline to train, structurally prune, and deploy semantic segmentation models (including **EfficientViT** and **Segmentation Models PyTorch - SMP**) on the **NVIDIA Jetson AGX Xavier** platform using **PyTorch Lightning**.
 
----
-
-## 📂 Repository Structure
-```text
-Semantic-Segmentation/
-├── configs/
-│   └── config.py          # Centralized configuration (Hyperparameters, Model Flags, Paths)
-├── data/
-│   └── dataset.py         # Data processing, Albumentations, and DataModule pipelines
-├── models/
-│   ├── model.py           # Core model initialization & torch_pruning execution logic
-│   └── lit_module.py      # PyTorch Lightning training/validation steps & loss modules
-├── train.py               # Main pipeline orchestrator (Init -> Prune -> Train)
-├── inference.py           # Model evaluation and visual result plotting script
-└── requirements.txt       # Dependencies list
-
-```
-
----
 
 ## 🛠️ Quick Start
 
