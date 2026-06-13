@@ -22,7 +22,12 @@ def build_ignored_layers(model: nn.Module) -> list:
     try:
         ignored.append(model.head.output_ops)
     except AttributeError:
-        print("[prune] Không tìm thấy head.output_ops — kiểm tra lại kiến trúc")
+        print("[prune] Không tìm thấy model.head.output_ops — kiểm tra lại kiến trúc")
+
+    try:
+        ignored.append(model.segmentation_head.output_ops)
+    except AttributeError:
+        print("[prune] Không tìm thấy model.segmentation_head.output_ops — kiểm tra lại kiến trúc")
 
     # LiteMLA attention blocks
     for name, module in model.named_modules():
@@ -42,7 +47,6 @@ def prune_model(
     verbose:       bool  = True,
 ) -> nn.Module:
     """
-    Prune EfficientViT-Seg với GroupMagnitudeImportance.
 
     Parameters
     ----------
