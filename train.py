@@ -119,7 +119,7 @@ def run(cfg=CFG):
         filename=f"{cfg.model_name}-",
         monitor="val/mIoU", 
         mode="max", 
-        save_top_k=3
+        save_top_k=1
     )
     early_stop_cb = EarlyStopping(monitor="val/mIoU", patience=15, mode="max")
     lr_monitor = LearningRateMonitor(logging_interval="epoch")
@@ -142,11 +142,11 @@ def run(cfg=CFG):
     trainer.fit(model, datamodule=dm)
     print(f"\n[SUCCESS] Huấn luyện hoàn tất! Checkpoint tốt nhất lưu tại: {checkpoint_cb.best_model_path}")
     
-    # Lưu file model .pth dạng object đầy đủ độc lập
+    # Lưu file model .pt dạng object đầy đủ độc lập
     os.makedirs(cfg.ckpt_dir, exist_ok=True)
-    final_path = os.path.join(cfg.ckpt_dir, f"{cfg.model_name}_final.pth")
+    final_path = os.path.join(cfg.ckpt_dir, f"{cfg.model_name}_final.pt")
     torch.save(model.model, final_path)
-    print(f"[INFO] Đã lưu file trọng số cuối cùng (.pth) tại: {final_path}")
+    print(f"[INFO] Đã lưu file trọng số cuối cùng (.pt) tại: {final_path}")
 
 
 if __name__ == "__main__":

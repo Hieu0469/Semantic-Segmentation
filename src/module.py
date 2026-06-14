@@ -241,10 +241,6 @@ class Module(L.LightningModule):
     
             tqdm.write(f"\n✓ New best mIoU: {miou:.4f} → saved to {log_path}\n")
             
-        log_path = os.path.join(self.cfg.log_dir, "val_results.txt")
-        os.makedirs(self.cfg.log_dir, exist_ok=True)
-        with open(log_path, "a", encoding="utf-8") as f:
-            f.write(log_str + "\n")
 
     # ── optimizer + scheduler ────────────────────────────────────────────
     def configure_optimizers(self):
