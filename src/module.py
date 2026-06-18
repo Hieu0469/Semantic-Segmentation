@@ -15,13 +15,13 @@ from torchmetrics import JaccardIndex
 from segmentation_models_pytorch.losses import DiceLoss
 
 from src.config import CFG
-from src.dataset import CityscapesDataset, build_transforms
+from src.dataset import ADE20KDataset, CityscapesDataset, build_ade20k_transforms, build_cityscapes_transforms, build_transforms
 
 log = logging.getLogger(__name__)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# DataModule
+# DataModule - CityscapesDataset
 # ─────────────────────────────────────────────────────────────────────────────
 class CityscapesDataModule(L.LightningDataModule):
     def __init__(self, cfg=CFG):
@@ -33,7 +33,7 @@ class CityscapesDataModule(L.LightningDataModule):
             setattr(self, attr, CityscapesDataset(
                 root_dir     = os.path.join(self.cfg.img_root, split),
                 label_dir    = os.path.join(self.cfg.lbl_root, split),
-                transform    = build_transforms(split),
+                transform    = build_cityscapes_transforms(split),
                 train_height = self.cfg.train_height,
                 train_width  = self.cfg.train_width,
             ))
@@ -57,11 +57,58 @@ class CityscapesDataModule(L.LightningDataModule):
             pin_memory  = True,
         )
 
+# ─────────────────────────────────────────────────────────────────────────────
+# DataModule — ADE20K
+# ─────────────────────────────────────────────────────────────────────────────
+class ADE20KDataModule(L.LightningDataModule):
+    """
+    Yêu cầu trong cfg:
+        cfg.ade20k_root  → path tới ADEChallengeData2016
+                            (chứa images/ và annotations/)
+    Cấu trúc:
+        {ade20k_root}/images/training,      images/validation
+        {ade20k_root}/annotations/training, annotations/validation
+    """
 
+    SPLIT_FOLDER = {"train": "training", "val": "validation"}
+
+    def __init__(self, cfg=CFG):
+        super().__init__()
+        self.cfg = cfg
+
+    def setup(self, stage=None):
+        for split, attr in [("train", "train_ds"), ("val", "val_ds")]:
+            folder = self.SPLIT_FOLDER[split]
+            setattr(self, attr, ADE20KDataset(
+                img_dir      = os.path.join(self.cfg.ade20k_root, "images", folder),
+                label_dir    = os.path.join(self.cfg.ade20k_root, "annotations", folder),
+                transform    = build_ade20k_transforms(split, self.cfg),
+                train_height = self.cfg.train_height,
+                train_width  = self.cfg.train_width,
+            ))
+
+    def train_dataloader(self):
+        return DataLoader(
+            self.train_ds,
+            batch_size  = self.cfg.batch_size,
+            shuffle     = True,
+            num_workers = self.cfg.num_workers,
+            pin_memory  = True,
+            drop_last   = True,
+        )
+
+    def val_dataloader(self):
+        return DataLoader(
+            self.val_ds,
+            batch_size  = self.cfg.batch_size,
+            shuffle     = False,
+            num_workers = self.cfg.num_workers,
+            pin_memory  = True,
+        )
 # ─────────────────────────────────────────────────────────────────────────────
 # LightningModule
 # ─────────────────────────────────────────────────────────────────────────────
-class Module(L.LightningModule):
+class SegmentationModule(L.LightningModule):
     def __init__(self, cfg=CFG):
         super().__init__()
         self.cfg = cfg
@@ -70,6 +117,13 @@ class Module(L.LightningModule):
         self.model = cfg.model
         cfg.model.train()
 
+        dataset_name = cfg.dataset_name.lower()
+        if dataset_name == "cityscapes":
+            self._decode_segmap = CityscapesDataset.decode_segmap
+        elif dataset_name == "ade20k":
+            self._decode_segmap = ADE20KDataset.decode_segmap
+        else:
+            raise ValueError(f"dataset_name '{cfg.dataset_name}' không hợp lệ. Hãy chọn 'cityscapes' hoặc 'ade20k'.")
         # ── Loss ──────────────────────────────────────────────────────────
         weights = getattr(cfg, "class_weights", None)
         weights = torch.tensor(weights, dtype=torch.float) if weights is not None else None
@@ -160,8 +214,8 @@ class Module(L.LightningModule):
 
     def _log_seg_image(self, image, gt_mask, pred_mask):
         import numpy as np
-        gt_rgb   = CityscapesDataset.decode_segmap(gt_mask)
-        pred_rgb = CityscapesDataset.decode_segmap(pred_mask)
+        gt_rgb   = self._decode_segmap(gt_mask)
+        pred_rgb = self._decode_segmap(pred_mask)
         vis = np.concatenate([gt_rgb, pred_rgb], axis=1)
         vis = torch.from_numpy(vis).permute(2, 0, 1).float() / 255.0
         self.logger.experiment.add_image(
@@ -183,9 +237,9 @@ class Module(L.LightningModule):
 
         results = []
         for i in range(len(images)):
-            item = {"pred_rgb": CityscapesDataset.decode_segmap(preds[i])}
+            item = {"pred_rgb": self._decode_segmap(preds[i])}
             if masks is not None:
-                item["gt_rgb"] = CityscapesDataset.decode_segmap(masks[i])
+                item["gt_rgb"] = self._decode_segmap(masks[i])
             results.append(item)
         return results
 

@@ -54,8 +54,48 @@ CITYSCAPES_CLASS_WEIGHTS = [
     1.0489, 0.8786, 1.0023, 0.9539, 0.9843, 1.1116, 0.9037,
     1.0865, 1.0955, 1.0865, 1.1529, 1.0507,
 ]
+CITYSCAPES_NUM_CLASSES = 19
+CITYSCAPES_IGNORE_INDEX = 255
+ADE20K_NUM_CLASSES  = 150
+ADE20K_IGNORE_INDEX = 255
+
+ADE20K_CLASS_NAMES = [
+    "wall", "building", "sky", "floor", "tree", "ceiling", "road",
+    "bed", "windowpane", "grass", "cabinet", "sidewalk", "person",
+    "earth", "door", "table", "mountain", "plant", "curtain", "chair",
+    "car", "water", "painting", "sofa", "shelf", "house", "sea",
+    "mirror", "rug", "field", "armchair", "seat", "fence", "desk",
+    "rock", "wardrobe", "lamp", "bathtub", "railing", "cushion",
+    "base", "box", "column", "signboard", "chest of drawers",
+    "counter", "sand", "sink", "skyscraper", "fireplace", "refrigerator",
+    "grandstand", "path", "stairs", "runway", "case", "pool table",
+    "pillow", "screen door", "stairway", "river", "bridge", "bookcase",
+    "blind", "coffee table", "toilet", "flower", "book", "hill",
+    "bench", "countertop", "stove", "palm", "kitchen island",
+    "computer", "swivel chair", "boat", "bar", "arcade machine",
+    "hovel", "bus", "towel", "light", "truck", "tower", "chandelier",
+    "awning", "streetlight", "booth", "television", "airplane",
+    "dirt track", "apparel", "pole", "land", "bannister",
+    "escalator", "ottoman", "bottle", "buffet", "poster", "stage",
+    "van", "ship", "fountain", "conveyer belt", "canopy", "washer",
+    "plaything", "swimming pool", "stool", "barrel", "basket",
+    "waterfall", "tent", "bag", "minibike", "cradle", "oven",
+    "ball", "food", "step", "tank", "trade name", "microwave",
+    "pot", "animal", "bicycle", "lake", "dishwasher", "screen",
+    "blanket", "sculpture", "hood", "sconce", "vase", "traffic light",
+    "tray", "ashcan", "fan", "pier", "crt screen", "plate", "monitor",
+    "bulletin board", "shower", "radiator", "glass", "clock", "flag",
+]
+_rng = np.random.RandomState(42)
+ADE20K_PALETTE = _rng.randint(0, 256, size=(ADE20K_NUM_CLASSES, 3), dtype=np.uint8)
+# LUT 256 phần tử: index 0 → ignore_index, index 1..150 → 0..149, còn lại → ignore_index
+_lut = np.full(256, ADE20K_IGNORE_INDEX, dtype=np.uint8)
+for raw_id in range(1, ADE20K_NUM_CLASSES + 1):
+    _lut[raw_id] = raw_id - 1
+ADE20K_LUT = _lut
+
 # ─────────────────────────────────────────────────────────────────────────────
-# Dataset
+# Cityscapes Dataset
 # ─────────────────────────────────────────────────────────────────────────────
 class CityscapesDataset(Dataset):
     def __init__(
@@ -137,7 +177,7 @@ class CityscapesDataset(Dataset):
 # Augmentations
 # ─────────────────────────────────────────────────────────────────────────────
 
-def build_transforms(split: str, train_height: int = 512, train_width: int = 1024) -> A.Compose:
+def build_cityscapes_transforms(split: str, train_height: int = 512, train_width: int = 1024) -> A.Compose:
     mean = (0.485, 0.456, 0.406)
     std  = (0.229, 0.224, 0.225)
     if split == "train":
@@ -149,7 +189,7 @@ def build_transforms(split: str, train_height: int = 512, train_width: int = 102
                 min_width    = train_width,
                 border_mode  = cv2.BORDER_CONSTANT,
                 fill         = 0,
-                fill_mask    = 255,
+                fill_mask    = CITYSCAPES_IGNORE_INDEX,
             ),
             A.RandomCrop(height=train_height, width=train_width),
             A.ColorJitter(brightness=0.4, contrast=0.4,
@@ -178,3 +218,123 @@ class UnNormalize:
         for t, m, s in zip(tensor, self.mean, self.std):
             t.mul_(s).add_(m)
         return tensor
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ADE20K Dataset
+# ─────────────────────────────────────────────────────────────────────────────
+class ADE20KDataset(Dataset):
+    """
+    Dataset cho ADE20K (ADEChallengeData2016).
+
+    Parameters
+    ----------
+    img_dir   : path tới images/training hoặc images/validation
+    label_dir : path tới annotations/training hoặc annotations/validation
+                (None nếu chỉ predict, không có ground truth)
+    transform : albumentations Compose
+    """
+
+    def __init__(
+        self,
+        img_dir:      str,
+        label_dir:    str | None = None,
+        transform=None,
+        train_height: int = CFG.train_height,
+        train_width:  int = CFG.train_width,
+    ):
+        super().__init__()
+        self.img_dir      = img_dir
+        self.label_dir    = label_dir
+        self.transform    = transform
+        self.train_height = train_height
+        self.train_width  = train_width
+
+        # ADE20K KHÔNG có sub-folder theo city như Cityscapes — ảnh nằm phẳng
+        self.list_img = sorted(
+            f for f in os.listdir(img_dir)
+            if f.lower().endswith((".jpg", ".jpeg", ".png"))
+        )
+
+        self.has_label = label_dir is not None
+        if self.has_label:
+            # Annotation cùng tên file, đổi đuôi .jpg → .png
+            self.list_label = [
+                os.path.splitext(f)[0] + ".png" for f in self.list_img
+            ]
+            missing = [f for f in self.list_label
+                      if not os.path.exists(os.path.join(label_dir, f))]
+            if missing:
+                print(f"[ADE20KDataset] Cảnh báo: {len(missing)} annotation bị thiếu, "
+                     f"ví dụ: {missing[:3]}")
+
+    def __len__(self):
+        return len(self.list_img)
+
+    def __getitem__(self, idx: int):
+        img_path = os.path.join(self.img_dir, self.list_img[idx])
+        image = cv2.cvtColor(cv2.imread(img_path, cv2.IMREAD_COLOR), cv2.COLOR_BGR2RGB)
+        image = cv2.resize(image, (self.train_width, self.train_height))
+
+        if self.has_label:
+            lbl_path = os.path.join(self.label_dir, self.list_label[idx])
+            mask_raw = cv2.imread(lbl_path, cv2.IMREAD_GRAYSCALE)
+            mask_raw = cv2.resize(
+                mask_raw, (self.train_width, self.train_height),
+                interpolation=cv2.INTER_NEAREST,
+            )
+            # Quan trọng: shift 1-based → 0-based, 0 (unlabeled) → ignore_index
+            mask = ADE20K_LUT[mask_raw]
+
+        if self.transform is not None:
+            if self.has_label:
+                out   = self.transform(image=image, mask=mask)
+                image = out["image"]
+                mask  = out["mask"].long()
+            else:
+                image = self.transform(image=image)["image"]
+                return image
+        else:
+            image = torch.from_numpy(image).float().permute(2, 0, 1) / 255.0
+            if self.has_label:
+                mask = torch.from_numpy(mask).long()
+
+        return image, mask
+
+    @staticmethod
+    def decode_segmap(mask: "np.ndarray | torch.Tensor") -> np.ndarray:
+        if isinstance(mask, torch.Tensor):
+            mask = mask.cpu().numpy()
+        mask = np.asarray(mask, dtype=np.int32)
+        h, w = mask.shape
+        rgb  = np.zeros((h, w, 3), dtype=np.uint8)
+        for train_id, colour in enumerate(ADE20K_PALETTE):
+            rgb[mask == train_id] = colour
+        return rgb
+
+
+def build_ade20k_transforms(split: str, train_height: int = 512, train_width: int = 512) -> A.Compose:
+    mean = (0.485, 0.456, 0.406)
+    std  = (0.229, 0.224, 0.225)
+    if split == "train":
+        return A.Compose([
+            A.HorizontalFlip(p=0.5),
+            A.RandomScale(scale_limit=(-0.5, 0.5), p=0.5),
+            A.PadIfNeeded(
+                min_height   = train_height,
+                min_width    = train_width,
+                border_mode  = cv2.BORDER_CONSTANT,
+                fill         = 0,
+                fill_mask    = ADE20K_IGNORE_INDEX,
+            ),
+            A.RandomCrop(height=train_height, width=train_width),
+            A.ColorJitter(brightness=0.4, contrast=0.4,
+                          saturation=0.4, hue=0.1, p=0.5),
+            A.GaussianBlur(blur_limit=(3, 7), p=0.2),
+            A.Normalize(mean=mean, std=std),
+            ToTensorV2(),
+        ])
+    else:
+        return A.Compose([
+            A.Normalize(mean=mean, std=std),
+            ToTensorV2(),
+        ])

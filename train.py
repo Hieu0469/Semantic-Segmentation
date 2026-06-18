@@ -6,7 +6,7 @@ from lightning.pytorch.loggers import TensorBoardLogger
 
 # Import các cấu hình và module trong project của bạn
 from src.config import CFG
-from src.module import Module, CityscapesDataModule
+from src.module import SegmentationModule, CityscapesDataModule, ADE20KDataModule
 from src.prune import prune_model
 
 # Thử import thư viện segmentation_models_pytorch và efficientvit
@@ -51,7 +51,7 @@ def get_model_from_cfg(cfg):
             raise ImportError("Không tìm thấy thư viện efficientvit. Hãy cài đặt trước khi chạy.")
         
         # Nếu cấu hình yêu cầu sử dụng cắt tỉa (pruning)
-        model_name = f'efficientvit-seg-{cfg.efficientvit_variant}-{cfg.dataset}'
+        model_name = f'efficientvit-seg-{cfg.efficientvit_variant}-{cfg.dataset_name}'
         model = create_efficientvit_seg_model(name=model_name, pretrained=cfg.pretrained,weight_url=cfg.pretrained_url, num_classes=cfg.num_classes)
         if getattr(cfg, 'use_pruning', False):
             print(f"\n>>> [INFO] Áp dụng pruning với tỉ lệ {cfg.pruning_ratio} trước khi train.")
@@ -109,8 +109,14 @@ def run(cfg=CFG):
     cfg.model = model_object
     
     # Khởi tạo pipeline dữ liệu và Lightning Module bao bọc quanh model
-    dm = CityscapesDataModule(cfg)
-    model = Module(cfg)
+    if cfg.dataset_name.lower() == "cityscapes":
+        dm = CityscapesDataModule(cfg)
+    elif cfg.dataset_name.lower() == "ade20k":
+        dm = ADE20KDataModule(cfg)
+    else:
+        raise ValueError(f"dataset_name '{cfg.dataset_name}' không hợp lệ. Hãy chọn 'cityscapes' hoặc 'ade20k'.")
+
+    model = SegmentationModule(cfg)
     
     # Thiết lập nơi lưu log và checkpoint tự động
     logger = TensorBoardLogger(save_dir=cfg.log_dir, name=cfg.model_name)

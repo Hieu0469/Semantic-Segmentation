@@ -16,7 +16,7 @@ class CFG:
     
     smp_architecture = None       # Chọn kiến trúc: Unet, UnetPlusPlus, PSPNet, DeepLabV3Plus, v.v.
     smp_encoder = None     # Chọn backbone encoder tùy ý của thư viện SMP
-    dataset   = "cityscapes"
+    dataset_name   = "cityscapes"
     efficientvit_variant = "l2"  # Chọn variant của EfficientViT: b0, b1, b2, b3, l1, l2
     pretrained = False
     # ── Pretrained / checkpoint ───────────────────────────────────────────
