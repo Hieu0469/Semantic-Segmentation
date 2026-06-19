@@ -19,7 +19,7 @@ from onnxsim import simplify
 sys.path.insert(0, "efficientvit")
 
 from src.config import CFG
-from src.dataset import CityscapesDataset, build_cityscapes_transforms, build_ade20k_transforms, build_transforms
+from src.dataset import CityscapesDataset, ADE20KDataset, build_cityscapes_transforms, build_ade20k_transforms
 
 
 # ─────────────────────────────────────────────────────────────────────────────
