@@ -19,7 +19,7 @@ from onnxsim import simplify
 sys.path.insert(0, "efficientvit")
 
 from src.config import CFG
-from src.dataset import CityscapesDataset, build_transforms
+from src.dataset import CityscapesDataset, build_cityscapes_transforms, build_ade20k_transforms, build_transforms
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -77,7 +77,7 @@ def compute_iou_onnx(
     dataset = CityscapesDataset(
         root_dir  = img_dir,
         label_dir = lbl_dir,
-        transform = build_transforms("val"),
+        transform = build_cityscapes_transforms("val"),
     )
     indices = list(range(min(max_samples, len(dataset)) if max_samples else len(dataset)))
 
