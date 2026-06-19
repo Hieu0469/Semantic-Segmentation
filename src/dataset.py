@@ -239,8 +239,8 @@ class ADE20KDataset(Dataset):
         img_dir:      str,
         label_dir:    str | None = None,
         transform=None,
-        train_height: int = CFG.train_height,
-        train_width:  int = CFG.train_width,
+        train_height: int = 512,
+        train_width:  int = 512,
     ):
         super().__init__()
         self.img_dir      = img_dir
