@@ -15,7 +15,7 @@ from torchmetrics import JaccardIndex
 from segmentation_models_pytorch.losses import DiceLoss
 
 from src.config import CFG
-from src.dataset import ADE20KDataset, CityscapesDataset, build_ade20k_transforms, build_cityscapes_transforms, build_transforms
+from src.dataset import ADE20KDataset, CityscapesDataset, build_ade20k_transforms, build_cityscapes_transforms
 
 log = logging.getLogger(__name__)
 
