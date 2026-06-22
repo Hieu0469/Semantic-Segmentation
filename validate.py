@@ -15,7 +15,6 @@ def validate_model(cfg=CFG,model_path=None):
     # (Thay thế đường dẫn bằng file checkpoint tốt nhất của bạn)
     best_model_path = model_path
     if best_model_path is None:
-        
         raise ValueError("Please provide the path to the best model checkpoint (.ckpt) for validation.")
 
     # Load lại trạng thái mô hình hoàn chỉnh kèm cấu hình CFG
