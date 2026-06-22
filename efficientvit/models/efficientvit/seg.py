@@ -42,7 +42,7 @@ class SegHead(DAGBlock):
         n_classes: int,
         dropout=0,
         norm="bn2d",
-        act_func="hswish",
+        act_func="relu",
     ):
         inputs = {}
         for fid, in_channel, stride in zip(fid_list, in_channel_list, stride_list):
@@ -276,7 +276,7 @@ def efficientvit_seg_l1(dataset: str, **kwargs) -> EfficientViTSeg:
             middle_op="fmbconv",
             final_expand=None,
             n_classes=19,
-            act_func="gelu",
+            act_func="relu",
             **build_kwargs_from_config(kwargs, SegHead),
         )
     elif dataset == "ade20k":
@@ -291,7 +291,7 @@ def efficientvit_seg_l1(dataset: str, **kwargs) -> EfficientViTSeg:
             middle_op="fmbconv",
             final_expand=8,
             n_classes=150,
-            act_func="gelu",
+            act_func="relu",
             **build_kwargs_from_config(kwargs, SegHead),
         )
     else:
@@ -317,7 +317,7 @@ def efficientvit_seg_l2(dataset: str, **kwargs) -> EfficientViTSeg:
             middle_op="fmbconv",
             final_expand=None,
             n_classes=19,
-            act_func="gelu",
+            act_func="relu",
             **build_kwargs_from_config(kwargs, SegHead),
         )
     elif dataset == "ade20k":
@@ -332,7 +332,7 @@ def efficientvit_seg_l2(dataset: str, **kwargs) -> EfficientViTSeg:
             middle_op="fmbconv",
             final_expand=8,
             n_classes=150,
-            act_func="gelu",
+            act_func="relu",
             **build_kwargs_from_config(kwargs, SegHead),
         )
     else:
