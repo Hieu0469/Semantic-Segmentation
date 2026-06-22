@@ -22,7 +22,6 @@ viz_*.png
 *.ipynb
 
 # External repos (clone riêng)
-efficientvit/
 MyTorchPruning/
 segmentation_models.pytorch/
 
