@@ -44,7 +44,7 @@ class EfficientViT_DeepLabV3Plus(nn.Module):
         out = F.interpolate(out, size=x.shape[2:], mode="bilinear", align_corners=False)
         return out
 
-def EfficientvitL1_DeeplabV3Plus() -> EfficientViT_DeepLabV3Plus:
+def EfficientvitL1_DeeplabV3Plus(n_classes: int) -> EfficientViT_DeepLabV3Plus:
     encoder = EfficientViTLargeBackbone(
         width_list=[32, 64, 128, 256, 512],
         depth_list=[1, 1, 1, 6, 6],
@@ -61,7 +61,7 @@ def EfficientvitL1_DeeplabV3Plus() -> EfficientViT_DeepLabV3Plus:
     )
     seg_head = SegmentationHead(
         in_channels=256,
-        out_channels=19,
+        out_channels=n_classes,
         kernel_size=1,
         upsampling=1,
     )
