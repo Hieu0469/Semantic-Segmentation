@@ -15,7 +15,7 @@ from .LSKA import SDLSKA
 from .conv import DWConv, PWConv
 from .PPM import DLKPPM
 from .FS import PagFM
-from BEVANet.utils import calculate_FPS
+# from BEVANet.utils import calculate_FPS
 
 bn_mom = 0.1
 algc = False
@@ -534,7 +534,7 @@ if __name__ == '__main__':
     iterations = None
     
     input = torch.randn(1, 3, 1024, 2048).cuda()
-    print('=========Speed Testing=========')
-    with torch.no_grad():
-        print('FPS: ' + str(calculate_FPS(input, model)))
-    print('Total params: %.2fM' % (sum(p.numel() for p in model.parameters())/1000000.0))
+    # print('=========Speed Testing=========')
+    # with torch.no_grad():
+    #     print('FPS: ' + str(calculate_FPS(input, model)))
+    # print('Total params: %.2fM' % (sum(p.numel() for p in model.parameters())/1000000.0))
