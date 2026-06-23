@@ -41,7 +41,7 @@ class SegHead(DAGBlock):
         final_expand: Optional[float],
         n_classes: int,
         dropout=0,
-        norm="bn2d",
+        norm="ln2d",
         act_func="relu",
     ):
         inputs = {}
