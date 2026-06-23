@@ -16,7 +16,7 @@ from segmentation_models_pytorch.losses import DiceLoss
 
 from src.config import CFG
 from src.dataset import ADE20KDataset, CityscapesDataset, build_ade20k_transforms, build_cityscapes_transforms
-
+from export_onnx import export_onnx
 log = logging.getLogger(__name__)
 
 
@@ -284,6 +284,7 @@ class SegmentationModule(L.LightningModule):
                 f"{self.cfg.model_name}.pt"
             )
             torch.save(self.model, save_path)
+            export_onnx(save_path, os.path.join(self.cfg.ckpt_dir, f"{self.cfg.model_name}.onnx"))
             tqdm.write(f"\n✓ Saved best model → {save_path}  (mIoU: {miou:.4f})\n")
             # Log best val
     
