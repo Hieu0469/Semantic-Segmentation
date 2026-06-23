@@ -38,10 +38,10 @@ def export_onnx(model_path: str, output_path: str, simplify_model: bool = True):
         opset_version = 17,
         input_names   = ["input"],
         output_names  = ["output"],
-        dynamic_axes  = {
-            "input":  {0: "batch"},
-            "output": {0: "batch"},
-        },
+        # dynamic_axes  = {
+        #     "input":  {0: "batch"},
+        #     "output": {0: "batch"},
+        # },
         dynamo = False,
     )
     print(f"Exported → {output_path}")
