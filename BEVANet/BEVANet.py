@@ -15,7 +15,7 @@ from .LSKA import SDLSKA
 from .conv import DWConv, PWConv
 from .PPM import DLKPPM
 from .FS import PagFM
-from utils.utils import calculate_FPS
+from BEVANet.utils import calculate_FPS
 
 bn_mom = 0.1
 algc = False
