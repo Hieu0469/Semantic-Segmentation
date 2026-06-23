@@ -161,7 +161,7 @@ def efficientvit_backbone_b0(**kwargs) -> EfficientViTBackbone:
         width_list=[8, 16, 32, 64, 128],
         depth_list=[1, 2, 2, 2, 2],
         act_func="relu",
-        norm="ln",
+        norm="ln2d",
         dim=16,
         **build_kwargs_from_config(kwargs, EfficientViTBackbone),
     )
@@ -173,7 +173,7 @@ def efficientvit_backbone_b1(**kwargs) -> EfficientViTBackbone:
         width_list=[16, 32, 64, 128, 256],
         depth_list=[1, 2, 3, 3, 4],
         act_func="relu",
-        nortm="ln",
+        norm="ln2d",
         dim=16,
         **build_kwargs_from_config(kwargs, EfficientViTBackbone),
     )
@@ -185,7 +185,7 @@ def efficientvit_backbone_b2(**kwargs) -> EfficientViTBackbone:
         width_list=[24, 48, 96, 192, 384],
         depth_list=[1, 3, 4, 4, 6],
         act_func="relu",
-        norm="ln",
+        norm="ln2d",
         dim=32,
         **build_kwargs_from_config(kwargs, EfficientViTBackbone),
     )
@@ -197,7 +197,7 @@ def efficientvit_backbone_b3(**kwargs) -> EfficientViTBackbone:
         width_list=[32, 64, 128, 256, 512],
         depth_list=[1, 4, 6, 6, 9],
         act_func="relu",
-        norm="ln",
+        norm="ln2d",
         dim=32,
         **build_kwargs_from_config(kwargs, EfficientViTBackbone),
     )
@@ -214,7 +214,7 @@ class EfficientViTLargeBackbone(nn.Module):
         fewer_norm_list: Optional[list[bool]] = None,
         in_channels=3,
         qkv_dim=32,
-        norm="ln",
+        norm="ln2d",
         act_func="relu",
     ) -> None:
         super().__init__()
