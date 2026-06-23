@@ -10,7 +10,7 @@ __all__ = ["build_act"]
 
 # register activation function here
 REGISTERED_ACT_DICT: dict[str, type] = {
-    "relu": nn.ReLU,
+    "relu": partial(nn.ReLU, inplace=True),
     "relu6": nn.ReLU6,
     "hswish": nn.Hardswish,
     "silu": nn.SiLU,
