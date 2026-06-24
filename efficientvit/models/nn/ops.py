@@ -582,8 +582,8 @@ class LiteMLA(nn.Module):
     def relu_linear_att(self, qkv: torch.Tensor) -> torch.Tensor:
         B, _, H, W = list(qkv.size())
 
-        if qkv.dtype == torch.float16:
-            qkv = qkv.float()
+        # if qkv.dtype == torch.float16:
+        #     qkv = qkv.float()
 
         qkv = torch.reshape(
             qkv,
