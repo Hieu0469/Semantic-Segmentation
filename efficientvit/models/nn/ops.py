@@ -81,7 +81,7 @@ class ConvLayer(nn.Module):
 class UpSampleLayer(nn.Module):
     def __init__(
         self,
-        mode="bicubic",
+        mode="bilinear",
         size: Optional[int | tuple[int, int] | list[int]] = None,
         factor=2,
         align_corners=False,
@@ -96,8 +96,8 @@ class UpSampleLayer(nn.Module):
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         if (self.size is not None and tuple(x.shape[-2:]) == self.size) or self.factor == 1:
             return x
-        if x.dtype in [torch.float16, torch.bfloat16]:
-            x = x.float()
+        # if x.dtype in [torch.float16, torch.bfloat16]:
+        #     x = x.float()
         return resize(x, self.size, self.factor, self.mode, self.align_corners)
 
 
