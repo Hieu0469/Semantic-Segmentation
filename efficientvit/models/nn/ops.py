@@ -641,8 +641,8 @@ class LiteMLA(nn.Module):
 
         att_map = torch.matmul(k.transpose(-1, -2), q)  # b h n n
         original_dtype = att_map.dtype
-        if original_dtype in [torch.float16, torch.bfloat16]:
-            att_map = att_map.float()
+        # if original_dtype in [torch.float16, torch.bfloat16]:
+        #     att_map = att_map.float()
         att_map = att_map / (torch.sum(att_map, dim=2, keepdim=True) + self.eps)  # b h n n
         att_map = att_map.to(original_dtype)
         out = torch.matmul(v, att_map)  # b h d n
