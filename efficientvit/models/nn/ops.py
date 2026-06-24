@@ -97,7 +97,7 @@ class UpSampleLayer(nn.Module):
         if (self.size is not None and tuple(x.shape[-2:]) == self.size) or self.factor == 1:
             return x
         # if x.dtype in [torch.float16, torch.bfloat16]:
-        #     x = x.float()
+        x = x.float()
         return resize(x, self.size, self.factor, self.mode, self.align_corners)
 
 
@@ -611,7 +611,7 @@ class LiteMLA(nn.Module):
         vk = torch.matmul(v, trans_k)
         out = torch.matmul(vk, q)
         # if out.dtype == torch.bfloat16:
-        #     out = out.float()
+        out = out.float()
         out = out[:, :, :-1] / (out[:, :, -1:] + self.eps)
 
         out = torch.reshape(out, (B, -1, H, W))
@@ -642,7 +642,7 @@ class LiteMLA(nn.Module):
         att_map = torch.matmul(k.transpose(-1, -2), q)  # b h n n
         original_dtype = att_map.dtype
         # if original_dtype in [torch.float16, torch.bfloat16]:
-        #     att_map = att_map.float()
+        att_map = att_map.float()
         att_map = att_map / (torch.sum(att_map, dim=2, keepdim=True) + self.eps)  # b h n n
         att_map = att_map.to(original_dtype)
         out = torch.matmul(v, att_map)  # b h d n
