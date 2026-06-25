@@ -181,7 +181,7 @@ def efficientvit_backbone_b1(**kwargs) -> EfficientViTBackbone:
 def efficientvit_backbone_b2(**kwargs) -> EfficientViTBackbone:
     backbone = EfficientViTBackbone(
         width_list=[24, 48, 96, 192, 384],
-        depth_list=[1, 3, 4, 4, 6],
+        depth_list=[1, 2, 2, 2, 2],
         act_func="relu6",
         dim=32,
         **build_kwargs_from_config(kwargs, EfficientViTBackbone),
