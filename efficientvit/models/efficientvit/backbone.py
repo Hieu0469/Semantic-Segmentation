@@ -39,7 +39,7 @@ class EfficientViTBackbone(nn.Module):
         dim=32,
         expand_ratio=4,
         norm="bn2d",
-        act_func="hswish",
+        act_func="relu",
     ) -> None:
         super().__init__()
 
@@ -171,7 +171,6 @@ def efficientvit_backbone_b1(**kwargs) -> EfficientViTBackbone:
     backbone = EfficientViTBackbone(
         width_list=[16, 32, 64, 128, 256],
         depth_list=[1, 2, 3, 3, 4],
-        act_func="relu6",
         dim=16,
         **build_kwargs_from_config(kwargs, EfficientViTBackbone),
     )
@@ -181,8 +180,7 @@ def efficientvit_backbone_b1(**kwargs) -> EfficientViTBackbone:
 def efficientvit_backbone_b2(**kwargs) -> EfficientViTBackbone:
     backbone = EfficientViTBackbone(
         width_list=[24, 48, 96, 192, 384],
-        depth_list=[1, 2, 2, 2, 2],
-        act_func="relu6",
+        depth_list=[1, 3, 4, 4, 6],
         dim=32,
         **build_kwargs_from_config(kwargs, EfficientViTBackbone),
     )
@@ -193,7 +191,6 @@ def efficientvit_backbone_b3(**kwargs) -> EfficientViTBackbone:
     backbone = EfficientViTBackbone(
         width_list=[32, 64, 128, 256, 512],
         depth_list=[1, 4, 6, 6, 9],
-        act_func="relu6",
         dim=32,
         **build_kwargs_from_config(kwargs, EfficientViTBackbone),
     )
@@ -211,7 +208,7 @@ class EfficientViTLargeBackbone(nn.Module):
         in_channels=3,
         qkv_dim=32,
         norm="bn2d",
-        act_func="relu6",
+        act_func="relu",
     ) -> None:
         super().__init__()
         block_list = ["res", "fmb", "fmb", "mb", "att"] if block_list is None else block_list
@@ -346,7 +343,6 @@ def efficientvit_backbone_l0(**kwargs) -> EfficientViTLargeBackbone:
     backbone = EfficientViTLargeBackbone(
         width_list=[32, 64, 128, 256, 512],
         depth_list=[1, 1, 1, 4, 4],
-        act_func="relu6",
         **build_kwargs_from_config(kwargs, EfficientViTLargeBackbone),
     )
     return backbone
@@ -356,7 +352,6 @@ def efficientvit_backbone_l1(**kwargs) -> EfficientViTLargeBackbone:
     backbone = EfficientViTLargeBackbone(
         width_list=[32, 64, 128, 256, 512],
         depth_list=[1, 1, 1, 6, 6],
-        act_func="relu6",
         **build_kwargs_from_config(kwargs, EfficientViTLargeBackbone),
     )
     return backbone
@@ -366,7 +361,6 @@ def efficientvit_backbone_l2(**kwargs) -> EfficientViTLargeBackbone:
     backbone = EfficientViTLargeBackbone(
         width_list=[32, 64, 128, 256, 512],
         depth_list=[1, 2, 2, 8, 8],
-        act_func="relu6",
         **build_kwargs_from_config(kwargs, EfficientViTLargeBackbone),
     )
     return backbone
@@ -376,7 +370,6 @@ def efficientvit_backbone_l3(**kwargs) -> EfficientViTLargeBackbone:
     backbone = EfficientViTLargeBackbone(
         width_list=[64, 128, 256, 512, 1024],
         depth_list=[1, 2, 2, 8, 8],
-        act_func="relu6",
         **build_kwargs_from_config(kwargs, EfficientViTLargeBackbone),
     )
     return backbone

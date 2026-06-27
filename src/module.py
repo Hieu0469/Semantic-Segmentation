@@ -33,7 +33,7 @@ class CityscapesDataModule(L.LightningDataModule):
             setattr(self, attr, CityscapesDataset(
                 root_dir     = os.path.join(self.cfg.img_root, split),
                 label_dir    = os.path.join(self.cfg.lbl_root, split),
-                transform    = build_cityscapes_transforms(split),
+                transform    = build_cityscapes_transforms(split, self.cfg.train_height, self.cfg.train_width),
                 train_height = self.cfg.train_height,
                 train_width  = self.cfg.train_width,
             ))
@@ -82,7 +82,7 @@ class ADE20KDataModule(L.LightningDataModule):
             setattr(self, attr, ADE20KDataset(
                 img_dir      = os.path.join(self.cfg.ade20k_root, "images", folder),
                 label_dir    = os.path.join(self.cfg.ade20k_root, "annotations", folder),
-                transform    = build_ade20k_transforms(split, self.cfg),
+                transform    = build_ade20k_transforms(split, self.cfg.train_height, self.cfg.train_width),
                 train_height = self.cfg.train_height,
                 train_width  = self.cfg.train_width,
             ))
