@@ -170,25 +170,34 @@ class SegmentationModule(L.LightningModule):
     # ── training ─────────────────────────────────────────────────────────
     def training_step(self, batch, batch_idx):
         images, masks = batch
-        logits = self(images)                       # (B, C, H, W)
-        if logits.shape[-2:] != masks.shape[-2:]:
-            logits = torch.nn.functional.interpolate(
-                logits,
-                size=masks.shape[-2:],   # (H, W)
-                mode="bilinear",
-                align_corners=False,
-            )
-        loss = self._compute_loss(logits, masks)
+
         if self.cfg.model_type == "mymmseg":
-            loss = self.model.forward_train(images,masks)
+            # forward_train trả về dict losses
+            loss_dict = self.model.forward_train(images, masks)
+            loss = sum(loss_dict.values())          # tổng tất cả loss thành scalar
+            logits = self.model.forward_test(images)  # lấy logits để tính mIoU
+        else:
+            logits = self(images)
+            if logits.shape[-2:] != masks.shape[-2:]:
+                logits = F.interpolate(
+                    logits, size=masks.shape[-2:],
+                    mode="bilinear", align_corners=False,
+                )
+            loss = self._compute_loss(logits, masks)
+
+        if logits.shape[-2:] != masks.shape[-2:]:
+            logits = F.interpolate(
+                logits, size=masks.shape[-2:],
+                mode="bilinear", align_corners=False,
+            )
 
         preds = logits.argmax(dim=1)
         self.train_miou(preds, masks)
- 
+
         self.log("train/loss", loss,
-                 on_step=True, on_epoch=True, prog_bar=True, sync_dist=True)
+                on_step=True, on_epoch=True, prog_bar=True, sync_dist=True)
         self.log("train/mIoU", self.train_miou,
-                 on_step=False, on_epoch=True, prog_bar=True, sync_dist=True)
+                on_step=False, on_epoch=True, prog_bar=True, sync_dist=True)
         return loss
     # ── validation ───────────────────────────────────────────────────────
     def validation_step(self, batch, batch_idx):
@@ -317,7 +326,9 @@ class SegmentationModule(L.LightningModule):
             ], weight_decay=self.cfg.weight_decay)
         elif self.cfg.model_type == "mymmseg":
             encoder_params = list(self.model.backbone.parameters())
-            decoder_params = list(self.model.decode_head.parameters()) + list(self.model.auxiliary_head.parameters())
+            decoder_params = list(self.model.decode_head.parameters())
+            if self.model.with_auxiliary_head:
+                decoder_params += list(self.model.auxiliary_head.parameters())
             optimizer = torch.optim.AdamW([
                 {"params": encoder_params, "lr": self.cfg.lr * 0.1},
                 {"params": decoder_params, "lr": self.cfg.lr},
