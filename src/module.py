@@ -178,11 +178,10 @@ class SegmentationModule(L.LightningModule):
                 mode="bilinear",
                 align_corners=False,
             )
+        loss = self._compute_loss(logits, masks)
         if self.cfg.model_type == "mymmseg":
             loss = self.model.forward_train(images,masks)
-        else:
-            loss = self._compute_loss(logits, masks)
- 
+
         preds = logits.argmax(dim=1)
         self.train_miou(preds, masks)
  
