@@ -1,0 +1,193 @@
+TRT-8502-EntropyCalibration2
+input: 3c9cdc9b
+/backbone/input_stem/op_list.0/conv/Conv_output_0: 3de32b01
+(Unnamed Layer* 1) [Activation]_output: 3c010a14
+/backbone/input_stem/op_list.0/act/HardSwish_output_0: 3dad8a9c
+/backbone/input_stem/op_list.1/main/depth_conv/conv/Conv_output_0: 3d67b890
+(Unnamed Layer* 4) [Activation]_output: 3c010a14
+/backbone/input_stem/op_list.1/main/depth_conv/act/HardSwish_output_0: 3cdd45e2
+/backbone/input_stem/op_list.1/main/point_conv/conv/Conv_output_0: 3d31d6b8
+/backbone/input_stem/op_list.1/Add_output_0: 3dea6ad6
+/backbone/stages.0/op_list.0/main/inverted_conv/conv/Conv_output_0: 3f0db05c
+(Unnamed Layer* 9) [Activation]_output: 3c010a14
+/backbone/stages.0/op_list.0/main/inverted_conv/act/HardSwish_output_0: 3eb49dfc
+/backbone/stages.0/op_list.0/main/depth_conv/conv/Conv_output_0: 3f1c4cba
+(Unnamed Layer* 12) [Activation]_output: 3c010a14
+/backbone/stages.0/op_list.0/main/depth_conv/act/HardSwish_output_0: 3ea25fc1
+/backbone/stages.0/op_list.0/main/point_conv/conv/Conv_output_0: 3e128071
+/backbone/stages.0/op_list.1/main/inverted_conv/conv/Conv_output_0: 3eeb9174
+(Unnamed Layer* 16) [Activation]_output: 3c010a14
+/backbone/stages.0/op_list.1/main/inverted_conv/act/HardSwish_output_0: 3e0a6ebd
+/backbone/stages.0/op_list.1/main/depth_conv/conv/Conv_output_0: 3e9e6766
+(Unnamed Layer* 19) [Activation]_output: 3c010a14
+/backbone/stages.0/op_list.1/main/depth_conv/act/HardSwish_output_0: 3e5d311b
+/backbone/stages.0/op_list.1/main/point_conv/conv/Conv_output_0: 3dc90f79
+/backbone/stages.0/op_list.1/Add_output_0: 3e242829
+/backbone/stages.1/op_list.0/main/inverted_conv/conv/Conv_output_0: 3ee55f3a
+(Unnamed Layer* 24) [Activation]_output: 3c010a14
+/backbone/stages.1/op_list.0/main/inverted_conv/act/HardSwish_output_0: 3ea64e34
+/backbone/stages.1/op_list.0/main/depth_conv/conv/Conv_output_0: 3df37cae
+(Unnamed Layer* 27) [Activation]_output: 3c010a14
+/backbone/stages.1/op_list.0/main/depth_conv/act/HardSwish_output_0: 3d418f3f
+/backbone/stages.1/op_list.0/main/point_conv/conv/Conv_output_0: 3e2d3970
+/backbone/stages.1/op_list.1/main/inverted_conv/conv/Conv_output_0: 3e08f07c
+(Unnamed Layer* 31) [Activation]_output: 3c010a14
+/backbone/stages.1/op_list.1/main/inverted_conv/act/HardSwish_output_0: 3dcd79d4
+/backbone/stages.1/op_list.1/main/depth_conv/conv/Conv_output_0: 3d385425
+(Unnamed Layer* 34) [Activation]_output: 3c010a14
+/backbone/stages.1/op_list.1/main/depth_conv/act/HardSwish_output_0: 3cc236fe
+/backbone/stages.1/op_list.1/main/point_conv/conv/Conv_output_0: 3e4117ec
+/backbone/stages.1/op_list.1/Add_output_0: 3e806608
+/backbone/stages.2/op_list.0/main/inverted_conv/conv/Conv_output_0: 3d971130
+(Unnamed Layer* 39) [Activation]_output: 3c010a14
+/backbone/stages.2/op_list.0/main/inverted_conv/act/HardSwish_output_0: 3d43750f
+/backbone/stages.2/op_list.0/main/depth_conv/conv/Conv_output_0: 3cc58adb
+(Unnamed Layer* 42) [Activation]_output: 3c00b973
+/backbone/stages.2/op_list.0/main/depth_conv/act/HardSwish_output_0: 3ccfad90
+/backbone/stages.2/op_list.0/main/point_conv/conv/Conv_output_0: 3e06cda8
+/backbone/stages.2/op_list.1/context_module/main/qkv/conv/Conv_output_0: 3d0c158f
+/backbone/stages.2/op_list.1/context_module/main/aggreg.0/aggreg.0.0/Conv_output_0: 3c932385
+/backbone/stages.2/op_list.1/context_module/main/aggreg.0/aggreg.0.1/Conv_output_0: 3b9e57f5
+/backbone/stages.2/op_list.1/context_module/main/Concat_output_0: 3cc03b33
+/backbone/stages.2/op_list.1/context_module/main/Reshape_output_0: 3cc03b33
+/backbone/stages.2/op_list.1/context_module/main/Slice_output_0: 3cbb7a14
+/backbone/stages.2/op_list.1/context_module/main/Slice_1_output_0: 3cc8916c
+/backbone/stages.2/op_list.1/context_module/main/Slice_2_output_0: 3cc03b33
+/backbone/stages.2/op_list.1/context_module/main/kernel_func/Relu_output_0: 3ccc8214
+/backbone/stages.2/op_list.1/context_module/main/kernel_func_1/Relu_output_0: 3cb92625
+/backbone/stages.2/op_list.1/context_module/main/Transpose_output_0: 3cb92625
+/backbone/stages.2/op_list.1/context_module/main/Pad_output_0: 3c015acd
+/backbone/stages.2/op_list.1/context_module/main/MatMul_output_0: 40f1c4e8
+/backbone/stages.2/op_list.1/context_module/main/MatMul_1_output_0: 421f0d50
+/backbone/stages.2/op_list.1/context_module/main/Slice_4_output_0: 422e7e22
+/backbone/stages.2/op_list.1/context_module/main/Slice_5_output_0: 421f0d50
+(Unnamed Layer* 67) [Shuffle]_output: 23114911
+/backbone/stages.2/op_list.1/context_module/main/Add_output_0: 421f0d50
+/backbone/stages.2/op_list.1/context_module/main/Div_output_0: 3c21c754
+/backbone/stages.2/op_list.1/context_module/main/Reshape_3_output_0: 3c21c754
+/backbone/stages.2/op_list.1/context_module/main/proj/conv/Conv_output_0: 3d99df28
+/backbone/stages.2/op_list.1/context_module/Add_output_0: 3dfb6929
+/backbone/stages.2/op_list.1/local_module/main/inverted_conv/conv/Conv_output_0: 3d8aba14
+(Unnamed Layer* 74) [Activation]_output: 3c010a14
+/backbone/stages.2/op_list.1/local_module/main/inverted_conv/act/HardSwish_output_0: 3d2d6410
+/backbone/stages.2/op_list.1/local_module/main/depth_conv/conv/Conv_output_0: 3cc0908a
+(Unnamed Layer* 77) [Activation]_output: 3c002851
+/backbone/stages.2/op_list.1/local_module/main/depth_conv/act/HardSwish_output_0: 3ca40221
+/backbone/stages.2/op_list.1/local_module/main/point_conv/conv/Conv_output_0: 3daee88a
+/backbone/stages.2/op_list.1/local_module/Add_output_0: 3e13d183
+/backbone/stages.2/op_list.2/context_module/main/qkv/conv/Conv_output_0: 3d331f13
+/backbone/stages.2/op_list.2/context_module/main/aggreg.0/aggreg.0.0/Conv_output_0: 3cb1065b
+/backbone/stages.2/op_list.2/context_module/main/aggreg.0/aggreg.0.1/Conv_output_0: 3bd70cce
+/backbone/stages.2/op_list.2/context_module/main/Concat_output_0: 3ce3bf14
+/backbone/stages.2/op_list.2/context_module/main/Reshape_output_0: 3ce3bf14
+/backbone/stages.2/op_list.2/context_module/main/Slice_output_0: 3cc87617
+/backbone/stages.2/op_list.2/context_module/main/Slice_1_output_0: 3ccc3afd
+/backbone/stages.2/op_list.2/context_module/main/Slice_2_output_0: 3d08a14c
+/backbone/stages.2/op_list.2/context_module/main/kernel_func/Relu_output_0: 3cc87617
+/backbone/stages.2/op_list.2/context_module/main/kernel_func_1/Relu_output_0: 3cb9ad5d
+/backbone/stages.2/op_list.2/context_module/main/Transpose_output_0: 3cb9ad5d
+/backbone/stages.2/op_list.2/context_module/main/Pad_output_0: 3c01c904
+/backbone/stages.2/op_list.2/context_module/main/MatMul_output_0: 40cac775
+/backbone/stages.2/op_list.2/context_module/main/MatMul_1_output_0: 42450152
+/backbone/stages.2/op_list.2/context_module/main/Slice_4_output_0: 42327a78
+/backbone/stages.2/op_list.2/context_module/main/Slice_5_output_0: 42763559
+(Unnamed Layer* 102) [Shuffle]_output: 23114911
+/backbone/stages.2/op_list.2/context_module/main/Add_output_0: 42763559
+/backbone/stages.2/op_list.2/context_module/main/Div_output_0: 3c1d7d67
+/backbone/stages.2/op_list.2/context_module/main/Reshape_3_output_0: 3c1d7d67
+/backbone/stages.2/op_list.2/context_module/main/proj/conv/Conv_output_0: 3d5567e3
+/backbone/stages.2/op_list.2/context_module/Add_output_0: 3e11b2ed
+/backbone/stages.2/op_list.2/local_module/main/inverted_conv/conv/Conv_output_0: 3d90e16d
+(Unnamed Layer* 109) [Activation]_output: 3c010a14
+/backbone/stages.2/op_list.2/local_module/main/inverted_conv/act/HardSwish_output_0: 3d1bfff9
+/backbone/stages.2/op_list.2/local_module/main/depth_conv/conv/Conv_output_0: 3cc40dcf
+(Unnamed Layer* 112) [Activation]_output: 3bcdd93b
+/backbone/stages.2/op_list.2/local_module/main/depth_conv/act/HardSwish_output_0: 3c37708e
+/backbone/stages.2/op_list.2/local_module/main/point_conv/conv/Conv_output_0: 3dcee013
+/backbone/stages.2/op_list.2/local_module/Add_output_0: 3e2c3854
+/backbone/stages.3/op_list.0/main/inverted_conv/conv/Conv_output_0: 3d96d769
+(Unnamed Layer* 117) [Activation]_output: 3c010a14
+/backbone/stages.3/op_list.0/main/inverted_conv/act/HardSwish_output_0: 3d0f1c05
+/backbone/stages.3/op_list.0/main/depth_conv/conv/Conv_output_0: 3cd6641d
+(Unnamed Layer* 120) [Activation]_output: 3c010a14
+/backbone/stages.3/op_list.0/main/depth_conv/act/HardSwish_output_0: 3cdc2d19
+/backbone/stages.3/op_list.0/main/point_conv/conv/Conv_output_0: 3dcbf191
+/backbone/stages.3/op_list.1/context_module/main/qkv/conv/Conv_output_0: 3d903939
+/backbone/stages.3/op_list.1/context_module/main/aggreg.0/aggreg.0.0/Conv_output_0: 3cd52c2e
+/backbone/stages.3/op_list.1/context_module/main/aggreg.0/aggreg.0.1/Conv_output_0: 3bd58a3b
+/backbone/stages.3/op_list.1/context_module/main/Concat_output_0: 3d0f5091
+/backbone/stages.3/op_list.1/context_module/main/Reshape_output_0: 3d0f5091
+/backbone/stages.3/op_list.1/context_module/main/Slice_output_0: 3cf67594
+/backbone/stages.3/op_list.1/context_module/main/Slice_1_output_0: 3d0de2ed
+/backbone/stages.3/op_list.1/context_module/main/Slice_2_output_0: 3d2d3c6c
+/backbone/stages.3/op_list.1/context_module/main/kernel_func/Relu_output_0: 3cf67594
+/backbone/stages.3/op_list.1/context_module/main/kernel_func_1/Relu_output_0: 3d0de2ed
+/backbone/stages.3/op_list.1/context_module/main/Transpose_output_0: 3d0de2ed
+/backbone/stages.3/op_list.1/context_module/main/Pad_output_0: 3ccfc579
+/backbone/stages.3/op_list.1/context_module/main/MatMul_output_0: 407af84c
+/backbone/stages.3/op_list.1/context_module/main/MatMul_1_output_0: 4201e571
+/backbone/stages.3/op_list.1/context_module/main/Slice_4_output_0: 4201e571
+/backbone/stages.3/op_list.1/context_module/main/Slice_5_output_0: 418ffc8a
+(Unnamed Layer* 144) [Shuffle]_output: 23114911
+/backbone/stages.3/op_list.1/context_module/main/Add_output_0: 418ffc8a
+/backbone/stages.3/op_list.1/context_module/main/Div_output_0: 3cac369a
+/backbone/stages.3/op_list.1/context_module/main/Reshape_3_output_0: 3cac369a
+/backbone/stages.3/op_list.1/context_module/main/proj/conv/Conv_output_0: 3d56eebf
+/backbone/stages.3/op_list.1/context_module/Add_output_0: 3ddae0ed
+/backbone/stages.3/op_list.1/local_module/main/inverted_conv/conv/Conv_output_0: 3e1d43b3
+(Unnamed Layer* 151) [Activation]_output: 3c010a14
+/backbone/stages.3/op_list.1/local_module/main/inverted_conv/act/HardSwish_output_0: 3d0d83e3
+/backbone/stages.3/op_list.1/local_module/main/depth_conv/conv/Conv_output_0: 3d775452
+(Unnamed Layer* 154) [Activation]_output: 3bffb200
+/backbone/stages.3/op_list.1/local_module/main/depth_conv/act/HardSwish_output_0: 3c87364a
+/backbone/stages.3/op_list.1/local_module/main/point_conv/conv/Conv_output_0: 3da2a08f
+/backbone/stages.3/op_list.1/local_module/Add_output_0: 3df5770f
+/backbone/stages.3/op_list.2/context_module/main/qkv/conv/Conv_output_0: 3d79f12f
+/backbone/stages.3/op_list.2/context_module/main/aggreg.0/aggreg.0.0/Conv_output_0: 3cbeecd5
+/backbone/stages.3/op_list.2/context_module/main/aggreg.0/aggreg.0.1/Conv_output_0: 3c086f68
+/backbone/stages.3/op_list.2/context_module/main/Concat_output_0: 3d181a41
+/backbone/stages.3/op_list.2/context_module/main/Reshape_output_0: 3d181a41
+/backbone/stages.3/op_list.2/context_module/main/Slice_output_0: 3d08e778
+/backbone/stages.3/op_list.2/context_module/main/Slice_1_output_0: 3d1a4bf2
+/backbone/stages.3/op_list.2/context_module/main/Slice_2_output_0: 3d388c67
+/backbone/stages.3/op_list.2/context_module/main/kernel_func/Relu_output_0: 3d08e778
+/backbone/stages.3/op_list.2/context_module/main/kernel_func_1/Relu_output_0: 3d0c4797
+/backbone/stages.3/op_list.2/context_module/main/Transpose_output_0: 3d0c4797
+/backbone/stages.3/op_list.2/context_module/main/Pad_output_0: 3caceefa
+/backbone/stages.3/op_list.2/context_module/main/MatMul_output_0: 400dfefb
+/backbone/stages.3/op_list.2/context_module/main/MatMul_1_output_0: 41b01bbb
+/backbone/stages.3/op_list.2/context_module/main/Slice_4_output_0: 41b01bbb
+/backbone/stages.3/op_list.2/context_module/main/Slice_5_output_0: 4188baeb
+(Unnamed Layer* 179) [Shuffle]_output: 23114911
+/backbone/stages.3/op_list.2/context_module/main/Add_output_0: 4188baeb
+/backbone/stages.3/op_list.2/context_module/main/Div_output_0: 3c688df4
+/backbone/stages.3/op_list.2/context_module/main/Reshape_3_output_0: 3c688df4
+/backbone/stages.3/op_list.2/context_module/main/proj/conv/Conv_output_0: 3d60c1bc
+/backbone/stages.3/op_list.2/context_module/Add_output_0: 3e000d14
+/backbone/stages.3/op_list.2/local_module/main/inverted_conv/conv/Conv_output_0: 3da6b1ac
+(Unnamed Layer* 186) [Activation]_output: 3c010a14
+/backbone/stages.3/op_list.2/local_module/main/inverted_conv/act/HardSwish_output_0: 3d0cdc8a
+/backbone/stages.3/op_list.2/local_module/main/depth_conv/conv/Conv_output_0: 3d03ed67
+(Unnamed Layer* 189) [Activation]_output: 3bb478f2
+/backbone/stages.3/op_list.2/local_module/main/depth_conv/act/HardSwish_output_0: 3bb8281b
+/backbone/stages.3/op_list.2/local_module/main/point_conv/conv/Conv_output_0: 3d7befa8
+/backbone/stages.3/op_list.2/local_module/Add_output_0: 3e0d9028
+/head/input_ops.0/op_list.0/conv/Conv_output_0: 3d815e51
+/head/input_ops.0/op_list.1/Resize_output_0: 3d84f94d
+/head/input_ops.1/op_list.0/conv/Conv_output_0: 3ceebf10
+/head/input_ops.1/op_list.1/Resize_output_0: 3ce3855d
+/head/input_ops.2/conv/Conv_output_0: 3d0268bb
+/head/Add_output_0: 3d4446bb
+/head/Add_1_output_0: 3da90194
+/head/middle/op_list.0/main/inverted_conv/conv/Conv_output_0: 3dc013a5
+(Unnamed Layer* 201) [Activation]_output: 3c010a14
+/head/middle/op_list.0/main/inverted_conv/act/HardSwish_output_0: 3d817b51
+/head/middle/op_list.0/main/depth_conv/conv/Conv_output_0: 3dea345c
+(Unnamed Layer* 204) [Activation]_output: 3c010a14
+/head/middle/op_list.0/main/depth_conv/act/HardSwish_output_0: 3d01901b
+/head/middle/op_list.0/main/point_conv/conv/Conv_output_0: 3d55b2cd
+/head/middle/op_list.0/Add_output_0: 3dd65f2a
+/head/output_ops.0/op_list.0/conv/Conv_output_0: 3dc88f5c
+(Unnamed Layer* 209) [Activation]_output: 3c010a14
+/head/output_ops.0/op_list.0/act/HardSwish_output_0: 3d45a6f4
+output: 3e2a1b06
