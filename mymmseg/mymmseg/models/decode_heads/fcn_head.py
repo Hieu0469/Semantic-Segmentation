@@ -64,11 +64,15 @@ class FCNHead(BaseDecodeHead):
         dilation: int = 1,
         dropout_ratio: float = 0.1,
         align_corners: bool = False,
+        norm_cfg=dict(type='BN'),
+        act_cfg=dict(type='ReLU')
     ):
         # Store before super().__init__ so _build_head() can access them
         self._num_convs = num_convs
         self._kernel_size = kernel_size
         self._dilation = dilation
+        self.norm_cfg = norm_cfg
+        self.act_cfg = act_cfg
 
         super().__init__(
             in_channels=in_channels,
@@ -93,6 +97,8 @@ class FCNHead(BaseDecodeHead):
                     self.channels,
                     kernel_size=self._kernel_size,
                     dilation=self._dilation,
+                    norm_cfg=self.norm_cfg,
+                    act_cfg=self.act_cfg
                 )
             )
             _in_ch = self.channels  # subsequent blocks: channels → channels
