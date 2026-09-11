@@ -14,35 +14,23 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from ...utils.registry import DECODE_HEADS
+from ...utils.layers import build_norm_layer,build_act_layer
+
 
 from .base_decode_head import BaseDecodeHead
 
-
-class ConvBNReLU(nn.Sequential):
-    """Conv2d → BatchNorm2d → ReLU block."""
-
-    def __init__(
-        self,
-        in_channels: int,
-        out_channels: int,
-        kernel_size: int = 3,
-        stride: int = 1,
-        padding: int = 1,
-        dilation: int = 1,
-    ):
-        super().__init__(
-            nn.Conv2d(
-                in_channels,
-                out_channels,
-                kernel_size=kernel_size,
-                stride=stride,
-                padding=padding * dilation,
-                dilation=dilation,
-                bias=False,
-            ),
-            nn.BatchNorm2d(out_channels),
-            nn.ReLU(inplace=True),
-        )
+class ConvBNAct(nn.Sequential):
+    def __init__(self, in_ch, out_ch, kernel_size=3, stride=1,
+                 padding=1, dilation=1,
+                 norm_cfg=dict(type='BN'),
+                 act_cfg=dict(type='ReLU')):
+        layers = [
+            nn.Conv2d(in_ch, out_ch, kernel_size, stride,
+                      padding * dilation, dilation=dilation, bias=False),
+            build_norm_layer(norm_cfg, out_ch)[1],
+            build_act_layer(act_cfg),
+        ]
+        super().__init__(*layers)
 
 
 @DECODE_HEADS.register_module()
@@ -100,7 +88,7 @@ class FCNHead(BaseDecodeHead):
 
         for i in range(self._num_convs):
             convs.append(
-                ConvBNReLU(
+                ConvBNAct(
                     _in_ch,
                     self.channels,
                     kernel_size=self._kernel_size,

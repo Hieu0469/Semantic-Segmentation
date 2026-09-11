@@ -14,38 +14,8 @@ import torch.utils.checkpoint as cp
 
 from ...utils.registry import BACKBONES
 from ...utils.base_module import BaseModule
+from ...utils.layers import build_act_layer, build_norm_layer, build_conv_layer
 
-
-# ── Norm helper ───────────────────────────────────────────────────────────────
-
-def build_norm_layer(norm_cfg: dict, num_channels: int, postfix: Union[int, str] = ''):
-    """Returns (name, layer) like mmcv.build_norm_layer."""
-    cfg = norm_cfg.copy()
-    norm_type = cfg.pop('type', 'BN')
-    requires_grad = cfg.pop('requires_grad', True)
-
-    if norm_type == 'BN':
-        layer = nn.BatchNorm2d(num_channels, **cfg)
-    elif norm_type == 'GN':
-        layer = nn.GroupNorm(num_channels=num_channels, **cfg)
-    elif norm_type == 'SyncBN':
-        layer = nn.SyncBatchNorm(num_channels, **cfg)
-    else:
-        raise ValueError(f"Unknown norm type: {norm_type}")
-
-    for p in layer.parameters():
-        p.requires_grad = requires_grad
-
-    abbr = norm_type.lower()
-    name = abbr + str(postfix)
-    return name, layer
-
-
-def build_conv_layer(conv_cfg: Optional[dict], *args, **kwargs) -> nn.Conv2d:
-    """Returns a Conv2d (conv_cfg=None → standard Conv2d, matching mmcv API)."""
-    if conv_cfg is None or conv_cfg.get('type') == 'Conv2d':
-        return nn.Conv2d(*args, **kwargs)
-    raise NotImplementedError(f"conv_cfg type '{conv_cfg['type']}' not yet supported.")
 
 
 # ── ResLayer ──────────────────────────────────────────────────────────────────
@@ -158,6 +128,7 @@ class BasicBlock(BaseModule):
         style: str = 'pytorch',
         with_cp: bool = False,
         conv_cfg: Optional[dict] = None,
+        act_cfg: dict = dict(type='ReLU'),
         norm_cfg: dict = dict(type='BN'),
         dcn: Optional[dict] = None,
         plugins=None,
@@ -178,7 +149,7 @@ class BasicBlock(BaseModule):
         self.conv2 = build_conv_layer(conv_cfg, planes, planes, 3, padding=1, bias=False)
         self.add_module(self.norm2_name, norm2)
 
-        self.relu = nn.ReLU(inplace=True)
+        self.act_layer = build_act_layer(act_cfg)
         self.downsample = downsample
         self.stride = stride
         self.dilation = dilation
@@ -192,14 +163,14 @@ class BasicBlock(BaseModule):
     def forward(self, x):
         def _inner(x):
             identity = x
-            out = self.relu(self.norm1(self.conv1(x)))
+            out = self.act_layer(self.norm1(self.conv1(x)))
             out = self.norm2(self.conv2(out))
             if self.downsample is not None:
                 identity = self.downsample(x)
             return out + identity
 
         out = cp.checkpoint(_inner, x) if self.with_cp and x.requires_grad else _inner(x)
-        return self.relu(out)
+        return self.act_layer(out)
 
 
 class Bottleneck(BaseModule):
@@ -215,6 +186,7 @@ class Bottleneck(BaseModule):
         style: str = 'pytorch',
         with_cp: bool = False,
         conv_cfg: Optional[dict] = None,
+        act_cfg: dict = dict(type='ReLU'), 
         norm_cfg: dict = dict(type='BN'),
         dcn: Optional[dict] = None,
         plugins=None,
@@ -254,7 +226,7 @@ class Bottleneck(BaseModule):
         self.conv3 = build_conv_layer(conv_cfg, planes, planes * self.expansion, 1, bias=False)
         self.add_module(self.norm3_name, norm3)
 
-        self.relu = nn.ReLU(inplace=True)
+        self.act_layer = build_act_layer(act_cfg)
         self.downsample = downsample
 
     @property
@@ -267,15 +239,15 @@ class Bottleneck(BaseModule):
     def forward(self, x):
         def _inner(x):
             identity = x
-            out = self.relu(self.norm1(self.conv1(x)))
-            out = self.relu(self.norm2(self.conv2(out)))
+            out = self.act_layer(self.norm1(self.conv1(x)))
+            out = self.act_layer(self.norm2(self.conv2(out)))
             out = self.norm3(self.conv3(out))
             if self.downsample is not None:
                 identity = self.downsample(x)
             return out + identity
 
         out = cp.checkpoint(_inner, x) if self.with_cp and x.requires_grad else _inner(x)
-        return self.relu(out)
+        return self.act_layer(out)
 
 
 # ── ResNet ────────────────────────────────────────────────────────────────────
@@ -331,6 +303,7 @@ class ResNet(BaseModule):
         frozen_stages: int = -1,
         conv_cfg: Optional[dict] = None,
         norm_cfg: dict = dict(type='BN', requires_grad=True),
+        act_cfg: dict = dict(type='ReLU'), 
         norm_eval: bool = False,
         dcn: Optional[dict] = None,
         stage_with_dcn: Sequence[bool] = (False, False, False, False),
@@ -388,7 +361,7 @@ class ResNet(BaseModule):
         self.block, stage_blocks = self.arch_settings[depth]
         self.stage_blocks = stage_blocks[:num_stages]
         self.inplanes = stem_channels
-
+        self.act_cfg = act_cfg 
         # zero-init last BN per block
         if zero_init_residual:
             norm_name = 'norm2' if self.block is BasicBlock else 'norm3'
@@ -416,6 +389,7 @@ class ResNet(BaseModule):
                 with_cp=with_cp,
                 conv_cfg=conv_cfg,
                 norm_cfg=norm_cfg,
+                act_cfg=self.act_cfg, 
                 dcn=_dcn,
                 plugins=self.make_stage_plugins(plugins, i) if plugins else None,
                 multi_grid=stage_multi_grid,
@@ -450,17 +424,17 @@ class ResNet(BaseModule):
         if self.deep_stem:
             self.stem = nn.Sequential(
                 build_conv_layer(self.conv_cfg, in_channels, stem_channels // 2,
-                                 3, stride=2, padding=1, bias=False),
+                                3, stride=2, padding=1, bias=False),
                 build_norm_layer(self.norm_cfg, stem_channels // 2)[1],
-                nn.ReLU(inplace=True),
+                build_act_layer(self.act_cfg),   # ← dùng act_cfg
                 build_conv_layer(self.conv_cfg, stem_channels // 2, stem_channels // 2,
-                                 3, stride=1, padding=1, bias=False),
+                                3, stride=1, padding=1, bias=False),
                 build_norm_layer(self.norm_cfg, stem_channels // 2)[1],
-                nn.ReLU(inplace=True),
+                build_act_layer(self.act_cfg),   # ← dùng act_cfg
                 build_conv_layer(self.conv_cfg, stem_channels // 2, stem_channels,
-                                 3, stride=1, padding=1, bias=False),
+                                3, stride=1, padding=1, bias=False),
                 build_norm_layer(self.norm_cfg, stem_channels)[1],
-                nn.ReLU(inplace=True),
+                build_act_layer(self.act_cfg),   # ← dùng act_cfg
             )
         else:
             self.conv1 = build_conv_layer(
@@ -468,7 +442,7 @@ class ResNet(BaseModule):
                 7, stride=2, padding=3, bias=False)
             self.norm1_name, norm1 = build_norm_layer(self.norm_cfg, stem_channels, postfix=1)
             self.add_module(self.norm1_name, norm1)
-            self.relu = nn.ReLU(inplace=True)
+            self.act_layer = build_act_layer(self.act_cfg)   # ← dùng act_cfg
         self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
 
     def _freeze_stages(self):
@@ -494,7 +468,7 @@ class ResNet(BaseModule):
         if self.deep_stem:
             x = self.stem(x)
         else:
-            x = self.relu(self.norm1(self.conv1(x)))
+            x = self.act_layer(self.norm1(self.conv1(x)))
         x = self.maxpool(x)
 
         outs = []

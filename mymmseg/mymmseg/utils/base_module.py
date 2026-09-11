@@ -183,3 +183,4 @@ class ModuleDict(BaseModule, nn.ModuleDict):
     def __init__(self, modules: Optional[dict] = None, init_cfg: Optional[dict] = None):
         BaseModule.__init__(self, init_cfg)
         nn.ModuleDict.__init__(self, modules)
+
