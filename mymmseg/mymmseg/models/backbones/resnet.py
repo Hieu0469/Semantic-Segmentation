@@ -40,9 +40,9 @@ class ResLayer(nn.Sequential):
         with_cp: bool = False,
         dcn: Optional[dict] = None,
         plugins: Optional[list] = None,
-        stwnsample: Optional[nn.Module] = None,
-        inyle: str = 'pytorch',
-        doit_cfg: Optional[dict] = None,
+        downsample: Optional[nn.Module] = None,
+        style: str = 'pytorch',
+        init_cfg: Optional[dict] = None,
         **kwargs,
     ):
         self.block = block
