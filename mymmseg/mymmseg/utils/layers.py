@@ -134,3 +134,9 @@ class ConvBNAct(nn.Sequential):
             build_act_layer(act_cfg),
         ]
         super().__init__(*layers)
+
+def build_conv_layer(conv_cfg: Optional[dict], *args, **kwargs) -> nn.Conv2d:
+    """Returns a Conv2d (conv_cfg=None → standard Conv2d, matching mmcv API)."""
+    if conv_cfg is None or conv_cfg.get('type') == 'Conv2d':
+        return nn.Conv2d(*args, **kwargs)
+    raise NotImplementedError(f"conv_cfg type '{conv_cfg['type']}' not yet supported.")
