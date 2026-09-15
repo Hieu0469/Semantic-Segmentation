@@ -74,8 +74,8 @@ class FCNHead(BaseDecodeHead):
         self._dilation = dilation
         self.norm_cfg = norm_cfg
         self.act_cfg = act_cfg
-        self.concat_input = concat_input
-        
+        self._concat_input = concat_input
+
         super().__init__(
             in_channels=in_channels,
             in_index=in_index,
