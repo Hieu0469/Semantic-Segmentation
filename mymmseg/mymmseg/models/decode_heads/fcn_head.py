@@ -60,6 +60,7 @@ class FCNHead(BaseDecodeHead):
         channels: int = 256,
         num_classes: int = 19,
         num_convs: int = 2,
+        concat_input: bool = False,
         kernel_size: int = 3,
         dilation: int = 1,
         dropout_ratio: float = 0.1,
@@ -73,7 +74,8 @@ class FCNHead(BaseDecodeHead):
         self._dilation = dilation
         self.norm_cfg = norm_cfg
         self.act_cfg = act_cfg
-
+        self.concat_input = concat_input
+        
         super().__init__(
             in_channels=in_channels,
             in_index=in_index,
@@ -114,12 +116,21 @@ class FCNHead(BaseDecodeHead):
         if self._num_convs == 0:
             self.cls_seg = nn.Conv2d(self.in_channels, self.num_classes, kernel_size=1)
 
-    def forward_features(self, x: torch.Tensor) -> torch.Tensor:
-        """
-        Args:
-            x: Single backbone feature (B, in_channels, H/s, W/s).
+        # Thêm conv fusion nếu concat_input=True
+        if self._concat_input:
+            self.conv_cat = ConvBNAct(
+                self.in_channels + self.channels,  # concat 2 feature
+                self.channels,
+                kernel_size=1,                     # 1x1 để fusion
+                norm_cfg=self._norm_cfg,
+                act_cfg=self._act_cfg,
+            )
 
-        Returns:
-            Decoded feature map (B, channels, H/s, W/s).
-        """
-        return self.convs(x)
+    def forward_features(self, x):
+        input_ = x                  # giữ lại input gốc
+        out = self.convs(x)
+
+        if self._concat_input:
+            out = self.conv_cat(torch.cat([input_, out], dim=1))
+
+        return out
