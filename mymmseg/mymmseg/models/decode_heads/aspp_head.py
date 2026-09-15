@@ -133,7 +133,6 @@ class ASPPHead(BaseDecodeHead):
             num_classes=num_classes,
             dropout_ratio=dropout_ratio,
             align_corners=align_corners,
-            init_cfg=init_cfg,
         )
 
     # ── BaseDecodeHead interface ──────────────────────────────────────────────
