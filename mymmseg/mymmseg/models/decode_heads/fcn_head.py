@@ -72,8 +72,8 @@ class FCNHead(BaseDecodeHead):
         self._num_convs = num_convs
         self._kernel_size = kernel_size
         self._dilation = dilation
-        self.norm_cfg = norm_cfg
-        self.act_cfg = act_cfg
+        self._norm_cfg = norm_cfg
+        self._act_cfg = act_cfg
         self._concat_input = concat_input
 
         super().__init__(
@@ -99,8 +99,8 @@ class FCNHead(BaseDecodeHead):
                     self.channels,
                     kernel_size=self._kernel_size,
                     dilation=self._dilation,
-                    norm_cfg=self.norm_cfg,
-                    act_cfg=self.act_cfg
+                    norm_cfg=self._norm_cfg,
+                    act_cfg=self._act_cfg
                 )
             )
             _in_ch = self.channels  # subsequent blocks: channels → channels
