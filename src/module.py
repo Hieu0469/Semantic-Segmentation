@@ -16,8 +16,8 @@ from segmentation_models_pytorch.losses import DiceLoss
 
 from src.config import CFG
 from src.dataset import ADE20KDataset, CityscapesDataset, build_ade20k_transforms, build_cityscapes_transforms
-from mymmseg.utils.optimizers import build_optimizer
-from mymmseg.utils.schedulers import build_scheduler
+from mymmseg.mymmseg.utils.optimizers import build_optimizer
+from mymmseg.mymmseg.utils.schedulers import build_scheduler
 
 from export_onnx import export_onnx
 log = logging.getLogger(__name__)
