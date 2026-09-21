@@ -48,6 +48,21 @@ class CFG:
     weight_decay  = 1e-4
     warmup_epochs = 5
 
+    optimizer_cfg = dict(type='AdamW', lr=6e-5, weight_decay=0.01)
+
+    scheduler_cfg = dict(
+        type='PolyLR',
+        eta_min=1e-4,
+        power=0.9,
+        begin=0,
+        end=40000,
+        by_epoch=False,   # False = theo iteration, True = theo epoch
+    )
+    
+    backbone_lr_mult = 0.1       # backbone lr = lr * 0.1
+    steps_per_epoch  = 372       # len(train_dataloader) — cần set khi by_epoch=False
+
+
     # ── Class names (Cityscapes 19 classes) ───────────────────────────────
     class_names = CITYSCAPES_CLASS_NAMES
 

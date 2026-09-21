@@ -326,8 +326,8 @@ class SegmentationModule(L.LightningModule):
         else:
             raise ValueError(f"model_type '{self.cfg.model_type}' không hợp lệ. Hãy chọn 'efficientvit' hoặc 'smp'.")
 
-        from .mymmseg.utils.optimizers import build_optimizer
-        from .mymmseg.utils.schedulers import build_scheduler
+        from ..mymmseg.utils.optimizers import build_optimizer
+        from ..mymmseg.utils.schedulers import build_scheduler
 
         lr       = self.cfg.optimizer_cfg.get('lr', 6e-5)
         lr_mult  = getattr(self.cfg, 'backbone_lr_mult', 0.1)
