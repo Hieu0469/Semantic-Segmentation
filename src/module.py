@@ -16,6 +16,9 @@ from segmentation_models_pytorch.losses import DiceLoss
 
 from src.config import CFG
 from src.dataset import ADE20KDataset, CityscapesDataset, build_ade20k_transforms, build_cityscapes_transforms
+from mymmseg.utils.optimizers import build_optimizer
+from mymmseg.utils.schedulers import build_scheduler
+
 from export_onnx import export_onnx
 log = logging.getLogger(__name__)
 
@@ -325,9 +328,6 @@ class SegmentationModule(L.LightningModule):
             params = self.model.parameters()
         else:
             raise ValueError(f"model_type '{self.cfg.model_type}' không hợp lệ. Hãy chọn 'efficientvit' hoặc 'smp'.")
-
-        from ..mymmseg.utils.optimizers import build_optimizer
-        from ..mymmseg.utils.schedulers import build_scheduler
 
         lr       = self.cfg.optimizer_cfg.get('lr', 6e-5)
         lr_mult  = getattr(self.cfg, 'backbone_lr_mult', 0.1)
