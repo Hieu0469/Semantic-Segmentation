@@ -342,10 +342,9 @@ class SegmentationModule(L.LightningModule):
         optimizer = build_optimizer(self.cfg.optimizer_cfg, param_groups)
 
         by_epoch = self.cfg.scheduler_cfg.get('by_epoch', True)
-        if by_epoch:
-            max_steps = self.cfg.max_epochs
-        else:
-            max_steps = self.cfg.max_epochs * self.cfg.steps_per_epoch
+        
+        max_steps = self.cfg.max_epochs if by_epoch \
+            else self.trainer.estimated_stepping_batches 
 
         scheduler, interval = build_scheduler(self.cfg.scheduler_cfg, optimizer, max_steps)
 

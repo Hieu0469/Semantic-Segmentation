@@ -60,7 +60,7 @@ class CFG:
     )
     
     backbone_lr_mult = 0.1       # backbone lr = lr * 0.1
-    steps_per_epoch  = 372       # len(train_dataloader) — cần set khi by_epoch=False
+    # steps_per_epoch  = 372       # len(train_dataloader) — cần set khi by_epoch=False
 
 
     # ── Class names (Cityscapes 19 classes) ───────────────────────────────
