@@ -313,45 +313,43 @@ class SegmentationModule(L.LightningModule):
         if self.cfg.model_type == "efficientvit":
             encoder_params = list(self.model.backbone.parameters())
             decoder_params = list(self.model.head.parameters())
-            optimizer = torch.optim.AdamW([
-                {"params": encoder_params, "lr": self.cfg.lr * 0.1},
-                {"params": decoder_params, "lr": self.cfg.lr},
-            ], weight_decay=self.cfg.weight_decay)
         elif self.cfg.model_type == "smp":
             encoder_params = list(self.model.encoder.parameters())
             decoder_params = list(self.model.decoder.parameters()) + list(self.model.segmentation_head.parameters())
-            optimizer = torch.optim.AdamW([
-                {"params": encoder_params, "lr": self.cfg.lr * 0.1},
-                {"params": decoder_params, "lr": self.cfg.lr},
-            ], weight_decay=self.cfg.weight_decay)
         elif self.cfg.model_type == "mymmseg":
             encoder_params = list(self.model.backbone.parameters())
             decoder_params = list(self.model.decode_head.parameters())
             if self.model.with_auxiliary_head:
                 decoder_params += list(self.model.auxiliary_head.parameters())
-            optimizer = torch.optim.AdamW([
-                {"params": encoder_params, "lr": self.cfg.lr * 0.1},
-                {"params": decoder_params, "lr": self.cfg.lr},
-            ], weight_decay=self.cfg.weight_decay)
         elif self.cfg.model_type == "other":
-            optimizer = torch.optim.AdamW([
-                {"params": self.model.parameters(), "lr": self.cfg.lr},
-            ], weight_decay=self.cfg.weight_decay)
+            params = self.model.parameters()
         else:
             raise ValueError(f"model_type '{self.cfg.model_type}' không hợp lệ. Hãy chọn 'efficientvit' hoặc 'smp'.")
-        
-        # Poly LR với linear warmup
-        total   = self.cfg.max_epochs
-        warmup  = self.cfg.warmup_epochs
-    
-        def poly_with_warmup(epoch):
-            if epoch < warmup:
-                return (epoch + 1) / warmup
-            progress = (epoch - warmup) / max(total - warmup, 1)
-            return (1 - progress) ** 0.9
-    
-        scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, poly_with_warmup)
+
+        from .mymmseg.utils.optimizers import build_optimizer
+        from .mymmseg.utils.schedulers import build_scheduler
+
+        lr       = self.cfg.optimizer_cfg.get('lr', 6e-5)
+        lr_mult  = getattr(self.cfg, 'backbone_lr_mult', 0.1)
+        if self.cfg.model_type == "other":
+            param_groups = [{"params": params, "lr": lr}]
+        else:
+            param_groups = [
+                {"params": encoder_params, "lr": lr * lr_mult},
+                {"params": decoder_params,                          "lr": lr},
+            ]
+
+        optimizer = build_optimizer(self.cfg.optimizer_cfg, param_groups)
+
+        by_epoch = self.cfg.scheduler_cfg.get('by_epoch', True)
+        if by_epoch:
+            max_steps = self.cfg.max_epochs
+        else:
+            max_steps = self.cfg.max_epochs * self.cfg.steps_per_epoch
+
+        scheduler, interval = build_scheduler(self.cfg.scheduler_cfg, optimizer, max_steps)
+
         return {
             "optimizer": optimizer,
-            "lr_scheduler": {"scheduler": scheduler, "interval": "epoch"},
+            "lr_scheduler": {"scheduler": scheduler, "interval": interval, "frequency": 1},
         }
