@@ -107,13 +107,19 @@ class BaseDecodeHead(nn.Module, ABC):
         x = self.dropout(x)
         x = self.cls_seg(x)                # → (B, num_classes, h, w)
 
-        # if img_size is not None:
-        #     x = F.interpolate(
-        #         x,
-        #         size=img_size,
-        #         mode="bilinear",
-        #         align_corners=self.align_corners,
-        #     )
+        if logits.shape[-2:] != masks.shape[-2:]:
+            logits = F.interpolate(
+                logits, size=masks.shape[-2:],
+                mode="bilinear", align_corners=False,
+            )
+            
+        if img_size is not None:
+            x = F.interpolate(
+                x,
+                size=img_size,
+                mode="bilinear",
+                align_corners=self.align_corners,
+            )
         return x
 
     # ── Helpers ───────────────────────────────────────────────────────────────
