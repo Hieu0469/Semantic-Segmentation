@@ -127,7 +127,7 @@ def run(cfg=CFG):
         mode="max", 
         save_top_k=1
     )
-    early_stop_cb = EarlyStopping(monitor="val/mIoU", patience=15, mode="max")
+    early_stop_cb = EarlyStopping(monitor="val/mIoU", patience=getattr(cfg, 'early_stopping', 15), mode="max")
     lr_monitor = LearningRateMonitor(logging_interval="epoch")
     
     # Cấu hình bộ Trainer chính của PyTorch Lightning
