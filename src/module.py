@@ -163,8 +163,9 @@ class SegmentationModule(L.LightningModule):
 
     def _compute_loss(self, logits, masks):
         ce   = self.ce_loss(logits, masks)
-        dice = self.dice_loss(logits, masks)
-        return ce + self.dice_weight * dice
+        return ce
+        # dice = self.dice_loss(logits, masks)
+        # return ce + self.dice_weight * dice
 
     # ── forward ──────────────────────────────────────────────────────────
     def forward(self, x):
