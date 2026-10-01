@@ -180,9 +180,9 @@ def build_scheduler(cfg: dict, optimizer: Optimizer, max_steps: int):
         if isinstance(lr_lambda, dict):
             preset  = lr_lambda.pop('type')
             if preset == 'warmup_poly':
-                lr_lambda = warmup_poly(max_steps=max_steps, **lr_lambda)
+                lr_lambda = warmup_poly(**lr_lambda)
             elif preset == 'warmup_cosine':
-                lr_lambda = warmup_cosine(max_steps=max_steps, **lr_lambda)
+                lr_lambda = warmup_cosine(**lr_lambda)
             elif preset == 'constant_warmup':
                 lr_lambda = constant_warmup(**lr_lambda)
             else:
