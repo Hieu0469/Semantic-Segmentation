@@ -83,6 +83,32 @@ class PolyLR(LambdaLR):
 
 
 # ── Builder ───────────────────────────────────────────────────────────────────
+def warmup_poly(warmup_epochs, max_epochs, power=0.9, eta_min_ratio=0.0):
+    """Trả về lr_lambda function cho LambdaLR."""
+    def _lambda(epoch):
+        if epoch < warmup_epochs:
+            return (epoch + 1) / warmup_epochs
+        progress = (epoch - warmup_epochs) / max(max_epochs - warmup_epochs, 1)
+        return max(eta_min_ratio, (1 - progress) ** power)
+    return _lambda
+
+def warmup_cosine(warmup_epochs, max_epochs, eta_min_ratio=0.0):
+    """Cosine decay với warmup."""
+    import math
+    def _lambda(epoch):
+        if epoch < warmup_epochs:
+            return (epoch + 1) / warmup_epochs
+        progress = (epoch - warmup_epochs) / max(max_epochs - warmup_epochs, 1)
+        return eta_min_ratio + (1 - eta_min_ratio) * 0.5 * (1 + math.cos(math.pi * progress))
+    return _lambda
+
+def constant_warmup(warmup_epochs):
+    """Warmup rồi giữ nguyên lr."""
+    def _lambda(epoch):
+        if epoch < warmup_epochs:
+            return (epoch + 1) / warmup_epochs
+        return 1.0
+    return _lambda
 
 def build_scheduler(cfg: dict, optimizer: Optimizer, max_steps: int):
     """Build scheduler từ config dict.
@@ -146,6 +172,23 @@ def build_scheduler(cfg: dict, optimizer: Optimizer, max_steps: int):
         scheduler = torch_sched.OneCycleLR(
             optimizer, total_steps=max_steps, **cfg)
         interval = 'step'
+
+    elif sched_type == 'LambdaLR':
+        lr_lambda = cfg.pop('lr_lambda')
+
+        # Hỗ trợ truyền preset string thay vì callable
+        if isinstance(lr_lambda, dict):
+            preset  = lr_lambda.pop('type')
+            if preset == 'warmup_poly':
+                lr_lambda = warmup_poly(max_steps=max_steps, **lr_lambda)
+            elif preset == 'warmup_cosine':
+                lr_lambda = warmup_cosine(max_steps=max_steps, **lr_lambda)
+            elif preset == 'constant_warmup':
+                lr_lambda = constant_warmup(**lr_lambda)
+            else:
+                raise ValueError(f"Unknown lr_lambda preset: '{preset}'")
+
+        scheduler = LambdaLR(optimizer, lr_lambda=lr_lambda)
 
     else:
         raise ValueError(
