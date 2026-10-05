@@ -17,7 +17,7 @@ import torch.utils.checkpoint as cp
 from ...utils.registry import BACKBONES
 from ...utils.base_module import BaseModule, ModuleList
 from ...utils.layers import build_norm_layer
-from ..utils.embed import PatchEmbed, PatchMerging, build_norm_1d
+from ..utils.embed import PatchEmbed, PatchMerging, _build_norm_1d
 from ..utils.transformer import FFN, DropPath, build_dropout
 
 
