@@ -244,7 +244,7 @@ class SwinBlock(BaseModule):
         super().__init__(init_cfg)
         self.with_cp = with_cp
 
-        self.norm1 = build_norm_1d(norm_cfg, embed_dims)
+        self.norm1 = _build_norm_1d(norm_cfg, embed_dims)
         self.attn  = ShiftWindowMSA(
             embed_dims=embed_dims,
             num_heads=num_heads,
@@ -257,7 +257,7 @@ class SwinBlock(BaseModule):
             dropout_layer=dict(type='DropPath', drop_prob=drop_path_rate),
         )
 
-        self.norm2 = build_norm_1d(norm_cfg, embed_dims)
+        self.norm2 = _build_norm_1d(norm_cfg, embed_dims)
         self.ffn   = FFN(
             embed_dims=embed_dims,
             feedforward_channels=feedforward_channels,
@@ -482,7 +482,7 @@ class SwinTransformer(BaseModule):
         for i in out_indices:
             self.add_module(
                 f'norm{i}',
-                build_norm_1d(norm_cfg, self.num_features[i]),
+                _build_norm_1d(norm_cfg, self.num_features[i]),
             )
 
         self._freeze_stages()
