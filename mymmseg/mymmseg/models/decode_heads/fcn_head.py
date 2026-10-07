@@ -122,6 +122,7 @@ class FCNHead(BaseDecodeHead):
                 self.in_channels + self.channels,  # concat 2 feature
                 self.channels,
                 kernel_size=1,                     # 1x1 để fusion
+                padding=0,
                 norm_cfg=self._norm_cfg,
                 act_cfg=self._act_cfg,
             )
