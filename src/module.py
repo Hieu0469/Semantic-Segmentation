@@ -287,31 +287,33 @@ class SegmentationModule(L.LightningModule):
         log_str = "\n".join(lines)
 
         # ── Ghi val_results.txt (append) ─────────────────────────────────
-        os.makedirs(self.cfg.log_dir, exist_ok=True)
-        with open(os.path.join(self.cfg.log_dir, "val_results.txt"), "a") as f:
-            f.write(log_str + "\n")
+        if self.trainer.is_global_zero:
+            os.makedirs(self.cfg.log_dir, exist_ok=True)
+            with open(os.path.join(self.cfg.log_dir, "val_results.txt"), "a") as f:
+                f.write(log_str + "\n")
 
         # ── Lưu best model (.pt) ─────────────────────────────────────────
         if miou > self.best_miou:
             self.best_miou = miou
-            os.makedirs(self.cfg.ckpt_dir, exist_ok=True)
+            if self.trainer.is_global_zero:
+                os.makedirs(self.cfg.ckpt_dir, exist_ok=True)
+            
+                save_path = os.path.join(
+                    self.cfg.ckpt_dir,
+                    f"{self.cfg.model_name}.pt"
+                )
+                torch.save(self.model, save_path)
+                export_onnx(save_path, os.path.join(self.cfg.ckpt_dir, f"{self.cfg.model_name}.onnx"))
+                tqdm.write(f"\n✓ Saved best model → {save_path}  (mIoU: {miou:.4f})\n")
+                # Log best val
         
-            save_path = os.path.join(
-                self.cfg.ckpt_dir,
-                f"{self.cfg.model_name}.pt"
-            )
-            torch.save(self.model, save_path)
-            export_onnx(save_path, os.path.join(self.cfg.ckpt_dir, f"{self.cfg.model_name}.onnx"))
-            tqdm.write(f"\n✓ Saved best model → {save_path}  (mIoU: {miou:.4f})\n")
-            # Log best val
-    
-            # Ghi đè file — luôn chỉ giữ kết quả tốt nhất
-            log_path = os.path.join(self.cfg.log_dir, "best_val.txt")
-            os.makedirs(self.cfg.log_dir, exist_ok=True)
-            with open(log_path, "w", encoding="utf-8") as f:
-                f.write(log_str + "\n")
-    
-            tqdm.write(f"\n✓ New best mIoU: {miou:.4f} → saved to {log_path}\n")
+                # Ghi đè file — luôn chỉ giữ kết quả tốt nhất
+                log_path = os.path.join(self.cfg.log_dir, "best_val.txt")
+                os.makedirs(self.cfg.log_dir, exist_ok=True)
+                with open(log_path, "w", encoding="utf-8") as f:
+                    f.write(log_str + "\n")
+        
+                tqdm.write(f"\n✓ New best mIoU: {miou:.4f} → saved to {log_path}\n")
             
 
     # ── optimizer + scheduler ────────────────────────────────────────────
