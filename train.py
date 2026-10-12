@@ -138,7 +138,7 @@ def run(cfg=CFG):
         max_epochs=cfg.max_epochs, 
         accelerator="auto", 
         devices=cfg.devices,
-        strategy="auto",
+        strategy="auto" if cfg.devices == 1 else "ddp_notebook",
         precision="16-mixed", 
         logger=logger,
         callbacks=[checkpoint_cb, early_stop_cb, lr_monitor],
