@@ -145,7 +145,7 @@ def run(cfg=CFG):
     )
     
     # Bắt đầu quá trình huấn luyện/fine-tuning
-    trainer.fit(model, datamodule=dm)
+    trainer.fit(model, datamodule=dm, ckpt_path=cfg.checkpoint_path)
     print(f"\n[SUCCESS] Huấn luyện hoàn tất! Checkpoint tốt nhất lưu tại: {checkpoint_cb.best_model_path}")
     
     # Lưu file model .pt dạng object đầy đủ độc lập
