@@ -134,7 +134,7 @@ def run(cfg=CFG):
     trainer = L.Trainer(
         max_epochs=cfg.max_epochs, 
         accelerator="auto", 
-        devices="auto",
+        devices=2,
         precision="16-mixed", 
         logger=logger,
         callbacks=[checkpoint_cb, early_stop_cb, lr_monitor],
@@ -142,7 +142,6 @@ def run(cfg=CFG):
         val_check_interval=1.0,
         gradient_clip_val=1.0, 
         check_val_every_n_epoch=1,
-        devices=2
     )
     
     # Bắt đầu quá trình huấn luyện/fine-tuning
