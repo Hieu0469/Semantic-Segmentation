@@ -9,6 +9,9 @@ from src.config import CFG
 from src.module import SegmentationModule, CityscapesDataModule, ADE20KDataModule
 from src.prune import prune_model
 
+import torch.multiprocessing as mp
+mp.set_start_method('spawn', force=True)
+
 # Thử import thư viện segmentation_models_pytorch và efficientvit
 try:
     import segmentation_models_pytorch as smp

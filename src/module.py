@@ -49,6 +49,7 @@ class CityscapesDataModule(L.LightningDataModule):
             num_workers = self.cfg.num_workers,
             pin_memory  = True,
             drop_last   = True,
+            multiprocessing_context = 'fork',  
         )
 
     def val_dataloader(self):
@@ -98,6 +99,7 @@ class ADE20KDataModule(L.LightningDataModule):
             num_workers = self.cfg.num_workers,
             pin_memory  = True,
             drop_last   = True,
+            multiprocessing_context = 'fork',  
         )
 
     def val_dataloader(self):
