@@ -113,5 +113,12 @@ class EncoderDecoder(BaseSegmentor):
 
     @staticmethod
     def _seg_loss(logits, targets, ignore_index=255, name='loss_seg'):
+        if logits.shape[-2:] != targets.shape[-2:]:
+            logits = F.interpolate(
+                logits,
+                size=targets.shape[-2:],
+                mode='bilinear',
+                align_corners=False,
+            )
         loss = F.cross_entropy(logits, targets.long(), ignore_index=ignore_index)
         return {name: loss}
