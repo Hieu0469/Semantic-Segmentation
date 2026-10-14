@@ -77,6 +77,9 @@ class EncoderDecoder(BaseSegmentor):
         img_size = (img.shape[2], img.shape[3])
         logits   = self.decode_head(feats, img_size=img_size)
 
+        assert logits.shape[-2:] == gt_semantic_seg.shape[-2:], \
+                f"Shape mismatch: logits {logits.shape} vs gt {gt_semantic_seg.shape}"
+        
         if gt_semantic_seg is None:
             return logits   # caller owns the loss
 
