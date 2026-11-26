@@ -140,3 +140,47 @@ def build_conv_layer(conv_cfg: Optional[dict], *args, **kwargs) -> nn.Conv2d:
     if conv_cfg is None or conv_cfg.get('type') == 'Conv2d':
         return nn.Conv2d(*args, **kwargs)
     raise NotImplementedError(f"conv_cfg type '{conv_cfg['type']}' not yet supported.")
+
+class DepthwiseSeparableConvBNAct(nn.Sequential):
+    """Depthwise conv → Norm → Act → Pointwise 1×1 conv → Norm → Act.
+
+    Tương đương DepthwiseSeparableConvModule của mmcv: ít tham số / FLOPs
+    hơn conv thường rất nhiều, dùng trong decoder của DeepLabV3+.
+
+    Args:
+        in_channels:  Input channels.
+        out_channels: Output channels (do pointwise conv tạo ra).
+        kernel_size:  Kernel của depthwise conv. Default: 3.
+        stride:       Stride của depthwise conv. Default: 1.
+        padding:      Mặc định (kernel_size // 2) * dilation → giữ nguyên H, W.
+        dilation:     Dilation của depthwise conv. Default: 1.
+        norm_cfg:     Config norm (dùng cho cả depthwise và pointwise).
+        act_cfg:      Config activation (dùng cho cả depthwise và pointwise).
+    """
+
+    def __init__(
+        self,
+        in_channels: int,
+        out_channels: int,
+        kernel_size: int = 3,
+        stride: int = 1,
+        padding: Optional[int] = None,
+        dilation: int = 1,
+        norm_cfg: dict = dict(type='BN'),
+        act_cfg: dict = dict(type='ReLU'),
+    ):
+        if padding is None:
+            padding = (kernel_size // 2) * dilation
+
+        super().__init__(
+            # depthwise: mỗi channel một filter riêng (groups = in_channels)
+            nn.Conv2d(in_channels, in_channels, kernel_size,
+                      stride=stride, padding=padding, dilation=dilation,
+                      groups=in_channels, bias=False),
+            build_norm_layer(norm_cfg, in_channels)[1],
+            build_act_layer(act_cfg),
+            # pointwise: trộn thông tin giữa các channel
+            nn.Conv2d(in_channels, out_channels, 1, bias=False),
+            build_norm_layer(norm_cfg, out_channels)[1],
+            build_act_layer(act_cfg),
+        )
